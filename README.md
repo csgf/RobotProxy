@@ -18,6 +18,11 @@ By design, the servlet is compliant with the policies reported in these docs <a 
 The business logic of the library, deployed on top of an Apache Tomcat Application Server, combines different programming native interfaces and standards.</br></br>
 </p>
 
+<h2>Usage</h2>
+<p align="justify">
+`https://eTokenServer:8443/eTokenServer/eToken/bc779e33367eaad7882b9dfaa83a432c?voms=gridit:/gridit&proxy-renewal=true&disable-voms-proxy=false&rfc-proxy=true&cn-label=eToken:LAROCCA`
+</p>
+
 <h2>Contribute</h2>
 - Fork it
 - Create a branch (git checkout -b my_markup)
