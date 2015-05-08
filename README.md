@@ -3,7 +3,7 @@
 <h2>Requirements</h2>
 - JDK 7+
 
-<h2>About the Servlet</h2>
+<h2>About the eToken servlet</h2>
 <p align="justify">
 A standard-based solution developed by the INFN Catania for central management of robot credentials and provisioning of digital proxies to get seamless and secure access to computing e-Infrastructures supporting the X.509 standard for Authorisation.</br/></br>
 
@@ -11,11 +11,21 @@ This is a servlet based on the Java™ Cryptographic Token Interface Standard (P
 For any further information, please visit the official Java™ PKCS#11 Reference Guide <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/p11guide.html">[1]</a>.
 
 By design, the servlet is compliant with the policies reported in these docs <a href="http://www.eugridpma.org/guidelines/pkp/">[1]</a><a href="http://wiki.eugridpma.org/Main/CredStoreOperationsGuideline">[2]</a>.</br></br>
-The business logic of the library, deployed on top of an Apache Tomcat Application Server, combines different programming native interfaces and standards (see Fig. 1)
+The business logic of the library, deployed on top of an Apache Tomcat Application Server, combines different programming native interfaces and standards.</br></br>
+</p>
 
-<img width="300" src="http://etokenserver3.ct.infn.it:8082/eTokenServer/images/architecture-2.png" border="0">
+<h2>Usage</h2>
+<p align="justify">
+- Create RFC 3820 complaint proxies (with additional info to account real users):
+https://eTokenServer:8443/eTokenServer/eToken/bc779e33367eaad7882b9dfaa83a432c?voms=gridit:/gridit&proxy-renewal=true&disable-voms-proxy=false&rfc-proxy=true&cn-label=eToken:LAROCCA
 
-</br></br>
+- Create full-legacy Globus proxies (old fashioned proxy)
+- Create full-legacy Globus proxies (with more VOMS ACLs)
+- Create plain proxies (without VOMS ACLs)
+- Get a list of available robot certificates (in JSON format)
+- Get the MyProxyServer settings used by the eTokenServer (in JSON format)
+- Register long-term proxy on the MyProxy server (only for expert user)
+
 </p>
 
 <h2>Contribute</h2>
