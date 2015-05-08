@@ -14,20 +14,6 @@ By design, the servlet is compliant with the policies reported in these docs <a 
 The business logic of the library, deployed on top of an Apache Tomcat Application Server, combines different programming native interfaces and standards.</br></br>
 </p>
 
-<h2>Usage</h2>
-<p align="justify">
-- Create RFC 3820 complaint proxies (with additional info to account real users):
-https://eTokenServer:8443/eTokenServer/eToken/bc779e33367eaad7882b9dfaa83a432c?voms=gridit:/gridit&proxy-renewal=true&disable-voms-proxy=false&rfc-proxy=true&cn-label=eToken:LAROCCA
-
-- Create full-legacy Globus proxies (old fashioned proxy)
-- Create full-legacy Globus proxies (with more VOMS ACLs)
-- Create plain proxies (without VOMS ACLs)
-- Get a list of available robot certificates (in JSON format)
-- Get the MyProxyServer settings used by the eTokenServer (in JSON format)
-- Register long-term proxy on the MyProxy server (only for expert user)
-
-</p>
-
 <h2>Contribute</h2>
 - Fork it
 - Create a branch (git checkout -b my_markup)
