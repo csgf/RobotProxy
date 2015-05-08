@@ -1,4 +1,4 @@
-# eToken
+# eToken Servlet
 
 <h2>Requirements</h2>
 - JDK 7+
