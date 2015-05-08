@@ -11,7 +11,11 @@ This is a servlet based on the Java™ Cryptographic Token Interface Standard (P
 For any further information, please visit the official Java™ PKCS#11 Reference Guide <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/p11guide.html">[1]</a>.
 
 By design, the servlet is compliant with the policies reported in these docs <a href="http://www.eugridpma.org/guidelines/pkp/">[1]</a><a href="http://wiki.eugridpma.org/Main/CredStoreOperationsGuideline">[2]</a>.</br></br>
-The business logic of the library, deployed on top of an Apache Tomcat Application Server, combines different programming native interfaces and standards (see figure).</br></br>
+The business logic of the library, deployed on top of an Apache Tomcat Application Server, combines different programming native interfaces and standards (see Fig. 1)
+
+<img width="300" src="https://etokenserver3.ct.infn.it:8443/eTokenServer/images/architecture-2.png" border="0">
+
+</br></br>
 </p>
 
 <h2>Contribute</h2>
