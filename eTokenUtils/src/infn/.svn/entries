@@ -1,0 +1,31 @@
+10
+
+dir
+9
+http://svn.ct.infn.it/svn/robot/eTokenUtils/src/infn
+http://svn.ct.infn.it/svn/robot
+
+
+
+2011-10-17T14:03:28.562880Z
+7
+larocca
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+dda04aa9-91c7-410b-bdd2-3a6c740f0d23
+
+eToken
+dir
+
