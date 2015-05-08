@@ -3,6 +3,7 @@
 <h2>Requirements</h2>
 - JDK 7+
 - Physical server with USB ports
+- Apache Server (v7.0.X)
 - Scientific Linux 5.X (x86_64)
 - pkiclient-full (v4.55-34)
 
