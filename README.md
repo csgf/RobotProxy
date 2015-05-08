@@ -2,6 +2,9 @@
 
 <h2>Requirements</h2>
 - JDK 7+
+- Physical server with USB ports
+- Scientific Linux 5.X (x86_64)
+- pkiclient-full (v4.55-34)
 
 <h2>About the eToken servlet</h2>
 <p align="justify">
