@@ -19,7 +19,7 @@ The business logic of the library, deployed on top of an Apache Tomcat Applicati
 The high-level architecture of the eToken servlet is shown in the below figure:
 
 .. image:: images/architecture.jpg
-   :align: left
+   :align: center
 
 ============
 Installation
@@ -226,7 +226,14 @@ In case of successful compilation of the *MyProxyServer* servlet, you should get
    ]# cp -f MyProxy.properties webapps/MyProxyServer/WEB-INF/classes/infn/MyProxy/
    ]# ./bin/catalina.sh start
 
-   ]# tail -f logs/eToken.out
+- Check log files
+
+.. code:: bash
+
+   ]# tail -f <apache-tomcat>logs/eToken.out
+   ]# tail -f <apache-tomcat>logs/MyProxy.out
+   ]# tail -f <apache-tomcat>logs/catalina.out
+   ]# tail -f <apache-tomcat>logs/localhost.<date>.log
 
 ============
 Usage
