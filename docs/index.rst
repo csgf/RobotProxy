@@ -28,6 +28,7 @@ Installation
 
 .. code:: bash
 
+  ]# cd /etc/yum.repos.d/
   ]# cat egi-trustanchors.repo
   [EGI-trustanchors]
   name=EGI-trustanchors
@@ -41,6 +42,65 @@ Installation
 .. code:: bash
 
   ]# yum install -y ca-policy-egi-core
+
+- Configure the epel repository
+
+.. code:: bash
+
+  ]# cd /etc/yum.repos.d/
+  ]# cat /etc/yum.repos.d/epel.repo
+  [epel]
+  name=Extra Packages for Enterprise Linux 6 - $basearch
+  #baseurl=http://download.fedoraproject.org/pub/epel/6/$basearch
+  mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=epel-6&arch=$basearch
+  failovermethod=priority
+  enabled=1
+  gpgcheck=1
+  gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
+
+  [epel-debuginfo]
+  name=Extra Packages for Enterprise Linux 6 - $basearch - Debug
+  #baseurl=http://download.fedoraproject.org/pub/epel/6/$basearch/debug
+  mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=epel-debug-6&arch=$basearch
+  failovermethod=priority
+  enabled=0
+  gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
+  gpgcheck=1
+
+  [epel-source]
+  name=Extra Packages for Enterprise Linux 6 - $basearch - Source
+  #baseurl=http://download.fedoraproject.org/pub/epel/6/SRPMS
+  mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=epel-source-6&arch=$basearch
+  failovermethod=priority
+  enabled=0
+  gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
+  gpgcheck=1
+
+- Install and Configure NTP / fetch-crl
+
+.. code:: bash
+
+   ]# yum install -y ntpdate
+   ]# ntpdate -u ntp-1.infn.it
+   ]# /etc/init.d/ntpd start
+   ]# chkconfig --level 2345 ntpd on
+
+- Install the fetch-crl package.
+
+Version 3 does not work properly, so get version 2.8.5 instead
+
+.. code:: bash
+
+   ]# wget ftp://ftp.univie.ac.at/systems/linux/fedora/epel/5/i386/fetch-crl-2.8.5-1.el5.noarch.rpm
+   ]# rpm -ivh fetch-crl-2.8.5-1.el5.noarch.rpm
+
+   ]# /etc/init.d/fetch-crl-cron start
+   Enabling periodic fetch-crl:                               [  OK  ]
+
+   ]# /etc/init.d/fetch-crl-boot status
+   fetch-crl-boot lockfile present                            [  OK  ]
+
+  
 
 - Import the Java applications into your preferred IDE (e.g. Netbeans).
 
