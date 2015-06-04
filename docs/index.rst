@@ -234,43 +234,43 @@ Usage
 
 Here follows a list of RESTFul APIs to interact with the eTokenServer and get valid robot proxies.
 
-- Create RFC 3820 complaint proxies (with additional info to account real users)
+- CREATE RFC 3820 complaint proxies (with additional info to account real users)
 
 .. code:: bash
 
    https://eTokenServer:8443/eTokenServer/eToken/bc779e33367eaad7882b9dfaa83a432c?voms=gridit:/gridit&proxy-renewal=true&disable-voms-proxy=false&rfc-proxy=true&cn-label=eToken:LAROCCA
 
-- Create full-legacy Globus proxies (old fashioned proxy)
+- CREATE full-legacy Globus proxies (old fashioned proxy)
 
 .. code:: bash
 
    https://eTokenServer:8443/eTokenServer/eToken/bc779e33367eaad7882b9dfaa83a432c?voms=gridit:/gridit&proxy-renewal=true&disable-voms-proxy=false&rfc-proxy=false&cn-label=eToken:Empty
 
-- Create full-legacy Globus proxies (with more VOMS ACLs)
+- CREATE full-legacy Globus proxies (with more VOMS ACLs)
 
 .. code:: bash
 
    https://eTokenServer:8443/eTokenServer/eToken/b970fe11cf219e9c6644da0bc4845010?voms=vo.eu-decide.eu:/vo.eu-decide.eu/GridSPM/Role=Scientist+vo.eu-decide.eu:/vo.eu-decide.eu/Role=Neurologist&proxy-renewal=true&disable-voms-proxy=false&rfc-proxy=false&cn-label=eToken:Empty
 
-- Create plain proxies (without VOMS ACLs)
+- CREATE plain proxies (without VOMS ACLs)
 
 .. code:: bash
 
    https://eTokenServer:8443/eTokenServer/eToken/bc779e33367eaad7882b9dfaa83a432c?voms=gridit:/gridit&proxy-renewal=false&disable-voms-proxy=true&rfc-proxy=false&cn-label=eToken:Empty
 
-- Get a list of available robot certificates (in JSON format)
+- GET a list of available robot certificates (in JSON format)
 
 .. code:: bash
 
    https://eTokenServer:8443/eTokenServer/eToken?format=json
 
-- Get the MyProxyServer settings used by the eTokenServer (in JSON format)
+- GET the MyProxy settings used by the eTokenServer (in JSON format)
 
 .. code:: bash
 
    https://eTokenServer:8443/MyProxyServer/proxy?format=json
 
-- Register long-term proxy on the MyProxy server (only for expert user)
+- REGISTER long-term proxy on the MyProxy server (only for expert user)
 
 .. code:: bash
 
