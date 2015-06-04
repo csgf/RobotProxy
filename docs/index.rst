@@ -8,7 +8,6 @@ About
 
 .. _1: http://docs.oracle.com/javase/7/docs/technotes/guides/security/p11guide.html
 .. _2: http://wiki.eugridpma.org/Main/CredStoreOperationsGuideline
-.. _CHAIN_REDS: https://www.chain-project.eu/
 
 A standard-based solution developed by the INFN Catania for central management of robot credentials and provisioning of digital proxies to get seamless and secure access to computing e-Infrastructures supporting the X.509 standard for Authorisation.
 
@@ -24,7 +23,7 @@ The high-level architecture of the eToken servlet is shown in the below figure:
 ============
 Installation
 ============
-- Import the Java applications in your preferred IDE (e.g. Netbeans).
+- Import the Java applications into your preferred IDE (e.g. Netbeans).
 
 - Add the needed libraries to your projects. 
 
@@ -245,43 +244,43 @@ Here follows a list of RESTFul APIs to interact with the eTokenServer and get va
 
 .. code:: bash
 
-   https://eTokenServer:8443/eTokenServer/eToken/bc779e33367eaad7882b9dfaa83a432c?voms=gridit:/gridit&proxy-renewal=true&disable-voms-proxy=false&rfc-proxy=true&cn-label=eToken:LAROCCA
+   https://<eTokenServer>:8443/eTokenServer/eToken/bc779e33367eaad7882b9dfaa83a432c?voms=gridit:/gridit&proxy-renewal=true&disable-voms-proxy=false&rfc-proxy=true&cn-label=eToken:LAROCCA
 
 - CREATE full-legacy Globus proxies (old fashioned proxy)
 
 .. code:: bash
 
-   https://eTokenServer:8443/eTokenServer/eToken/bc779e33367eaad7882b9dfaa83a432c?voms=gridit:/gridit&proxy-renewal=true&disable-voms-proxy=false&rfc-proxy=false&cn-label=eToken:Empty
+   https://<eTokenServer>:8443/eTokenServer/eToken/bc779e33367eaad7882b9dfaa83a432c?voms=gridit:/gridit&proxy-renewal=true&disable-voms-proxy=false&rfc-proxy=false&cn-label=eToken:Empty
 
 - CREATE full-legacy Globus proxies (with more VOMS ACLs)
 
 .. code:: bash
 
-   https://eTokenServer:8443/eTokenServer/eToken/b970fe11cf219e9c6644da0bc4845010?voms=vo.eu-decide.eu:/vo.eu-decide.eu/GridSPM/Role=Scientist+vo.eu-decide.eu:/vo.eu-decide.eu/Role=Neurologist&proxy-renewal=true&disable-voms-proxy=false&rfc-proxy=false&cn-label=eToken:Empty
+   https://<eTokenServer>:8443/eTokenServer/eToken/b970fe11cf219e9c6644da0bc4845010?voms=vo.eu-decide.eu:/vo.eu-decide.eu/GridSPM/Role=Scientist+vo.eu-decide.eu:/vo.eu-decide.eu/Role=Neurologist&proxy-renewal=true&disable-voms-proxy=false&rfc-proxy=false&cn-label=eToken:Empty
 
 - CREATE plain proxies (without VOMS ACLs)
 
 .. code:: bash
 
-   https://eTokenServer:8443/eTokenServer/eToken/bc779e33367eaad7882b9dfaa83a432c?voms=gridit:/gridit&proxy-renewal=false&disable-voms-proxy=true&rfc-proxy=false&cn-label=eToken:Empty
+   https://<eTokenServer>:8443/eTokenServer/eToken/bc779e33367eaad7882b9dfaa83a432c?voms=gridit:/gridit&proxy-renewal=false&disable-voms-proxy=true&rfc-proxy=false&cn-label=eToken:Empty
 
 - GET a list of available robot certificates (in JSON format)
 
 .. code:: bash
 
-   https://eTokenServer:8443/eTokenServer/eToken?format=json
+   https://<eTokenServer>:8443/eTokenServer/eToken?format=json
 
 - GET the MyProxy settings used by the eTokenServer (in JSON format)
 
 .. code:: bash
 
-   https://eTokenServer:8443/MyProxyServer/proxy?format=json
+   https://<eTokenServer>:8443/MyProxyServer/proxy?format=json
 
 - REGISTER long-term proxy on the MyProxy server (only for expert user)
 
 .. code:: bash
 
-   https://eTokenServer:8443/MyProxyServer/proxy/x509up_6380887419908824.long
+   https://<eTokenServer>:8443/MyProxyServer/proxy/x509up_6380887419908824.long
    
 ============
 Support
@@ -296,7 +295,7 @@ Please feel free to contact us any time if you have any questions or comments.
  
  `Giuseppe LA ROCCA <mailto:giuseppe.larocca@ct.infn.it>`_ - Italian National Institute of Nuclear Physics (INFN_),
  
- `Salvatore MONFORTE <mailto:salvatore.monforte@ct.infn.it>`_ - Italian National Institute of Nuclear Physics (INFN_),
+ `Salvatore MONFORTE <mailto:salvatore.monforte@ct.infn.it>`_ - Italian National Institute of Nuclear Physics (INFN_)
  
  
 :Version: v2.0.4, 2015
