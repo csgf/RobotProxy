@@ -289,6 +289,8 @@ Please feel free to contact us any time if you have any questions or comments.
  
  `Giuseppe LA ROCCA <mailto:giuseppe.larocca@ct.infn.it>`_ - Italian National Institute of Nuclear Physics (INFN_),
  
+ `Salvatore MONFORTE <mailto:salvatore.monforte@ct.infn.it>`_ - Italian National Institute of Nuclear Physics (INFN_),
+ 
  
 :Version: v2.0.4, 2015
 
