@@ -84,38 +84,7 @@ In case of successful compilation of the *eTokenServer* servlet, you should get 
         library-inclusion-in-archive:
         Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
         Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
+        [..]
         Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
         Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
         Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
@@ -162,22 +131,7 @@ In case of successful compilation of the *MyProxyServer* servlet, you should get
         library-inclusion-in-archive:
         Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
         Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
+        [..]
         Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
         Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
         Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
