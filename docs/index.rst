@@ -226,7 +226,8 @@ In case of successful compilation of the *MyProxyServer* servlet, you should get
    # Administrative Settings
    SMTP_HOST=smtp.gmail.com
    SENDER_EMAIL=<Configure the sender e-mail for notification>
-   DEFAULT_EMAIL=<Configure the default e-mail to notify administrator when a robot certificate is going to expire>
+   # Configure a default e-mail to notify the eToken administrator when a robot certificate is going to expire
+   DEFAULT_EMAIL=<Configure the default e-mail for notification>
    EXPIRATION=5
 
 - Customize the configuration files for the MyProxyServer servlet according to your installation: 
@@ -250,11 +251,27 @@ In case of successful compilation of the *MyProxyServer* servlet, you should get
    ]# rm -rf webapps/eTokenServer
    ]# cp /root/eTokenServer.war webapps/
    ]# cp /root/MyProxyServer.war webapps/
-   ]# sleep 5
+
+- Wait for a while to let the WAR files to be extracted
+
+.. code:: bash
+
+   # Check if the webapps contains the directories for the two servlets
+
+   ]# drwxr-xr-x 7 root root     4096 May 13 14:59 eTokenServer
+   ]# -rw-r--r-- 1 root root 13319302 Mar 25 15:26 eTokenServer.war
+   ]# drwxr-xr-x 6 root root     4096 Mar 25 12:03 MyProxyServer
+   ]# -rw-r--r-- 1 root root 12471693 Mar 25 12:03 MyProxyServer.war
+
+- Restart the application server with the correct configuration files
+
+.. code:: bash
+
    ]# ./bin/catalina.sh stop && sleep 5
    ]# cp -f eToken.properties webapps/eTokenServer/WEB-INF/classes/infn/eToken/
    ]# cp -f MyProxy.properties webapps/MyProxyServer/WEB-INF/classes/infn/MyProxy/
    ]# ./bin/catalina.sh start
+
    ]# tail -f logs/eToken.out
 
 ============
