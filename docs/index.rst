@@ -37,7 +37,7 @@ Installation
   gpgcheck=1
   enabled=1
 
-- Install the EGI Trust Anchor repository
+- Install the latest EUGridPMA CA rpms
 
 .. code:: bash
 
