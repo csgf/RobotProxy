@@ -23,6 +23,25 @@ The high-level architecture of the eToken servlet is shown in the below figure:
 ============
 Installation
 ============
+
+- Configure the EGI Trust Anchor repository
+
+.. code:: bash
+
+  ]# cat egi-trustanchors.repo
+  [EGI-trustanchors]
+  name=EGI-trustanchors
+  baseurl=http://repository.egi.eu/sw/production/cas/1/current/
+  gpgkey=http://repository.egi.eu/sw/production/cas/1/GPG-KEY-EUGridPMA-RPM-3
+  gpgcheck=1
+  enabled=1
+
+- Install the EGI Trust Anchor repository
+
+.. code:: bash
+
+  ]# yum install -y ca-policy-egi-core
+
 - Import the Java applications into your preferred IDE (e.g. Netbeans).
 
 - Add the needed libraries to your projects. 
