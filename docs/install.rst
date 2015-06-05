@@ -464,7 +464,30 @@ To administer the USB eToken PRO 64KB and add a new robot certificate, please re
         serial num : 001c0c05 
    [..]
 
-The current version of PKI_Client supports up to **16** different slot! Each slot can host a USB eToken PRO smart card 
+The current version of PKI_Client supports up to **16** different slots! Each slot can host a USB eToken PRO smart card.
+
+- Generating a standard proxy certificate
+
+.. code:: bash
+
+   ]# mkproxy
+   Starting Aladdin eToken PRO proxy generation 
+   Found X.509 certificate on eToken:
+     label: (eTCAPI) MrBayes's GILDA ID 
+     id: 39453945373335312d333545442d343031612d384637302d3238463636393036363042303a30 
+   Your identity: /C=IT/O=GILDA/OU=Robots/L=INFN Catania/CN=MrBayes
+   Generating a 512 bit RSA private key 
+   .++++++++++++
+   ..++++++++++++
+   writing new private key to 'proxykey.FM6588'
+   -----
+   engine "pkcs11" set. Signature ok
+   subject=/C=IT/O=GILDA/OU=Robots/L=INFN Catania/CN=MrBayes/CN=proxy Getting CA Private Key
+   PKCS#11 token PIN: ******* 
+   Your proxy is valid until: Wed Jan 16 01:22:01 CET 2012 
+
+
+ 
 
 
 
