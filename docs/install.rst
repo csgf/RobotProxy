@@ -356,13 +356,13 @@ In /var/log/messages you should have the message:
 
    ]$ rpm -ivh pkiclient-full-4.55-34.i386.rpm
 
-Preparing...             ########################################### [100%] 
-Stopping PC/SC smart card daemon (pcscd): [ OK ]
-        1:pkiclient-full ########################################### [100%] 
-Checking installation of pcsc from source... None.
-Starting PC/SC smart card daemon (pcscd): [ OK ] 
-Adding eToken security provider...Done.
-PKIClient installation completed. 
+   Preparing...             ########################################### [100%] 
+   Stopping PC/SC smart card daemon (pcscd): [ OK ]
+           1:pkiclient-full ########################################### [100%] 
+   Checking installation of pcsc from source... None.
+   Starting PC/SC smart card daemon (pcscd): [ OK ] 
+   Adding eToken security provider...Done.
+   PKIClient installation completed. 
 
 
 
