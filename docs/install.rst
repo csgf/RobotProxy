@@ -486,8 +486,55 @@ The current version of PKI_Client supports up to **16** different slots! Each sl
    PKCS#11 token PIN: ******* 
    Your proxy is valid until: Wed Jan 16 01:22:01 CET 2012 
 
+===================
+Chapter IV - Installing Apache Tomcat
+===================
 
- 
+- Install the following packages:
+
+.. code:: bash
+
+   ]# yum install -y jdk.i586
+   ]# yum install -y java-1.6.0-sun-compat.i586
+
+- Download and extract the eTokens-2.0.5 directory with all the needed configuration files in the root's home directory.
+
+|download| Download n example of configuration files for the eToken from here [] and save it as **eTokens-2.0.5.tar.gz**.
+
+.. code:: bash
+
+   ]# tar zxf eTokens-2.0.5.tar.gz
+   ]# tree -L 2 eTokens-2.0.5 
+   eTokens-2.0.5
+   |-- config
+   | |-- eToken.cfg
+     |-- eToken1.cfg 
+     |-- ..
+
+The **config** directory MUST contain a configuration file for each USB eToken PRO 32/64KB smart card plugged into the server.
+
+.. code:: bash
+
+   ]# cat eTokens-2.0.5/config/eToken.cfg
+   name = **eToken** *Insert here an unique name for the new etoken* 
+   library = /usr/lib/libeTPkcs11.so
+   description = **Aladdin eToken PRO 64K 4.2B** 
+   slot = **0** *Insert here an unique slot id for the new token*
+
+   attributes(*,CKO_PRIVATE_KEY,*) = { CKA_SIGN = true }
+   attributes(*,CKO_PRIVATE_KEY,CKK_DH) = { CKA_SIGN = null }
+   attributes(*,CKO_PRIVATE_KEY,CKK_RSA) = { CKA_DECRYPT = true }
+
+|warning| If you are using USB eToken PRO 32KB, please change the description as follows:
+
+.. code::bash
+
+   description = **Aladdin eToken PRO 32K 4.2B**
+
+
+
+
+
 
 
 
