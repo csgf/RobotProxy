@@ -299,7 +299,9 @@ Chapter III - Installation & Configuration
 This chapter introduces the manual installation of the SafeNet eToken PKI client library on a Linux system, the software that enables eToken USB operations and the implementation of eToken PKI-based solutions. The software also includes all the necessary files and drivers to support the eToken management. 
 During the installation, the needed libraries and drivers will be installed in */usr/local/bin*, */usr/local/lib* and */usr/local/etc*.
 
-|warning| Before installing the eToken PKI client library, please check if pcsc- packages are already installed on your server. If so, please remove them with all their dependencies and afterwards proceed with the installation of the correct ones:
+|warning| Before installing the eToken PKI client library, please check if pcsc- packages are already installed on your server. 
+
+If so, please remove them with all their dependencies and afterwards proceed with the installation of the correct ones:
 
 
 ============
