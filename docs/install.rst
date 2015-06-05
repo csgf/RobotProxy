@@ -291,7 +291,7 @@ The *.lsc* file contains a list of X.509 subject strings, one on each line, enco
 
 |warning| Install in */etc/grid-security/vomsdir/* directory the *.lsc* for each trusted VO that you want to support.
 
-|download| An example of */etc/grid-security/vomsdir/* directory can be downloaded from here [].
+|download| An example of */etc/grid-security/vomsdir/* directory can be downloaded from here [14_].
 
 ===================
 Chapter III - Installation & Configuration
@@ -311,6 +311,18 @@ During the installation, the needed libraries and drivers will be installed in *
              ifd-egate-0.05-17.el5.i386 \
              coolkey-1.1.0-16.1.el5.i386 \
              esc-1.1.0-14.el5_9.1.i386
+
+|download| Download the correct software packages from here:
+
+.. _15: http://dag.wieers.com/rpm/packages/pcsc-lite/pcsc-lite-1.3.3-1.el4.rf.i386.rpm
+.. _16: http://dag.wieers.com/rpm/packages/pcsc-lite/pcsc-lite-libs-1.3.3-1.el4.rf.i386.rpm
+.. _17: http://dag.wieers.com/rpm/packages/pcsc-lite-ccid/pcsc-lite-ccid-1.2.0-1.el4.rf.i386.rpm
+
+- pcsc-lite-1.3.3-1.el4.rf.i386.rpm [15_] 
+
+- pcsc-lite-libs-1.3.3-1.el4.rf.i386.rpm [16_]
+
+- pcsc-lite-ccid-1.2.0-1.el4.rf.i386.rpm [17_]
 
 
 ============
