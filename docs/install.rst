@@ -364,6 +364,83 @@ In /var/log/messages you should have the message:
    Adding eToken security provider...Done.
    PKIClient installation completed. 
 
+|download| Download the appropriate libraries [18_] for your system and save it as *Mkproxy-rhel4.tar.gz*. The archive contains all the requires libraries for RHEL4 and RHEL5.
+
+.. code:: bash
+
+   ]# tar zxf Mkproxy-rhel4.tar.gz
+   ]# chown -R root.root etoken-pro/ 
+   ]# tree etoken-pro/
+   etoken-pro/ 
+   |-- bin
+   | |-- cardos-info 
+   | |-- mkproxy
+   | |-- openssl
+   | `-- pkcs11-tool 
+   |-- etc
+   | |-- hotplug.d 
+   | | `-- usb
+   | |  `-- etoken.hotplug 
+   | |-- init.d
+   | | |-- etokend 
+   | | `-- etsrvd 
+   | |-- openssl.cnf
+   | |-- reader.conf.d
+   | | `-- etoken.conf 
+   | `-- udev
+   |    `-- rules.d
+   |    `-- 20-etoken.rules 
+   `-- lib
+        |-- engine_pkcs11.so
+        |-- libcrypto.so.0.9.8
+        `-- libssl.so.0.9.8
+
+Untar the archive and copy the files to their respective locations.
+
+- Copy binary files
+
+.. code:: bash
+
+   ]# cp -rp etoken-pro/bin/cardos-info /usr/local/bin/
+   ]# cp -rp etoken-pro/bin/mkproxy /usr/local/bin/
+   ]# cp -rp etoken-pro/bin/pkcs11-tool /usr/local/bin/ ]$ cp -rp etoken-pro/bin/openssl /usr/local/bin/
+ 
+- Copy libraries
+
+.. code:: bash
+   
+   ]# cp -rp etoken-pro/lib/engine_pkcs11.so /usr/local/lib
+   ]# cp -rp etoken-pro/lib/libssl.so.0.9.8 /usr/local/lib
+   ]# cp -rp etoken-pro/lib/libcrypto.so.0.9.8 /usr/local/lib
+
+- Copy configuration files
+
+.. code:: bash
+
+   ]# cp -rp etoken-pro/etc/openssl.cnf /usr/local/etc
+
+- Set the PKCS11_MOD environment variable
+
+Edit the */usr/local/bin/mkproxy* script and change the PKCS11_MOD variable settings:
+
+.. code:: bash
+
+   export PKCS11_MOD="/usr/lib/libeTPkcs11.so"
+
+- Create symbolic links
+
+.. code:: bash
+
+   ]# cd /usr/lib/
+   ]# ln -s /usr/lib/libpcsclite.so.1.0.0 libpcsclite.so 
+   ]# ln -s /usr/lib/libpcsclite.so.1.0.0 libpcsclite.so.
+
+   ]# ll libpcsclite.so*
+        lrwxrwxrwx 1 root root 29 Feb 17 09:47 libpcsclite.so -> /usr/lib/libpcsclite.so.1.0.0 
+        lrwxrwxrwx 1 root root 29 Feb 17 09:52 libpcsclite.so.0 -> /usr/lib/libpcsclite.so.1.0.0 
+        lrwxrwxrwx 1 root root 20 Feb 17 09:04 libpcsclite.so.1 -> libpcsclite.so.1.0.0
+        -rwxr-xr-x 1 root root 92047 Jan 26 2007 libpcsclite.so.1.0.0
+
 
 
 ============
