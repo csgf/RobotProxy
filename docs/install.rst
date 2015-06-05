@@ -663,10 +663,10 @@ ii) Stop the application server as follows:
    VOMS_LIFETIME=24
 
    # **Token Settings**
-   ETOKEN_SERVER=**giular.trigrid.it** <== Change here 
+   ETOKEN_SERVER=giular.trigrid.it            # <== Change here 
    ETOKEN_PORT=8082 
    ETOKEN_CONFIG_PATH=/root/eTokens-2.0.5/config 
-   PIN=****** <== Add PIN here
+   PIN=****** i                               # <== Add PIN here
 
    # **Proxy Settings**
    # Default proxy lifetime (default 12h) PROXY_LIFETIME=24
@@ -674,22 +674,22 @@ ii) Stop the application server as follows:
    PROXY_KEYBIT=1024
 
    # **Administrative Settings** 
-   SMTP_HOST=smtp.gmail.com <== Change here
-   SENDER_EMAIL=credentials-admin@ct.infn.it <== Change here
-   DEFAULT_EMAIL=credentials-admin@ct.infn.it <== Change here
+   SMTP_HOST=smtp.gmail.com                   # <== Change here
+   SENDER_EMAIL=credentials-admin@ct.infn.it  # <== Change here
+   DEFAULT_EMAIL=credentials-admin@ct.infn.it # <== Change here
    EXPIRATION=10
 
    Create the following **Myproxy.properties** configuration file with the following settings:
 
-..code:: bash
+.. code:: bash
 
   # **MyProxy Settings** 
-  MYPROXY_SERVER=myproxy.cnaf.infn.it <== Change here 
+  MYPROXY_SERVER=myproxy.cnaf.infn.it           # <== Change here 
   MYPROXY_PORT=7512
   # Default MyProxy proxy lifetime (default 1 week)
   MYPROXY_LIFETIME=604800
   # Default temp long-term proxy path
-  MYPROXY_PATH=/root/apache-tomcat-7.0.53/temp <== Change here
+  MYPROXY_PATH=/root/apache-tomcat-7.0.53/temp  # <== Change here
 
 |download| Download the servlet for the eTokenServer [] and save it as eTokenServer.war
 
