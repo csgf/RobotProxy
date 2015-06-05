@@ -10,6 +10,9 @@ About this document
 .. _2: http://www.catania-science-gateways.it/
 .. _3: http://www.safenet-inc.it/
 
+.. |warning| image:: images/warning.jpg
+.. |download| image:: images/download.jpg
+
 This is the official documentation to configure and install the eTokenServer servlet (v2.0.4).
 
 This document provides an in-depth overview of the light-weight crypto library, a standard-based solution developed by INFN Catania for central management of robot credentials and provisioning of digital proxies to get seamless and secure access to computing e-Infrastructures supporting the X.509 standard for Authorisation.
@@ -49,16 +52,9 @@ The following typographical conventions are used in this document:
 **Constant width italic**
         Shows text that should be replaced with user-specific values
 
-.. image:: images/warning.jpg
-      :align: left
+|warning| This icon indicates a warning or caution.
 
-This icon indicates a warning or caution.
-
-.. image:: images/download.jpg
-      :align: left
-
-This icon indicates that there are files to be downloaded.
-
+|download| This icon indicates that there are files to be downloaded.
 
 ============
 Chapter I - Overview of the light-weight crypto library
