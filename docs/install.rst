@@ -156,6 +156,7 @@ Start with a fresh installation of Scientific Linux 5.x (x86_64).
 
 .. code:: bash
 
+  ]# yum clean all
   ]# yum install -y ca-policy-egi-core
 
 - Configure the EPEL repository:
@@ -228,6 +229,56 @@ Configure access rules to allow connections and open the firewall on port 25.
    ]# cat /etc/sysconfig/iptables
    [..]
    -A RH-Firewall-1-INPUT -p tcp -m tcp --dport 25 -s 127.0.0.1 -j ACCEPT
+
+===================
+Host Certificates
+===================
+
+.. _12: http://www.eugridpma.org/members/worldmap/
+.. _13: https://comodosslstore.com/
+
+Navigate the interactive map and search for your closest Certification Authorities [12_] or, alternatively, buy a multi-domain COMODO [13_] SSL certificate.
+
+Public and Private keys of the host certificate have to be copied in /etc/grid-security/
+
+.. code:: bash
+
+   ]# ll /etc/grid-security/host*
+   -rw-r--r--  1 root root 1627 Mar 10 14:55 /etc/grid-security/hostcert.pem
+   -rw-------  1 root root 1680 Mar 10 14:55 /etc/grid-security/hostkey.pem
+
+===================
+Configuring VOMS Trust Anchors
+===================
+The VOMS-clients APIs need local configuration to validate the signature on Attribute Certificates issued by trusted VOMS servers.
+
+The VOMS clients and APIs look for trust information in the */etc/grid-security/vomsdir* directory.
+
+The *vomsdir* directory contains a directory for each trusted VO. Inside each VO two types of files can be found:
+
+- An *LSC*  file contains a description of the certificate chain of the certificate used by a VOMS server to sign VOMS attributes.
+
+- An *X509* certificates used by the VOMS server to sign attributes.
+
+These files are commonly named using the following pattern:
+
+.. code:: bash
+
+   <hostname.lsc>
+   <hostname.pem>
+
+where *hostname* is the host where the VOMS server is running.
+
+When both *.lsc* and *.pem* files are present for a given VO, the *.lsc* file takes precedence. 
+The *.lsc* file contains a list of X.509 subject strings, one on each line, encoded in OpenSSL slash-separate syntax, describing the certificate chain (up and including the CA that issued the certificate). For instance, the *voms.cnaf.infn.it* VOMS server has the following *.lsc* file:
+
+.. code:: bash
+  
+  /C=IT/O=INFN/OU=Host/L=CNAF/CN=voms.cnaf.infn.it
+  /C=IT/O=INFN/CN=INFN CA
+
+
+
 
 ============
 Support
