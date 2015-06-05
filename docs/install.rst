@@ -436,10 +436,35 @@ Edit the */usr/local/bin/mkproxy* script and change the PKCS11_MOD variable sett
    ]# ln -s /usr/lib/libpcsclite.so.1.0.0 libpcsclite.so.
 
    ]# ll libpcsclite.so*
-        lrwxrwxrwx 1 root root 29 Feb 17 09:47 libpcsclite.so -> /usr/lib/libpcsclite.so.1.0.0 
-        lrwxrwxrwx 1 root root 29 Feb 17 09:52 libpcsclite.so.0 -> /usr/lib/libpcsclite.so.1.0.0 
-        lrwxrwxrwx 1 root root 20 Feb 17 09:04 libpcsclite.so.1 -> libpcsclite.so.1.0.0
-        -rwxr-xr-x 1 root root 92047 Jan 26 2007 libpcsclite.so.1.0.0
+      lrwxrwxrwx 1 root root 29 Feb 17 09:47 libpcsclite.so -> /usr/lib/libpcsclite.so.1.0.0 
+      lrwxrwxrwx 1 root root 29 Feb 17 09:52 libpcsclite.so.0 -> /usr/lib/libpcsclite.so.1.0.0 
+      lrwxrwxrwx 1 root root 20 Feb 17 09:04 libpcsclite.so.1 -> libpcsclite.so.1.0.0
+      -rwxr-xr-x 1 root root 92047 Jan 26 2007 libpcsclite.so.1.0.0
+
+To administer the USB eToken PRO 64KB and add a new robot certificate, please refer to the Appendix I.
+
+- Testing
+
+.. code:: bash
+
+   ]# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+   ]# pkcs11-tool -L --module=/usr/lib/libeTPkcs11.so
+        
+   Available slots:
+   **Slot 0** AKS ifdh 00 00
+        token label: **eToken**
+        token manuf: Aladdin Ltd. 
+        token model: eToken
+        token flags: rng, login required, PIN initialized, token initialized, other flags=0x200
+        serial num : 001c3401
+   **Slot 1** AKS ifdh 01 00
+        token label: **eToken1** 
+        token manuf: Aladdin Ltd. token model: eToken
+        token flags: rng, login required, PIN initialized, token initialized, other flags=0x200
+        serial num : 001c0c05 
+   [..]
+
+The current version of PKI_Client supports up to **16** different slot! Each slot can host a USB eToken PRO smart card 
 
 
 
