@@ -303,7 +303,7 @@ During the installation, the needed libraries and drivers will be installed in *
 
 .. code:: bash
 
-   ]$ rpm -e pcsc-lite-1.4.4-4.el5_5 \
+   ]# rpm -e pcsc-lite-1.4.4-4.el5_5 \
              pcsc-lite-libs-1.4.4-4.el5_5 \
              pcsc-lite-doc-1.4.4-4.el5_5 \
              pcsc-lite-devel-1.4.4-4.el5_5 \ 
@@ -312,7 +312,7 @@ During the installation, the needed libraries and drivers will be installed in *
              coolkey-1.1.0-16.1.el5.i386 \
              esc-1.1.0-14.el5_9.1.i386
 
-|download| Download the correct software packages from here:
+|download| Download the correct software packages:
 
 .. _15: http://dag.wieers.com/rpm/packages/pcsc-lite/pcsc-lite-1.3.3-1.el4.rf.i386.rpm
 .. _16: http://dag.wieers.com/rpm/packages/pcsc-lite/pcsc-lite-libs-1.3.3-1.el4.rf.i386.rpm
@@ -323,6 +323,47 @@ During the installation, the needed libraries and drivers will be installed in *
 - pcsc-lite-libs-1.3.3-1.el4.rf.i386.rpm [16_]
 
 - pcsc-lite-ccid-1.2.0-1.el4.rf.i386.rpm [17_]
+
+.. code:: bash
+
+   ]# rpm -ivh pcsc-lite-1.3.3-1.el4.rf.i386.rpm \
+               pcsc-lite-ccid-1.2.0-1.el4.rf.i386.rpm \ 
+               pcsc-lite-libs-1.3.3-1.el4.rf.i386.rpm
+
+Preparing...            ########################################### [100%]
+1:pcsc-lite-libs        ########################################### [ 33%] 
+2:pcsc-lite-ccid        ########################################### [ 67%] 
+3:pcsc-lite             ########################################### [100%]
+
+Before installing the eToken PKI Client, please check if the PC/SC-Lite pcscd daemon is running:
+
+.. code:: bash
+
+   ]# /etc/init.d/pcscd start
+
+In /var/log/messages you should have the message:
+
+.. code:: bash
+
+   [..]
+   Feb 2 09:02:15 giular pcscd: pcscdaemon.c:532:at_exit() cleaning /var/run
+   Feb 2 09:02:44 giular pcscd: pcscdaemon.c:533:main() pcsc-lite 1.3.3 daemon ready.
+   Feb 2 09:02:44 giular pcscd: hotplug_libusb.c:394:HPEstablishUSBNotifications() Driver ifd-ccid.bundle does not support IFD_GENERATE_HOTPLUG
+
+|warning| Contact the SafeNet Inc. and install the latest eToken PKI Client (ver. 4.55-34) software on your system.
+
+.. code:: bash
+
+   ]$ rpm -ivh pkiclient-full-4.55-34.i386.rpm
+
+Preparing...             ########################################### [100%] 
+Stopping PC/SC smart card daemon (pcscd): [ OK ]
+        1:pkiclient-full ########################################### [100%] 
+Checking installation of pcsc from source... None.
+Starting PC/SC smart card daemon (pcscd): [ OK ] 
+Adding eToken security provider...Done.
+PKIClient installation completed. 
+
 
 
 ============
