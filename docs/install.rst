@@ -197,7 +197,9 @@ Start with a fresh installation of Scientific Linux 5.x (x86_64).
 
   ]# yum install -y epel-release-5.4.noarch
 
-- SELinux configuration
+===================
+SELinux configuration
+===================
 
 .. _12: fedoraproject.org/wiki/SELinux/setenforce
 
@@ -208,7 +210,9 @@ Be sure that SELinux is disabled (or permissive). Details on how to disable SELi
    ]# getenforce
    Disabled
 
-- sendmail
+===================
+sendmail
+===================
 
 Start the sendmail service at boot. Configure access rules in order to allow connections and open the firewall on port 25.
 
