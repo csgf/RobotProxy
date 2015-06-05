@@ -227,6 +227,17 @@ Configure access rules to allow connections and open the firewall on port 25.
    -A RH-Firewall-1-INPUT -p tcp -m tcp --dport 25 -s 127.0.0.1 -j ACCEPT
 
 ===================
+NTP
+===================
+Use NTP to synchronize the time of the server 
+
+.. code:: bash
+
+   ]# ntpdate ntp-1.infn.it
+   ]# /etc/init.d/ntpd start
+   ]# chkconfig --level 2345 ntpd on
+
+===================
 Host Certificates
 ===================
 
@@ -281,6 +292,16 @@ The *.lsc* file contains a list of X.509 subject strings, one on each line, enco
 |warning| Install in */etc/grid-security/vomsdir/* directory the *.lsc* for each trusted VO that you want to support.
 
 |download| An example of */etc/grid-security/vomsdir/* directory can be downloaded from here [].
+
+===================
+Chapter III - Installation & Configuration
+===================
+This chapter introduces the manual installation of the SafeNet eToken PKI client library on a Linux system, the software that enables eToken USB operations and the implementation of eToken PKI-based solutions. The software also includes all the necessary files and drivers to support the eToken management. 
+During the installation, the needed libraries and drivers will be installed in */usr/local/bin*, */usr/local/lib* and */usr/local/etc*.
+
+|warning| Before installing the eToken PKI client library, please check if *pcsc-* packages are already installed on your server. 
+          If so, please remove them with all their dependencies and afterwards proceed with the installation of the correct ones:
+
 
 ============
 Support
