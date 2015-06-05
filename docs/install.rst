@@ -277,9 +277,9 @@ The *.lsc* file contains a list of X.509 subject strings, one on each line, enco
   /C=IT/O=INFN/OU=Host/L=CNAF/CN=voms.cnaf.infn.it
   /C=IT/O=INFN/CN=INFN CA
 
-.. image:: images/warning.jpg
-         :align: left
-Install in the */etc/grid-security/vomsdir/* directory the *.lsc* and X.509 certificate for each trued VO you want to support.
+.. |warning| image:: images/warning.jpg
+
+|warning| Install in the */etc/grid-security/vomsdir/* directory the *.lsc* and X.509 certificate for each trued VO you want to support.
 
 +---+------------------------------+---------------+
 |                                  |               |
