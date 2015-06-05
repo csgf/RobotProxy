@@ -112,7 +112,7 @@ This chapter provide the list of requirements and the basic information that you
 | # |        Server         |   OS and Architecture   |  Host. Cert  | Disk Space | CPU and RAM  |
 +===+=======================+=========================+==============+============+==============+
 | 1 | Physical machine with |  Scientific Linux 5.10  |  Ask your CA |   >=80 GB  |  >= 4 cores  |
-|   | at least 2 USB ports  |    x86_64 GNU/Linux     |              |            |  >= 8 GB RAM |
+|   | at least 2 USB ports  |                         |              |            |  >= 8 GB RAM |
 |   | perfectly working     |                         |              |            |  Swap >=4 GB |
 +---+-----------------------+------------+------------+--------------+------------+--------------+
 | Comments:                                                                                      |
