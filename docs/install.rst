@@ -527,12 +527,11 @@ The **config** directory MUST contain a configuration file for each USB eToken P
 
 |warning| If you are using USB eToken PRO 32KB, please change the description as follows:
 
-.. code::bash
+.. code:: bash
 
    description = **Aladdin eToken PRO 32K 4.2B**
 
 
-ddd
 
 
 
