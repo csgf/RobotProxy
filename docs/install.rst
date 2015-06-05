@@ -284,8 +284,7 @@ Install in the */etc/grid-security/vomsdir/* directory the *.lsc* and X.509 cert
 +---+------------------------------+---------------+
 |                                  |               |
 +==================================+===============+
-| .. image::// images/warning.jpg  |               |
-|    :align:center                 | Physical mach |
+| .. image::// images/warning.jpg  |  cc           |
 +----------------------------------+---------------+
 
 ============
