@@ -129,6 +129,101 @@ This chapter provide the list of requirements and the basic information that you
 |   (contact SafeNet Inc. [3_] to find a neighbor reseller and get prices).                      |
 +------------------------------------------------------------------------------------------------+
 
+===================
+OS and repos
+===================
+Start with a fresh installation of Scientific Linux 5.x (x86_64).
+
+.. code:: bash
+
+  ]# cd /etc/redhat-release
+  Scientific Linux release 5.10 (Boron)
+
+- Configure the EGI Trust Anchor repository
+
+.. code:: bash
+
+  ]# cd /etc/yum.repos.d/
+  ]# cat egi-trustanchors.repo
+  [EGI-trustanchors]
+  name=EGI-trustanchors
+  baseurl=http://repository.egi.eu/sw/production/cas/1/current/
+  gpgkey=http://repository.egi.eu/sw/production/cas/1/GPG-KEY-EUGridPMA-RPM-3
+  gpgcheck=1
+  enabled=1
+
+- Install the latest EUGridPMA CA rpms
+
+.. code:: bash
+
+  ]# yum install -y ca-policy-egi-core
+
+- Configure the EPEL repository:
+
+.. code:: bash
+
+  ]# cd /etc/yum.repos.d/
+  ]# cat /etc/yum.repos.d/epel.repo 
+  [epel]
+  name=Extra Packages for Enterprise Linux 5 - $basearch
+  #baseurl=http://download.fedoraproject.org/pub/epel/5/$basearch
+  mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=epel-5&arch=$basearch
+  failovermethod=priority
+  enabled=1
+  gpgcheck=1
+  gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL
+
+  [epel-debuginfo]
+  name=Extra Packages for Enterprise Linux 5 - $basearch - Debug
+  #baseurl=http://download.fedoraproject.org/pub/epel/5/$basearch/debug
+  mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=epel-debug-5&arch=$basearch
+  failovermethod=priority
+  enabled=0
+  gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL
+  gpgcheck=1
+
+  [epel-source]
+  name=Extra Packages for Enterprise Linux 5 - $basearch - Source
+  #baseurl=http://download.fedoraproject.org/pub/epel/5/SRPMS
+  mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=epel-source-5&arch=$basearch
+  failovermethod=priority
+  enabled=0
+  gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL
+  gpgcheck=1
+
+- Install the latest epel release
+
+.. code:: bash
+
+  ]# yum install -y epel-release-5.4.noarch
+
+- SELinux configuration
+
+.. _12: fedoraproject.org/wiki/SELinux/setenforce
+
+Be sure that SELinux is disabled (or permissive). Details on how to disable SELinux are here [12_]
+
+.. code:: bash
+
+   ]# getenforce
+   Disabled
+
+- sendmail
+
+Start the sendmail service at boot. Configure access rules in order to allow connections and open the firewall on port 25.
+
+.. code:: bash
+
+   ]# /etc/init.d/sendmail start
+   ]# chkconfig --level 2345 sendmail on
+
+   ]# cat /etc/hosts.allow
+   sendmail: localhost
+
+   ]# cat /etc/sysconfig/iptables
+   [..]
+   -A RH-Firewall-1-INPUT -p tcp -m tcp --dport 25 -s 127.0.0.1 -j ACCEPT
+
 ============
 Support
 ============
