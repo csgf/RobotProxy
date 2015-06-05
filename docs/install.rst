@@ -8,12 +8,13 @@ About this document
 
 .. _1: http://www.safenet-inc.it/etoken-pro.html
 .. _2: http://www.catania-science-gateways.it/
+.. _3: http://www.safenet-inc.it/
 
 This is the official documentation to configure and install the eTokenServer servlet (v2.0.4).
 
 This document provides an in-depth overview of the light-weight crypto library, a standard-based solution developed by INFN Catania for central management of robot credentials and provisioning of digital proxies to get seamless and secure access to computing e-Infrastructures supporting the X.509 standard for Authorisation.
 
-In this solution robot certificates are available 24h per day on board of USB eToken PRO [1_] 32/64 KB smart cards having the following technical specification:
+In this solution robot certificates are available 24h per day on board of USB eToken PRO [1_] 32/64 KBytes smart cards having the following technical specification:
 
 .. image:: images/eToken_specs.jpg
    :align: center
@@ -68,15 +69,46 @@ The "light-weight" crypto library interface has been designed to:
 
 - make user's interaction with security infrastructures easy and transparent.
 
-The high-level architecture of the eToken servlet is shown in the below figure:
+The high-level architecture of the library interface is shown in the below figure:
 
 .. image:: images/architecture.jpg
       :align: center
 
+The business logic has been conceived to provide "resources" (e.g. complaint VOMS proxies) in a "web-manner" which can be consumed by authorized users, client applications and by portals and Science Gateways. In the current implementation, robot certificates have been safely installed on board of SafeNet [3_] eToken PRO [1_] 32/64 KBytes USB smart cards directly plugged to a remote server which serve, so far, six different Science Gateways.
+
+.. _4: http://tomcat.apache.org/
+.. _5: https://jax-rs-spec.java.net/
+.. _6: http://www.oracle.com/technetwork/articles/javaee/index-jsp-136246.html
+.. _7: http://docs.oracle.com/javase/7/docs/technotes/guides/security/p11guide.html
+.. _8: https://www.bouncycastle.org/
+.. _9: https://github.com/jglobus/JGlobus
+.. _10: https://github.com/italiangrid/voms-clients
+.. _11: https://github.com/italiangrid/voms-admin-server/tree/master/voms-admin-api
+
+The complete list of software, tools and APIs we have used to implement the new crypto library interface are listed below:
+
+- Apache Application Server [4_],
+
+- JAX-RS, the Java API for RESTful Web Services (JSR 311 standard) [5_], 
+
+- Java Technology Standard Edition (Java SE6) [6_],
+
+- The Cryptographic Token Interface Standard (PKCS#11) libraries [7_],
+
+- The open-source BouncyCastle Java APIs [8_],
+
+- The JGlobus-Core Java APIs [9_],
+
+- The VOMS-clients Java APIs [10_],
+
+- The VOMS-Admin Java APIs [11_].
 
 ============
-Usage
+Chapter II - System and Software Requirements
 ============
+This chapter provide the list of requirements and the basic information that you need to know to install and configure the servlet.
+
+
 
 
 ============
