@@ -12,6 +12,7 @@ About this document
 
 .. |warning| image:: images/warning.jpg
 .. |download| image:: images/download.jpg
+.. |alert| image:: images/alert.jpg
 
 This is the official documentation to configure and install the eTokenServer servlet (v2.0.4).
 
@@ -531,9 +532,62 @@ The **config** directory MUST contain a configuration file for each USB eToken P
 
    description = **Aladdin eToken PRO 32K 4.2B**
 
+- Creating a Java Keystore from scratch containing a self-signed certificate
 
+Make a temporary copy of *hostcert.pem* and *hostkey.pem* files
 
+.. code:: bash
 
+   ]# cp /etc/grid-security/hostcert.pem /root 
+   ]# cp /etc/grid-security/hostkey.pem /root
+
+Convert both, the key and the certificate into DER format using openssl command:
+
+.. code:: bash
+
+   ]# openssl pkcs8 -topk8 -nocrypt -in hostkey.pem -inform PEM \
+                -out key.der -outform DER
+
+   ]# openssl x509 -in hostcert.pem -inform PEM -out cert.der -outform DER
+
+Import private and certificate into the Java Keystore
+
+|download| Download the following Java source code [] and save it as ImportKey.java
+
+Edit the ImportKey.java file containing the following settings for the Java JKS
+
+.. code:: java
+
+        // Change this if you want another password by default 
+        String keypass = "**changeit**"; <== Change it
+
+        // Change this if you want another alias by default 
+        String defaultalias = "**giular.trigrid.it**"; <== Change it
+
+        If (keystorename == null)
+                Keystorename = System.getProperty("user.home") 
+                             + System.getProperty("file.separator") 
+                             + "**eTokenServerSSL**"; // expecially this ;-) ÐChange it
+
+|alert| Please change "giular.trigrid.it" with the host of the server you want to configure.
+
+Compile and execute the Java file:
+
+.. code:: bash
+
+   ]# javac ImportKey.java
+   ]# java ImportKey key.der cert.der
+   Using keystore-file : /root/eTokenServerSSL One certificate, no chain.
+   Key and certificate stored.
+   Alias: giular.trigrid.it Password: changeit
+
+Now we have a proper JKS containig the key and the certificate stored in the **eTokenServerSSL** file using **giular.trigrid.it** as alias and ***changeit* as password.
+
+Move the JKS to the Apache-Tomcat root directory
+
+.. code:: bash
+
+   ]# mv /root/eTokenServerSSL apache-tomcat-7.0.34/eTokenServerSSL
 
 
 
