@@ -108,8 +108,21 @@ Chapter II - System and Software Requirements
 ============
 This chapter provide the list of requirements and the basic information that you need to know to install and configure the servlet.
 
-
-
++---+-----------------------+------------+------------+--------------+------------+--------------+
+| # |        Server         |     OS     |    Arch.   |  Host. Cert  | Disk Space | CPU and RAM  |
++================================================================================================+
+| 1 | Physical machine with | Scientific |   x86_64   |  Ask your CA |   >=80 GB  |  >= 4 cores  |
+|   | at least 2 USB ports  | Linux 5.x  | GNU/Linux  |              |            |  >= 8 GB RAM |
+|   | perfectly working     |            |            |              |            |  Swap >=4 GB |
++---+-----------------------+------------+------------+--------------+------------+--------------+
+| Comments:                                                                                      |
+| - The server must be registered to the DNS with direct adn reverse resolution;                 |
+| - Please set a **human readable** server hostname for your server (e.g. etoken<your-domain>);  |
+| - The OS installation should include the X-server since it is needed to open etProps app;      |
+| - This installation has been successfully tested with eToken PRO 32/64 KBytes USB smart cards; |
+| - At least 1 USB eToken PRO 75 KBytes must be available before the installation                |
+|   (contact SafeNet Inc. [3_] to find a neighbor reseller and get prices).                      |
++------------------------------------------------------------------------------------------------+
 
 ============
 Support
