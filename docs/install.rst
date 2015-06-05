@@ -66,7 +66,7 @@ The "light-weight" crypto library interface has been designed to:
 
 - provide seamless and secure access to computing e-Infrastructure based on middleware supporting X.509 standard for authorization, using robot certificates,
 
-make user's interaction with security infrastructures easy and transparent.
+- make user's interaction with security infrastructures easy and transparent.
 
 The high-level architecture of the eToken servlet is shown in the below figure:
 
