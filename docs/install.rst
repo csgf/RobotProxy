@@ -46,6 +46,18 @@ The following typographical conventions are used in this document:
         Indicates new terms, URLs, filenames, and file extentions
 
 **Constant width italic**
+        Shows text that should be replaced with user-specific values
+
+.. image:: images/warning.jpg
+      :align: left
+
+This icon indicates a warning or caution.
+
+.. image:: images/download.jpg
+      :align: left
+
+This icon indicates that there are files to be downloaded.
+
 
 ============
 Installation
