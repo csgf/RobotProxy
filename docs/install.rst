@@ -9,8 +9,6 @@ About this document
 .. _1: http://www.safenet-inc.it/etoken-pro.html
 .. _2: http://www.catania-science-gateways.it/
 
-Welcome! 
-
 This is the official documentation to configure and install the eTokenServer servlet (v2.0.4).
 
 This document provides an in-depth overview of the light-weight crypto library, a standard-based solution developed by INFN Catania for central management of robot credentials and provisioning of digital proxies to get seamless and secure access to computing e-Infrastructures supporting the X.509 standard for Authorisation.
