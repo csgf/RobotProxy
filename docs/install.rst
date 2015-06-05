@@ -550,7 +550,7 @@ Convert both, the key and the certificate into DER format using openssl command:
 
    ]# openssl x509 -in hostcert.pem -inform PEM -out cert.der -outform DER
 
-Import private and certificate into the Java Keystore
+- Import private and certificate into the Java Keystore
 
 |download| Download the following Java source code [] and save it as ImportKey.java
 
@@ -571,7 +571,7 @@ Edit the ImportKey.java file containing the following settings for the Java JKS
 
 |alert| Please change "giular.trigrid.it" with the host of the server you want to configure.
 
-Compile and execute the Java file:
+- Compile and execute the Java file:
 
 .. code:: bash
 
@@ -581,7 +581,7 @@ Compile and execute the Java file:
    Key and certificate stored.
    Alias: giular.trigrid.it Password: changeit
 
-Now we have a proper JKS containig the key and the certificate stored in the **eTokenServerSSL** file using **giular.trigrid.it** as alias and ***changeit* as password.
+Now we have a proper JKS containig the key and the certificate stored in the **eTokenServerSSL** file using **giular.trigrid.it** as alias and **changeit** as password.
 
 Move the JKS to the Apache-Tomcat root directory
 
@@ -589,7 +589,171 @@ Move the JKS to the Apache-Tomcat root directory
 
    ]# mv /root/eTokenServerSSL apache-tomcat-7.0.34/eTokenServerSSL
 
+- SSL Configuration
 
+Add the new SSL connector on port 8443 in the server.xml file
+
+.. code:: bash
+
+   ]# cat apache-tomcat-7.0.34/conf/server.xml
+   [..]
+
+   <Connector port="8082" protocol="HTTP/1.1" connectionTimeout="20000" redirectoPrt="8443">
+   <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+                          SSLEnabled="true"
+                          maxThreads="150" scheme="https" secure="true" 
+                          clientAuth="false" sslProtocol="TLS"
+                          useSendfile="**false**" 
+                          keystoreFile="**/root/apache-tomcat-7.0.34/eTokenServerSSL**" 
+                          keyAlias="**giular.trigrid.it**" keystorePass="**changeit**"/>
+   [..]
+
+Edit the /etc/sysconfig/iptables file in order to accept incoming connections on ports 8082 and 8443.
+
+- How to start, stop and check the Apache Tomcat server
+
+i) Start and check the application server as follows:
+
+.. code:: bash
+
+   ]# cd /root/apache-tomcat-7.0.34/ 
+   ]# ./bin/startup.sh
+   Using CATALINA_BASE: /root/apache-tomcat-7.0.34 
+   Using CATALINA_HOME: /root/apache-tomcat-7.0.34 
+   Using CATALINA_TMPDIR: /root/apache-tomcat-7.0.34/temp 
+   Using JRE_HOME: /usr
+   Using CLASSPATH: /root/apache-tomcat-7.0.34/bin/bootstrap.jar:/root/apache-tomcat-7.0.34/bin/tomcat-juli.jar
+
+ii) Stop the application server as follows:
+
+.. code:: bash
+
+   ]# ./bin/shutdown
+   Using CATALINA_BASE: /root/apache-tomcat-7.0.34 
+   Using CATALINA_HOME: /root/apache-tomcat-7.0.34 
+   Using CATALINA_TMPDIR: /root/apache-tomcat-7.0.34/temp 
+   Using JRE_HOME: /usr
+   Using CLASSPATH: /root/apache-tomcat-7.0.34/bin/bootstrap.jar:/root/apache-tomcat-7.0.34/bin/tomcat-juli.jar 
+
+- Install external libraries
+
+|download| Download and save the external libraries [] as lib.tar.gz
+
+.. code:: bash
+
+   ]# tar zxf lib.tar.gz
+   ]# cp ./lib/*.jar /root/apache-tomcat-7.0.34/lib 
+
+- Deploy the WAR files
+
+.. code:: bash
+
+   ]# cd /root/apache-tomcat-7.0.34/
+
+   Create the following **eToken.properties** configuration file with the following settings:
+
+.. code:: bash
+
+   # **VOMS Settings**
+   # Standard location of configuration files 
+   VOMSES_PATH=/etc/vomses 
+   VOMS_PATH=/etc/grid-security/vomsdir
+   X509_CERT_DIR=/etc/grid-security/certificates 
+   # Default VOMS proxy lifetime (default 12h) 
+   VOMS_LIFETIME=24
+
+   # **Token Settings**
+   ETOKEN_SERVER=**giular.trigrid.it** <== Change here 
+   ETOKEN_PORT=8082 
+   ETOKEN_CONFIG_PATH=/root/eTokens-2.0.5/config 
+   PIN=****** <== Add PIN here
+
+   # **Proxy Settings**
+   # Default proxy lifetime (default 12h) PROXY_LIFETIME=24
+   # Number of bits in key {512|1024|2048|4096}
+   PROXY_KEYBIT=1024
+
+   # **Administrative Settings** 
+   SMTP_HOST=smtp.gmail.com <== Change here
+   SENDER_EMAIL=credentials-admin@ct.infn.it <== Change here
+   DEFAULT_EMAIL=credentials-admin@ct.infn.it <== Change here
+   EXPIRATION=10
+
+   Create the following **Myproxy.properties** configuration file with the following settings:
+
+..code:: bash
+
+  # **MyProxy Settings** 
+  MYPROXY_SERVER=myproxy.cnaf.infn.it <== Change here 
+  MYPROXY_PORT=7512
+  # Default MyProxy proxy lifetime (default 1 week)
+  MYPROXY_LIFETIME=604800
+  # Default temp long-term proxy path
+  MYPROXY_PATH=/root/apache-tomcat-7.0.53/temp <== Change here
+
+|download| Download the servlet for the eTokenServer [] and save it as eTokenServer.war
+
+|download| Download the servlet for the MyProxyServer [] and save it as MyProxyServer.war
+
+.. code:: bash
+
+   ]# cp eTokenServer.war webapps/
+   ]# cp MyProxyServer.war webapps/ 
+   ]# ./bin/catalina.sh stop && sleep 5
+
+   ]# cp -f eToken.properties webapps/eTokenServer/WEB-INF/classes/infn/eToken/
+   ]# cp -f MyProxy.properties webapps/MyProxyServer/WEB-INF/classes/infn/MyProxy/
+   
+   ]# ./bin/catalina.sh start 
+   ]# tail -f logs/eToken.out 
+   ]# tail -f logs/MyProxy.out 
+
+- Configure tomcat to start-up on boot
+
+Create the following script:
+
+.. code:: bash
+ 
+   ]# cat /etc/init.d/tomcat
+   #!/bin/bash
+   # chkconfig: 2345 91 91
+   # description: Start up the Tomcat servlet engine. 
+
+   . /etc/init.d/functions
+   RETVAL=$?
+   CATALINA_HOME="/root/apache-tomcat-7.0.34"
+
+   case "$1" in
+        start)
+                if [ -f $CATALINA_HOME/bin/startup.sh ];
+                then
+                        echo $"Starting Tomcat"
+                        /bin/su root $CATALINA_HOME/bin/startup.sh
+                fi
+                ;; 
+        stop)
+                if [ -f $CATALINA_HOME/bin/shutdown.sh ];
+                then
+                        echo $"Stopping Tomcat"
+                        /bin/su root $CATALINA_HOME/bin/shutdown.sh
+                fi
+                ;; 
+        *)
+                echo $"Usage: $0 {start|stop}"
+                exit 1 
+                ;;
+        esac
+        exit $RETVAL
+
+    ]# chmod a+x tomcat
+  
+- Update the run level for the tomcat service
+
+.. code:: bash
+
+   ]# chkconfig --level 2345 --add tomcat
+   ]# chkconfig --list tomcat
+   tomcat 0:off 1:off 2:on 3:on 4:on 5:on 6:off
 
 ============
 Support
