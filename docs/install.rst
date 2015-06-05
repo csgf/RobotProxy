@@ -279,7 +279,6 @@ The *.lsc* file contains a list of X.509 subject strings, one on each line, enco
 .. _vomsdir: others/
 
 |warning| Install in */etc/grid-security/vomsdir/* directory the *.lsc* for each trusted VO that you want to support.
-
 |download| An example of */etc/grid-security/vomsdir/* directory can be downloaded from here [].
 
 ============
