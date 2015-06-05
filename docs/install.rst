@@ -214,7 +214,8 @@ Be sure that SELinux is disabled (or permissive). Details on how to disable SELi
 sendmail
 ===================
 
-Start the sendmail service at boot. Configure access rules in order to allow connections and open the firewall on port 25.
+Start the sendmail service at boot. 
+Configure access rules to allow connections and open the firewall on port 25.
 
 .. code:: bash
 
