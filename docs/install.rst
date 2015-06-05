@@ -18,7 +18,7 @@ This document provides an in-depth overview of the light-weight crypto library, 
 In this solution robot certificates are available 24h per day on board of USB eToken PRO [1_] 32/64 KB smart cards having the following technical specification:
 
 .. image:: images/eToken_specs.jpg
-      :align: center
+   :align: center
 
 We appreciate attribution. In case you would like to cite the Java light-weight crypto library in your papers, we recomment that you use the following reference:
 
