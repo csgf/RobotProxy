@@ -301,7 +301,16 @@ During the installation, the needed libraries and drivers will be installed in *
 
 |warning| Before to start, please check if pcsc- packages are already installed on your server. 
 
-If so, please remove them with all their dependencies and afterwards proceed with the installation of the correct ones:
+.. code:: bash
+
+   ]$ rpm -e pcsc-lite-1.4.4-4.el5_5 \
+             pcsc-lite-libs-1.4.4-4.el5_5 \
+             pcsc-lite-doc-1.4.4-4.el5_5 \
+             pcsc-lite-devel-1.4.4-4.el5_5 \ 
+             ccid-1.3.8-2.el5.i386 \
+             ifd-egate-0.05-17.el5.i386 \
+             coolkey-1.1.0-16.1.el5.i386 \
+             esc-1.1.0-14.el5_9.1.i386
 
 
 ============
