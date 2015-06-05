@@ -281,7 +281,12 @@ The *.lsc* file contains a list of X.509 subject strings, one on each line, enco
          :align: left
 Install in the */etc/grid-security/vomsdir/* directory the *.lsc* and X.509 certificate for each trued VO you want to support.
 
-
++---+------------------------------+---------------+
+|                                  |               |
++==================================+===============+
+| .. image::// images/warning.jpg  |               |
+|    :align:center                 | Physical mach |
++----------------------------------+---------------+
 
 ============
 Support
