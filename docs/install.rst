@@ -106,7 +106,7 @@ Chapter II - System and Software Requirements
 This chapter provide the list of requirements and the basic information that you need to know to install and configure the servlet.
 
 +---+-----------------------+-------------------------+--------------+------------+--------------+
-| # |        Server         |   OS and Architecture   |  Host. Cert  | Disk Space | CPU and RAM  |
+| # |        Server         |       OS and Arch.      |  Host. Cert  | Disk Space | CPU and RAM  |
 +===+=======================+=========================+==============+============+==============+
 | 1 | Physical machine with | SL release 5.10 (Boron) |     Yes      |  >= 80 GB  |  >= 4 cores  |
 |   | at least 2 USB ports  | x86_64 GNU/Linux        |              |            |  >= 8 GB RAM |
