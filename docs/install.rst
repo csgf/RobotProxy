@@ -38,6 +38,16 @@ Unless required by applicable law or agreed to in writing, software distributed 
 See the License for the specific language governing permissions and limitations under the License.
 
 ============
+Conventions used in this document
+============
+The following typographical conventions are used in this document:
+
+*Italic*
+        Indicates new terms, URLs, filenames, and file extentions
+
+**Constant width italic**
+
+============
 Installation
 ============
 
