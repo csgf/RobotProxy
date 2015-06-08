@@ -758,6 +758,42 @@ Create the following script:
 ============
 Chapter V - Usage
 ============
+This chapter introduces the RESTful "ligth-weight" crypto library which is configured for:
+
+(i) browsing the digital certificates available on the different smart cards;
+
+(ii) generating VOMS-proxy for a given X.509 digital certificate.
+
+
+- Accessing the RESTFul crypto library via WEB
+
+The root resource of the library is deployed at the following URL [] as shown in the figure below:
+
+.. image:: images/accordion_1.jpg
+   :align: center
+
+The creation of a request to access the generic USB smat card and generates a proxy certificate is performed in few steps.
+
+- First and foremost we have to select a valid digital certificate from the list of available certificates (first accordion). 
+
+- Afterwards, depending by the selected certificate, it will be possible to select a list of FQANs attributes which will be taken into account during the proxy creation process.
+
+.. image:: images/accordion_2.jpg
+      :align: center
+
+.. image:: images/accordion_3.jpg
+      :align: center
+
+- If necessary, some additional options can be specified in the 4th. step to customize the proxy creation process:
+
+.. image:: images/accordion_4.jpg
+      :align: center
+
+- The final requestID for generating a valid X.509 proxy certificate is available in step 5:
+
+.. image:: images/accordion_5.jpg
+      :align: center
+
 
 ============
 Support
