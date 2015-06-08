@@ -14,8 +14,8 @@ About this document
 .. |download| image:: images/download.jpg
 .. |alert| image:: images/alert.jpg
 
-#.. contents:: Table of Contents
-#.. section-numbering::
+.. contents:: Table of Contents
+.. section-numbering::
 
 This is the official documentation to configure and install the eTokenServer servlet (v2.0.4).
 
@@ -356,10 +356,10 @@ During the installation, the needed libraries and drivers will be installed in *
                pcsc-lite-ccid-1.2.0-1.el4.rf.i386.rpm \ 
                pcsc-lite-libs-1.3.3-1.el4.rf.i386.rpm
 
-Preparing...            ########################################### [100%]
-1:pcsc-lite-libs        ########################################### [ 33%] 
-2:pcsc-lite-ccid        ########################################### [ 67%] 
-3:pcsc-lite             ########################################### [100%]
+        Preparing...            ########################################### [100%]
+        1:pcsc-lite-libs        ########################################### [ 33%] 
+        2:pcsc-lite-ccid        ########################################### [ 67%] 
+        3:pcsc-lite             ########################################### [100%]
 
 Before installing the eToken PKI Client, please check if the PC/SC-Lite pcscd daemon is running:
 
