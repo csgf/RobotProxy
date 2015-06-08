@@ -863,34 +863,42 @@ RESTful web services are the result of applying these constraints to services th
 In this chapter will be presented some examples of RESTful APIs used to request proxies certificates, list available robot certificates in the server-side and register long-term proxies on the MyProxy server.
 
 1.) Create RFC 3820 complaint proxy (simple use case):
+-----------------
 
 https://<etoken_server>:8443/eTokenServer/eToken/332576f78a4fe70a52048043e90cd11f?voms=fedcloud.egi.eu:/fedcloud.egi.eu&proxy-renewal=true&disable-voms-proxy=false&rfc-proxy=true&cn-label=Empty
 
 2.) Create RFC 3820 complaint proxy (with some additional info to account real users):
+-----------------
 
 https://<etoken_server>:8443/eTokenServer/eToken/332576f78a4fe70a52048043e90cd11f?voms=fedcloud.egi.eu:/fedcloud.egi.eu&proxy-renewal=true&disable-voms-proxy=false&rfc-proxy=true&cn-label=LAROCCA
 
 3.) Create full-legacy Globus proxy (old fashioned proxy):
+-----------------
 
 https://<etoken_server>:8443/eTokenServer/eToken/43ddf806454eb55ea32f729c33cc1f07?voms=eumed:/eumed&proxy-renewal=true&disable-voms-proxy=false&rfc-proxy=false&cn-label=Empty
 
 4.) Create full-legacy proxy (with more FQANs):
+-----------------
 
 https://<etoken_server>:8443/eTokenServer/eToken/b970fe11cf219e9c6644da0bc4845010?voms=vo.eu-decide.eu:/vo.eu-decide.eu/Role=Neurologist+vo.eu-decide.eu:/vo.eu-decide.eu&proxy-renewal=true&disable-voms-proxy=false&rfc-proxy=false&cn-label=Empty
 
 5.) Create plain proxy (without VOMS ACs):
+-----------------
 
 https://<etoken_server>:8443/eTokenServer/eToken/332576f78a4fe70a52048043e90cd11f?voms=gridit:/gridit&proxy-renewal=true&disable-voms-proxy=true&rfc-proxy=false&cn-label=Empty
 
 6.) Get the list of avilable robot certificates in the server (in JSON format):
+-----------------
 
 https://<etoken_server>:8443/eTokenServer/eToken?format=json
 
 7.) Get the MyProxy settings used by the eToken server (in JSON format):
+-----------------
 
 https://<etoken_server>:8443/MyProxyServer/proxy?format=json
 
 8.) Register long-term proxy on the MyProxy server (only for expert user):
+-----------------
 
 https://<etoken_server>:8443/MyProxyServer/proxy/x509up_6380887419908824.long
 
@@ -937,6 +945,7 @@ The toolbar along the top contains these functions:
 4.) **Help** - launches the online help.
 
 - **Renaming the eToken**
+-----------------
 The token name may be personalized. To rename a token:
 
 1.) In the left pane of the *eToken Properties* window, select the token to be renamed.
@@ -951,6 +960,7 @@ The token name may be personalized. To rename a token:
 4.) Click **OK**. The new token name is displayed in the *eToken Properties* window.
 
 - **Initializing the eToken**
+-----------------
 The eToken initialization option restores an eToken to irs initial state. It removes all objects stored on the eToken since manufacture, frees up memory, and resets the eToken password, allowing administrators to initialize the eToken according to specific organizational requirements or security modes.
 
 The following data is initialized:
@@ -984,7 +994,7 @@ To initialize the eToken:
 
 6.) If **Create User Password** is selected, enter a new eToken user password in the Create User Password and Confirm fields.
 
-7.) I nthe Set maximum number of logon failures fields, enter a vaule between 1 and 15. This counter specifies the number of times the user or administrator can attempt to log on to the eToken with an incorrect password before the eToken is locked. The default setting for the maximum number of incorrect logon attempts is 15.
+7.) In the Set maximum number of logon failures fields, enter a vaule between 1 and 15. This counter specifies the number of times the user or administrator can attempt to log on to the eToken with an incorrect password before the eToken is locked. The default setting for the maximum number of incorrect logon attempts is 15.
 
 8.) To configure advanced settings, click **Advanced**. The eToken Advanced Settings dialog box opens.
 
@@ -996,6 +1006,7 @@ To initialize the eToken:
            :align: center
 
 - **To import a certificate**
+-----------------
 
 1.) Click on **Advanced** from the toolbar to switch to thre Advanced view.
 
