@@ -44,9 +44,8 @@ The ASF licenses this file to You under the Apache License, Version 2.0 (the "Li
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 
-============
 Conventions used in this document
-============
+-----------------
 The following typographical conventions are used in this document:
 
 *Italic*
@@ -128,9 +127,8 @@ This chapter provide the list of requirements and the basic information that you
 |   (contact SafeNet Inc. [3_] to find a neighbor reseller and get prices).                      |
 +------------------------------------------------------------------------------------------------+
 
-===================
 OS and repos
-===================
+-----------------
 Start with a fresh installation of Scientific Linux 5.X (x86_64).
 
 .. code:: bash
@@ -197,9 +195,8 @@ Start with a fresh installation of Scientific Linux 5.X (x86_64).
 
   ]# yum install -y epel-release-5.4.noarch
 
-===================
 SELinux configuration
-===================
+-----------------
 
 .. _12: fedoraproject.org/wiki/SELinux/setenforce
 
@@ -210,10 +207,8 @@ Be sure that SELinux is disabled (or permissive). Details on how to disable SELi
    ]# getenforce
    Disabled
 
-===================
 sendmail
-===================
-
+-----------------
 Start the sendmail service at boot. 
 Configure access rules to allow connections and open the firewall on port 25.
 
@@ -229,9 +224,8 @@ Configure access rules to allow connections and open the firewall on port 25.
    [..]
    -A RH-Firewall-1-INPUT -p tcp -m tcp --dport 25 -s 127.0.0.1 -j ACCEPT
 
-===================
 NTP
-===================
+-----------------
 Use NTP to synchronize the time of the server 
 
 .. code:: bash
@@ -240,9 +234,8 @@ Use NTP to synchronize the time of the server
    ]# /etc/init.d/ntpd start
    ]# chkconfig --level 2345 ntpd on
 
-===================
 Host Certificates
-===================
+-----------------
 
 .. _13: http://www.eugridpma.org/members/worldmap/
 .. _14: https://comodosslstore.com/
@@ -257,9 +250,8 @@ Public and Private keys of the host certificate have to be copied in /etc/grid-s
    -rw-r--r--  1 root root 1627 Mar 10 14:55 /etc/grid-security/hostcert.pem
    -rw-------  1 root root 1680 Mar 10 14:55 /etc/grid-security/hostkey.pem
 
-===================
 Configure VOMS Trust Anchors
-===================
+-----------------
 The VOMS-clients APIs need local configuration to validate the signature on Attribute Certificates issued by trusted VOMS servers.
 
 The VOMS clients and APIs look for trust information in the */etc/grid-security/vomsdir* directory.
@@ -296,9 +288,8 @@ The *.lsc* file contains a list of X.509 subject strings, one on each line, enco
 
 |download| An example of */etc/grid-security/vomsdir/* directory can be downloaded from here [15_].
 
-===================
 Configure VOMS server endpoints
-===================
+-----------------
 The list of known VOMS server is maintained in *vomses* files. A vomses file is a simple text file which contains one or more lines formatted as follows:
 
 .. code:: bash
