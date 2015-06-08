@@ -395,7 +395,7 @@ In /var/log/messages you should have the message:
    Adding eToken security provider...Done.
    PKIClient installation completed. 
 
-.. _20: 
+.. _20: others/Mkproxy-rhel4.tar.gz
 
 |download| Download the appropriate libraries [20_] for your system and save it as *Mkproxy-rhel4.tar.gz*. 
 The archive contains all the requires libraries for RHEL4 and RHEL5.
@@ -437,7 +437,8 @@ Untar the archive and copy the files to their respective locations.
 
    ]# cp -rp etoken-pro/bin/cardos-info /usr/local/bin/
    ]# cp -rp etoken-pro/bin/mkproxy /usr/local/bin/
-   ]# cp -rp etoken-pro/bin/pkcs11-tool /usr/local/bin/ ]$ cp -rp etoken-pro/bin/openssl /usr/local/bin/
+   ]# cp -rp etoken-pro/bin/pkcs11-tool /usr/local/bin/
+   ]# cp -rp etoken-pro/bin/openssl /usr/local/bin/
  
 - Copy libraries
 
@@ -524,7 +525,7 @@ The current version of PKI_Client supports up to **16** different slots! Each sl
 Chapter IV - Installing Apache Tomcat
 ===================
 
-.. _21: 
+.. _21: others/eTokens-2.0.5.tar.gz
 
 - Install the following packages:
 
@@ -580,14 +581,20 @@ Convert both, the key and the certificate into DER format using openssl command:
 
 .. code:: bash
 
-   ]# openssl pkcs8 -topk8 -nocrypt -in hostkey.pem -inform PEM \
-                -out key.der -outform DER
+   ]# openssl pkcs8 -topk8 -nocrypt \
+                    -in hostkey.pem -inform PEM \
+                    -out key.der -outform DER
 
-   ]# openssl x509 -in hostcert.pem -inform PEM -out cert.der -outform DER
+   ]# openssl x509 -in hostcert.pem \
+                   -inform PEM \
+                   -out cert.der \
+                   -outform DER
 
 - Import private and certificate into the Java Keystore
 
-|download| Download the following Java source code [] and save it as ImportKey.java
+.. _22: others/ImportKey.java
+
+|download| Download the following Java source code [22_] and save it as ImportKey.java
 
 Edit the ImportKey.java file containing the following settings for the Java JKS
 
