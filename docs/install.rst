@@ -692,7 +692,7 @@ ii) Stop the application server as follows:
 .. code:: bash
 
    ]# tar zxf lib.tar.gz
-   ]# cp ./lib/\*.jar /root/apache-tomcat-7.0.34/lib 
+   ]# cp ./lib/\\*.jar /root/apache-tomcat-7.0.34/lib 
 
 - Deploy the WAR files
 
