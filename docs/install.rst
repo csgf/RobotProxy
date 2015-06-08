@@ -396,6 +396,7 @@ In /var/log/messages you should have the message:
    PKIClient installation completed. 
 
 .. _20: others/Mkproxy-rhel4.tar.gz
+.. _21: others/eTokens-2.0.5.tar.gz
 
 |download| Download the appropriate libraries [20_] for your system and save it as *Mkproxy-rhel4.tar.gz*. 
 The archive contains all the requires libraries for RHEL4 and RHEL5.
@@ -525,8 +526,6 @@ The current version of PKI_Client supports up to **16** different slots! Each sl
 Chapter IV - Installing Apache Tomcat
 ===================
 
-.. _21: others/eTokens-2.0.5.tar.gz
-
 - Install the following packages:
 
 .. code:: bash
@@ -536,7 +535,7 @@ Chapter IV - Installing Apache Tomcat
 
 - Download and extract the eTokens-2.0.5 directory with all the needed configuration files in the root's home directory.
 
-|download| Download n example of configuration files for the eToken from here [21_] and save it as **eTokens-2.0.5.tar.gz**.
+|download| Download an example of configuration files for the eToken from here [21_] and save it as **eTokens-2.0.5.tar.gz**.
 
 .. code:: bash
 
@@ -678,8 +677,6 @@ ii) Stop the application server as follows:
    Using CLASSPATH: /root/apache-tomcat-7.0.34/bin/bootstrap.jar:/root/apache-tomcat-7.0.34/bin/tomcat-juli.jar 
 
 - Install external libraries
-
-.. _21: 
 
 |download| Download and save the external libraries [21_] as lib.tar.gz
 
