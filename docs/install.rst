@@ -2,9 +2,8 @@
 How-to install and configure the eToken & the MyProxy servlets (v2.0.4) Docs
 ****************************************************************************
 
-===================
 About this document
-===================
+-----------------
 
 .. _1: http://www.safenet-inc.it/etoken-pro.html
 .. _2: http://www.catania-science-gateways.it/
