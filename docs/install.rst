@@ -846,7 +846,7 @@ This appendix includes the following sections:
 The *eToken Properties* application displays all the available tokens connected to the server as show in the below figure:
 
 .. image:: images/eToken_1.jpg
-         :align: center
+           :align: center
 
 In the right pane, the user may select any of the following actions which are enabled:
 
@@ -878,7 +878,7 @@ The token name may be personalized. To rename a token:
 2.) Click **Rename eToken** in the right pane, and the Rename eToken dialog box is displayed as shown in the below figure:
 
 .. image:: images/eToken_2.jpg
-            :align: center
+           :align: center
 
 3.) **Enter** the new name in the New eToken name field.
 
@@ -901,7 +901,35 @@ The following data is initialized:
 
 * Initialization key.
 
-- **To initialize the eToken**
+To initialize the eToken:
+
+1.) Click on **Advanced** from the toolbar to switch to the Advanced view.
+
+2.) **Select** the eToken you want to initialize.
+
+3.) Click **Initialize eToken** on the toolbar, or right-click the token name in the left pane and select Initialize eToken from the shortcut menu. The eToken Initialization Parameters dialog box opens.
+
+.. image:: images/eToken_3.jpg
+           :align: center
+
+4.) Enter a name for the eToken in the eToken Name field. If no name is entered, the default name, "eToken", is applied.
+
+5.) Select **Create User Password** to initialize the token with an eToken user password. Otherwise, the token is initialized without an eToken password, and it will not be usable for eToken applications.
+
+6.) If **Create User Password** is selected, enter a new eToken user password in the Create User Password and Confirm fields.
+
+7.) I nthe Set maximum number of logon failures fields, enter a vaule between 1 and 15. This counter specifies the number of times the user or administrator can attempt to log on to the eToken with an incorrect password before the eToken is locked. The default setting for the maximum number of incorrect logon attempts is 15.
+
+8.) To configure advanced settings, click **Advanced**. The eToken Advanced Settings dialog box opens.
+
+9.) **Check Load 2048-bit RSA key support**
+
+|warning| All eTokens are configured with the following default password **1234567890**.
+
+.. image:: images/eToken_4.jpg
+           :align: center
+
+- **To import a certificate**
 
 ============
 Support
