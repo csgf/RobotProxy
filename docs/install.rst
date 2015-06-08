@@ -810,7 +810,6 @@ Create the following script:
 
 ============
 Chapter V - Usage
-============
 `````````````
 
 In this chapter is show the administrator (only restricted access) web interface to interact with the RESTful "ligth-weight" crypto library which is configured for:
