@@ -738,7 +738,7 @@ Create the following script:
                         /bin/su root $CATALINA_HOME/bin/shutdown.sh
                 fi
                 ;; 
-        *)
+        \*)
                 echo $"Usage: $0 {start|stop}"
                 exit 1 
                 ;;
@@ -754,6 +754,10 @@ Create the following script:
    ]# chkconfig --level 2345 --add tomcat
    ]# chkconfig --list tomcat
    tomcat 0:off 1:off 2:on 3:on 4:on 5:on 6:off
+
+============
+Chapter V - Usage
+============
 
 ============
 Support
