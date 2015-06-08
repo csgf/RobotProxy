@@ -256,7 +256,7 @@ Public and Private keys of the host certificate have to be copied in /etc/grid-s
    -rw-------  1 root root 1680 Mar 10 14:55 /etc/grid-security/hostkey.pem
 
 ===================
-Configuring VOMS Trust Anchors
+Configure VOMS Trust Anchors
 ===================
 The VOMS-clients APIs need local configuration to validate the signature on Attribute Certificates issued by trusted VOMS servers.
 
@@ -295,6 +295,36 @@ The *.lsc* file contains a list of X.509 subject strings, one on each line, enco
 |download| An example of */etc/grid-security/vomsdir/* directory can be downloaded from here [15_].
 
 ===================
+Configure VOMS server endpoints
+===================
+The list of known VOMS server is maintained in *vomses* files. A vomses file is a simple text file which contains one or more lines formatted as follows:
+
+.. code:: bash
+
+        "vo_name"       "hostname"      "port"  "dn"    "aliases"
+
+Where:
+
+- *vo_name* is the name of the VO served by the VOMS server, 
+
+- *hostname* is the hostname where the VOMS server is running, 
+
+- *port* is the port where the VOMS server is listening for incoming requests,
+
+- *dn* is the subject of certificate of the VOMS server, and the
+
+- *aliases* is an alias that can be used for this VOMS server (this is typically identical to the *vo_name*).
+
+System wide VOMSES configuration is maintained in the */etc/vomses* file or directory. If the */etc/vomses/* is a directory, all the files contained in such directory are parsed looking fro VOMS contact information.
+
+
+.. _16: others/vomses.tar.gz
+
+|warning| Install in the */etc/vomses* the contact information for each trust VO you want to support!
+
+|download| An example of VOMS contact information can be downloaded from [16_]
+
+===================
 Chapter III - Installation & Configuration
 ===================
 This chapter introduces the manual installation of the SafeNet eToken PKI client library on a Linux system, the software that enables eToken USB operations and the implementation of eToken PKI-based solutions. The software also includes all the necessary files and drivers to support the eToken management. 
@@ -315,15 +345,15 @@ During the installation, the needed libraries and drivers will be installed in *
 
 |download| Download the correct software packages:
 
-.. _16: http://dag.wieers.com/rpm/packages/pcsc-lite/pcsc-lite-1.3.3-1.el4.rf.i386.rpm
-.. _17: http://dag.wieers.com/rpm/packages/pcsc-lite/pcsc-lite-libs-1.3.3-1.el4.rf.i386.rpm
-.. _18: http://dag.wieers.com/rpm/packages/pcsc-lite-ccid/pcsc-lite-ccid-1.2.0-1.el4.rf.i386.rpm
+.. _17: http://dag.wieers.com/rpm/packages/pcsc-lite/pcsc-lite-1.3.3-1.el4.rf.i386.rpm
+.. _18: http://dag.wieers.com/rpm/packages/pcsc-lite/pcsc-lite-libs-1.3.3-1.el4.rf.i386.rpm
+.. _19: http://dag.wieers.com/rpm/packages/pcsc-lite-ccid/pcsc-lite-ccid-1.2.0-1.el4.rf.i386.rpm
 
-- pcsc-lite-1.3.3-1.el4.rf.i386.rpm [16_] 
+- pcsc-lite-1.3.3-1.el4.rf.i386.rpm [17_] 
 
-- pcsc-lite-libs-1.3.3-1.el4.rf.i386.rpm [17_]
+- pcsc-lite-libs-1.3.3-1.el4.rf.i386.rpm [18_]
 
-- pcsc-lite-ccid-1.2.0-1.el4.rf.i386.rpm [18_]
+- pcsc-lite-ccid-1.2.0-1.el4.rf.i386.rpm [19_]
 
 .. code:: bash
 
@@ -365,9 +395,9 @@ In /var/log/messages you should have the message:
    Adding eToken security provider...Done.
    PKIClient installation completed. 
 
-.. _19: 
+.. _20: 
 
-|download| Download the appropriate libraries [19_] for your system and save it as *Mkproxy-rhel4.tar.gz*. 
+|download| Download the appropriate libraries [20_] for your system and save it as *Mkproxy-rhel4.tar.gz*. 
 The archive contains all the requires libraries for RHEL4 and RHEL5.
 
 .. code:: bash
@@ -494,7 +524,7 @@ The current version of PKI_Client supports up to **16** different slots! Each sl
 Chapter IV - Installing Apache Tomcat
 ===================
 
-.. _20: 
+.. _21: 
 
 - Install the following packages:
 
@@ -505,7 +535,7 @@ Chapter IV - Installing Apache Tomcat
 
 - Download and extract the eTokens-2.0.5 directory with all the needed configuration files in the root's home directory.
 
-|download| Download n example of configuration files for the eToken from here [20_] and save it as **eTokens-2.0.5.tar.gz**.
+|download| Download n example of configuration files for the eToken from here [21_] and save it as **eTokens-2.0.5.tar.gz**.
 
 .. code:: bash
 
