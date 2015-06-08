@@ -819,6 +819,7 @@ In this chapter is show the administrator (only restricted access) web interface
 
 
 - Accessing the RESTFul crypto library via WEB
+`````````````
 
 .. _26: https://<etoken_server>:8443/eTokenServer
 
@@ -1074,13 +1075,6 @@ Run the command
 .. code:: bash
 
         ]# cat /proc/sys/fs/file-max
-
-(iv) Soft & Limit:
-
-.. code:: bash
-
-        ]# ulimit -Hn
-        ]# ulimit -Sn
 
 ============
 Appendix III - Configure GlassFish settings
