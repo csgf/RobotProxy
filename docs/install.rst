@@ -327,7 +327,9 @@ System wide VOMSES configuration is maintained in the */etc/vomses* file or dire
 ===================
 Chapter III - Installation & Configuration
 ===================
-This chapter introduces the manual installation of the SafeNet eToken PKI client library on a Linux system, the software that enables eToken USB operations and the implementation of eToken PKI-based solutions. The software also includes all the necessary files and drivers to support the eToken management. 
+This chapter introduces the manual installation of the SafeNet eToken PKI client library on a Linux system, the software that enables eToken USB operations and the implementation of eToken PKI-based solutions. 
+
+The software also includes all the necessary files and drivers to support the eToken management. 
 During the installation, the needed libraries and drivers will be installed in */usr/local/bin*, */usr/local/lib* and */usr/local/etc*.
 
 |warning| Before to start, please check if pcsc- packages are already installed on your server. 
@@ -592,6 +594,7 @@ Convert both, the key and the certificate into DER format using openssl command:
 - Import private and certificate into the Java Keystore
 
 .. _22: others/ImportKey.java
+.. _23: others/lib.tar.gz
 
 |download| Download the following Java source code [22_] and save it as ImportKey.java
 
@@ -622,7 +625,13 @@ Edit the ImportKey.java file containing the following settings for the Java JKS
    Key and certificate stored.
    Alias: giular.trigrid.it Password: changeit
 
-Now we have a proper JKS containig the key and the certificate stored in the **eTokenServerSSL** file using **giular.trigrid.it** as alias and **changeit** as password.
+Now we have a JKS containig:
+
+- the key and the certificate stored in the **eTokenServerSSL** file,
+
+- using **giular.trigrid.it** as alias and 
+
+- **changeit** as password.
 
 Move the JKS to the Apache-Tomcat root directory
 
@@ -644,9 +653,9 @@ Add the new SSL connector on port 8443 in the server.xml file
                           SSLEnabled="true"
                           maxThreads="150" scheme="https" secure="true" 
                           clientAuth="false" sslProtocol="TLS"
-                          useSendfile="**false**" 
-                          keystoreFile="**/root/apache-tomcat-7.0.34/eTokenServerSSL**" 
-                          keyAlias="**giular.trigrid.it**" keystorePass="**changeit**"/>
+                          useSendfile="false" 
+                          keystoreFile="/root/apache-tomcat-7.0.34/eTokenServerSSL" 
+                          keyAlias="giular.trigrid.it" keystorePass="changeit"/>
    [..]
 
 Edit the /etc/sysconfig/iptables file in order to accept incoming connections on ports 8082 and 8443.
@@ -678,7 +687,7 @@ ii) Stop the application server as follows:
 
 - Install external libraries
 
-|download| Download and save the external libraries [21_] as lib.tar.gz
+|download| Download and save the external libraries [23_] as lib.tar.gz
 
 .. code:: bash
 
@@ -732,12 +741,12 @@ ii) Stop the application server as follows:
   # Default temp long-term proxy path
   MYPROXY_PATH=/root/apache-tomcat-7.0.53/temp  # <== Change here
 
-.. _22: 
-.. _23: 
+.. _24: others/eTokenServer.war
+.. _25: others/MyProxyServer.war
 
-|download| Download the servlet for the eTokenServer [22_] and save it as eTokenServer.war
+|download| Download the servlet for the eTokenServer [24_] and save it as eTokenServer.war
 
-|download| Download the servlet for the MyProxyServer [23_] and save it as MyProxyServer.war
+|download| Download the servlet for the MyProxyServer [25_] and save it as MyProxyServer.war
 
 .. code:: bash
 
