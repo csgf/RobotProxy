@@ -1028,7 +1028,47 @@ To set JVM settings, please add the following GLASSFISH_OPTS settings in *catali
 .. code:: bash
 
    CATALINA_OPTS="$CATALINA_OPTS -Xmx2336m -Xms2336m \
-                  -XX:NewSize=467215m -XX:MaxNewSize=467215m -XX:PermSize=467215m -XX:MaxPerSize=467215m -server"
+                  -XX:NewSize=467215m -XX:MaxNewSize=467215m \
+                  -XX:PermSize=467215m -XX:MaxPerSize=467215m \
+                  -server"
+
+============
+Troubleshooting
+============
+
+* Private key in PKCS#8
+
+  **Cannot load end entity credentials from 
+  certificate file: /etc/grid-security/hostcert.pem and
+          key file: /etc/grid-security/hostkey.pem**
+
+.. code:: bash
+
+        ]# cd /etc/grid-security/
+        ]# mv hostkey.pem hostkey-pk8.pem
+        ]# openssl rsa -in hostkey-pk8.pem -out hostkey.pem
+        ]# chmod 400 hostkey.pem
+
+        ]# cd <apache-tomcat>
+        ]# ./bin/catalina.sh stop
+        ]# ./bin/catalina.sh start
+
+For further information, please read the document []
+
+============
+Log Files
+============
+
+* The log messages for the eTokenServer are stored in *<apache-tomcat>/logs/**eToken.out***
+
+* The log messages for the MyProxyServer are stored in *<apache-tomcat>/logs/**MyProxy.out***
+
+* In case of errors and debug, please check these additional log files:
+
+.. code:: bash
+
+        ]# <apache-tomcat>/logs/catalina.out
+        ]# <apache-tomcat>/logs/localhost.<date>.log
 
 ============
 Support
