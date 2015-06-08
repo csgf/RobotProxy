@@ -781,15 +781,17 @@ The creation of a request to access the generic USB smat card and generates a pr
 .. image:: images/accordion_2.jpg
       :align: center
 
+- If necessary FQANs order can be changed in step 3:
+
 .. image:: images/accordion_3.jpg
       :align: center
 
-- If necessary, some additional options can be specified in the 4th. step to customize the proxy creation process:
+- Before to complete, some additional options can be specified in the 4th. step to customize the proxy requestID:
 
 .. image:: images/accordion_4.jpg
       :align: center
 
-- The final requestID for generating a valid X.509 proxy certificate is available in step 5:
+- At the end, the complete requestID is available in step 5:
 
 .. image:: images/accordion_5.jpg
       :align: center
