@@ -245,7 +245,7 @@ Host Certificates
 .. _13: http://www.eugridpma.org/members/worldmap/
 .. _14: https://comodosslstore.com/
 
-Navigate the interactive map and search for your closest Certification Authorities [12_] or, alternatively, buy a multi-domain COMODO [14_] SSL certificate.
+Navigate the interactive map and search for your closest Certification Authorities [13_] or, alternatively, buy a multi-domain COMODO [14_] SSL certificate.
 
 Public and Private keys of the host certificate have to be copied in /etc/grid-security/
 
@@ -292,7 +292,7 @@ The *.lsc* file contains a list of X.509 subject strings, one on each line, enco
 
 |warning| Install in */etc/grid-security/vomsdir/* directory the *.lsc* for each trusted VO that you want to support.
 
-|download| An example of */etc/grid-security/vomsdir/* directory can be downloaded from here [14_].
+|download| An example of */etc/grid-security/vomsdir/* directory can be downloaded from here [15_].
 
 ===================
 Chapter III - Installation & Configuration
@@ -315,15 +315,15 @@ During the installation, the needed libraries and drivers will be installed in *
 
 |download| Download the correct software packages:
 
-.. _15: http://dag.wieers.com/rpm/packages/pcsc-lite/pcsc-lite-1.3.3-1.el4.rf.i386.rpm
-.. _16: http://dag.wieers.com/rpm/packages/pcsc-lite/pcsc-lite-libs-1.3.3-1.el4.rf.i386.rpm
-.. _17: http://dag.wieers.com/rpm/packages/pcsc-lite-ccid/pcsc-lite-ccid-1.2.0-1.el4.rf.i386.rpm
+.. _16: http://dag.wieers.com/rpm/packages/pcsc-lite/pcsc-lite-1.3.3-1.el4.rf.i386.rpm
+.. _17: http://dag.wieers.com/rpm/packages/pcsc-lite/pcsc-lite-libs-1.3.3-1.el4.rf.i386.rpm
+.. _18: http://dag.wieers.com/rpm/packages/pcsc-lite-ccid/pcsc-lite-ccid-1.2.0-1.el4.rf.i386.rpm
 
-- pcsc-lite-1.3.3-1.el4.rf.i386.rpm [15_] 
+- pcsc-lite-1.3.3-1.el4.rf.i386.rpm [16_] 
 
-- pcsc-lite-libs-1.3.3-1.el4.rf.i386.rpm [16_]
+- pcsc-lite-libs-1.3.3-1.el4.rf.i386.rpm [17_]
 
-- pcsc-lite-ccid-1.2.0-1.el4.rf.i386.rpm [17_]
+- pcsc-lite-ccid-1.2.0-1.el4.rf.i386.rpm [18_]
 
 .. code:: bash
 
@@ -365,7 +365,10 @@ In /var/log/messages you should have the message:
    Adding eToken security provider...Done.
    PKIClient installation completed. 
 
-|download| Download the appropriate libraries [18_] for your system and save it as *Mkproxy-rhel4.tar.gz*. The archive contains all the requires libraries for RHEL4 and RHEL5.
+.. _19: 
+
+|download| Download the appropriate libraries [19_] for your system and save it as *Mkproxy-rhel4.tar.gz*. 
+The archive contains all the requires libraries for RHEL4 and RHEL5.
 
 .. code:: bash
 
@@ -491,6 +494,8 @@ The current version of PKI_Client supports up to **16** different slots! Each sl
 Chapter IV - Installing Apache Tomcat
 ===================
 
+.. _20: 
+
 - Install the following packages:
 
 .. code:: bash
@@ -500,7 +505,7 @@ Chapter IV - Installing Apache Tomcat
 
 - Download and extract the eTokens-2.0.5 directory with all the needed configuration files in the root's home directory.
 
-|download| Download n example of configuration files for the eToken from here [] and save it as **eTokens-2.0.5.tar.gz**.
+|download| Download n example of configuration files for the eToken from here [20_] and save it as **eTokens-2.0.5.tar.gz**.
 
 .. code:: bash
 
@@ -559,17 +564,17 @@ Edit the ImportKey.java file containing the following settings for the Java JKS
 .. code:: java
 
         // Change this if you want another password by default 
-        String keypass = "**changeit**"; <== Change it
+        String keypass = "**changeit**"; <== Change it!
 
         // Change this if you want another alias by default 
-        String defaultalias = "**giular.trigrid.it**"; <== Change it
+        String defaultalias = "**giular.trigrid.it**"; <== Change it!
 
         If (keystorename == null)
                 Keystorename = System.getProperty("user.home") 
-                             + System.getProperty("file.separator") 
-                             + "**eTokenServerSSL**"; // expecially this ;-) ÐChange it
+                + System.getProperty("file.separator") 
+                + "**eTokenServerSSL**"; // <== Change it!
 
-|alert| Please change "giular.trigrid.it" with the host of the server you want to configure.
+|alert| Please change "*giular.trigrid.it*" with the host of the server you want to configure.
 
 - Compile and execute the Java file:
 
@@ -637,12 +642,14 @@ ii) Stop the application server as follows:
 
 - Install external libraries
 
-|download| Download and save the external libraries [] as lib.tar.gz
+.. _21: 
+
+|download| Download and save the external libraries [21_] as lib.tar.gz
 
 .. code:: bash
 
    ]# tar zxf lib.tar.gz
-   ]# cp ./lib/*.jar /root/apache-tomcat-7.0.34/lib 
+   ]# cp ./lib/\*.jar /root/apache-tomcat-7.0.34/lib 
 
 - Deploy the WAR files
 
@@ -666,7 +673,7 @@ ii) Stop the application server as follows:
    ETOKEN_SERVER=giular.trigrid.it            # <== Change here 
    ETOKEN_PORT=8082 
    ETOKEN_CONFIG_PATH=/root/eTokens-2.0.5/config 
-   PIN=****** i                               # <== Add PIN here
+   PIN=******                                 # <== Add PIN here
 
    # **Proxy Settings**
    # Default proxy lifetime (default 12h) PROXY_LIFETIME=24
@@ -677,7 +684,7 @@ ii) Stop the application server as follows:
    SMTP_HOST=smtp.gmail.com                   # <== Change here
    SENDER_EMAIL=credentials-admin@ct.infn.it  # <== Change here
    DEFAULT_EMAIL=credentials-admin@ct.infn.it # <== Change here
-   EXPIRATION=10
+   EXPIRATION=7
 
    Create the following **Myproxy.properties** configuration file with the following settings:
 
@@ -691,9 +698,12 @@ ii) Stop the application server as follows:
   # Default temp long-term proxy path
   MYPROXY_PATH=/root/apache-tomcat-7.0.53/temp  # <== Change here
 
-|download| Download the servlet for the eTokenServer [] and save it as eTokenServer.war
+.. _22: 
+.. _23: 
 
-|download| Download the servlet for the MyProxyServer [] and save it as MyProxyServer.war
+|download| Download the servlet for the eTokenServer [22_] and save it as eTokenServer.war
+
+|download| Download the servlet for the MyProxyServer [23_] and save it as MyProxyServer.war
 
 .. code:: bash
 
@@ -767,7 +777,9 @@ In this chapter is show the administrator (only restricted access) web interface
 
 - Accessing the RESTFul crypto library via WEB
 
-The root resource of the library is deployed at the following URL [] as shown in the figure below:
+.. _24: https://<etoken_server>:8443/eTokenServer
+
+The root resource of the library is deployed at the following URL [24_] as shown in the figure below:
 
 .. image:: images/accordion_1.jpg
    :align: center
@@ -1053,7 +1065,9 @@ Troubleshooting
         ]# ./bin/catalina.sh stop
         ]# ./bin/catalina.sh start
 
-For further information, please read the document []
+.. _25: 
+
+For further information, please read the document [25_]
 
 ============
 Log Files
