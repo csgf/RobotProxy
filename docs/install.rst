@@ -288,7 +288,7 @@ The *.lsc* file contains a list of X.509 subject strings, one on each line, enco
 .. |warning| image:: images/warning.jpg
 .. |download| image:: images/download.jpg
 
-.. _vomsdir: others/
+.. _15: others/vomsdir.tar.gz
 
 |warning| Install in */etc/grid-security/vomsdir/* directory the *.lsc* for each trusted VO that you want to support.
 
