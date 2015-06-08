@@ -758,7 +758,7 @@ Create the following script:
 ============
 Chapter V - Usage
 ============
-This chapter introduces the RESTful "ligth-weight" crypto library which is configured for:
+In this chapter is show the administrator (only restricted access) web interface to interact with the RESTful "ligth-weight" crypto library which is configured for:
 
 (i) browsing the digital certificates available on the different smart cards;
 
@@ -795,6 +795,30 @@ The creation of a request to access the generic USB smat card and generates a pr
 
 .. image:: images/accordion_5.jpg
       :align: center
+
+============
+Chapter VI - Some RESTful APIs
+============
+REST is an architectural style which defines a set of constraints that, when applied to the architecture of a distributed system, induces desiderable properties like lookse coupling and horizontal scalability.
+RESTful web services are the result of applying these constraints to services that utilize web standards such as URIs, HTTP, XML, and JSON. Such services become part of the fabric of the web and can take advantage of years of web engineering to satisfy their clients' needs. The Java API for RESTful web services (JAX-RS) is a new API that aims to make development of RESTful web services in Java simple and intuitive.
+
+In this chapter will be presented some examples of RESTful APIs used to request proxies certificates, list available robot certificates in the server-side and register long-term proxies on the MyProxy server.
+
+1. Create RFC 3820 complaint proxy (simple use case):
+
+2. Create RFC 3820 complaint proxy (with some additional info to account real users):
+
+3.) Create full-legacy Globus proxy (old fashioned proxy):
+
+4.) Create full-legacy proxy (with more FQANs):
+
+5.) Create plain proxy (without VOMS ACs):
+
+6.) Get the list of avilable robot certificates in the server (in JSON format):
+
+7.) Get the MyProxy settings used by the eToken server (in JSON format):
+
+8.) Register long-term proxy on the MyProxy server (only for expert user):
 
 
 ============
