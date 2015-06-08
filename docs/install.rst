@@ -1059,9 +1059,9 @@ For further information, please read the document []
 Log Files
 ============
 
-* The log messages for the eTokenServer are stored in *<apache-tomcat>/logs/**eToken.out***
+* The log messages for the eTokenServer are stored in **<apache-tomcat>/logs/eToken.out**
 
-* The log messages for the MyProxyServer are stored in *<apache-tomcat>/logs/**MyProxy.out***
+* The log messages for the MyProxyServer are stored in **<apache-tomcat>/logs/MyProxy.out**
 
 * In case of errors and debug, please check these additional log files:
 
