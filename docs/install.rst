@@ -14,8 +14,8 @@ About this document
 .. |download| image:: images/download.jpg
 .. |alert| image:: images/alert.jpg
 
-.. contents:: Table of Contents
-.. section-numbering::
+#.. contents:: Table of Contents
+#.. section-numbering::
 
 This is the official documentation to configure and install the eTokenServer servlet (v2.0.4).
 
