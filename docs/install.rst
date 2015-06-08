@@ -1012,17 +1012,23 @@ Run the command
 
         ]# cat /proc/sys/fs/file-max
 
-(iv) Soft Limit:
+(iv) Soft & Limit:
 
 .. code:: bash
 
         ]# ulimit -Hn
+        ]# ulimit -Sn
 
-(v) Hard Limit:
+============
+Appendix III - Configure GlassFish settings
+============
+
+To set JVM settings, please add the following GLASSFISH_OPTS settings in *catalian.sh*
 
 .. code:: bash
-        
-        ]# ulimit -Sn
+
+   CATALINA_OPTS="$CATALINA_OPTS -Xmx2336m -Xms2336m \
+                  -XX:NewSize=467215m -XX:MaxNewSize=467215m -XX:PermSize=467215m -XX:MaxPerSize=467215m -server"
 
 ============
 Support
