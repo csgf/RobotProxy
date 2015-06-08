@@ -476,7 +476,7 @@ Edit the */usr/local/bin/mkproxy* script and change the PKCS11_MOD variable sett
    ]# ln -s /usr/lib/libpcsclite.so.1.0.0 libpcsclite.so 
    ]# ln -s /usr/lib/libpcsclite.so.1.0.0 libpcsclite.so.
 
-   ]# ll libpcsclite.so*
+   ]# ll libpcsclite.so"\*"
       lrwxrwxrwx 1 root root 29 Feb 17 09:47 libpcsclite.so -> /usr/lib/libpcsclite.so.1.0.0 
       lrwxrwxrwx 1 root root 29 Feb 17 09:52 libpcsclite.so.0 -> /usr/lib/libpcsclite.so.1.0.0 
       lrwxrwxrwx 1 root root 20 Feb 17 09:04 libpcsclite.so.1 -> libpcsclite.so.1.0.0
