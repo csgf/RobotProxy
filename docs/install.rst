@@ -322,6 +322,9 @@ Chapter III - Installation & Configuration
 ===================
 This chapter introduces the manual installation of the SafeNet eToken PKI client library on a Linux system, the software that enables eToken USB operations and the implementation of eToken PKI-based solutions. 
 
+Software Requirements
+-----------------
+
 The software also includes all the necessary files and drivers to support the eToken management. 
 During the installation, the needed libraries and drivers will be installed in */usr/local/bin*, */usr/local/lib* and */usr/local/etc*.
 
@@ -376,6 +379,9 @@ In /var/log/messages you should have the message:
    Feb 2 09:02:44 giular pcscd: pcscdaemon.c:533:main() pcsc-lite 1.3.3 daemon ready.
    Feb 2 09:02:44 giular pcscd: hotplug_libusb.c:394:HPEstablishUSBNotifications() Driver ifd-ccid.bundle does not support IFD_GENERATE_HOTPLUG
 
+Install PKI_Client library
+-----------------
+
 |warning| Contact the SafeNet Inc. and install the latest eToken PKI Client (ver. 4.55-34) software on your system.
 
 .. code:: bash
@@ -392,6 +398,9 @@ In /var/log/messages you should have the message:
 
 .. _20: others/Mkproxy-rhel4.tar.gz
 .. _21: others/eTokens-2.0.5.tar.gz
+
+Configure additional libraries
+-----------------
 
 |download| Download the appropriate libraries [20_] for your system and save it as *Mkproxy-rhel4.tar.gz*. 
 The archive contains all the requires libraries for RHEL4 and RHEL5.
@@ -474,7 +483,8 @@ Edit the */usr/local/bin/mkproxy* script and change the PKCS11_MOD variable sett
 
 To administer the USB eToken PRO 64KB and add a new robot certificate, please refer to the Appendix I.
 
-- Testing
+Testing
+-----------------
 
 .. code:: bash
 
