@@ -357,6 +357,7 @@ During the installation, the needed libraries and drivers will be installed in *
                pcsc-lite-libs-1.3.3-1.el4.rf.i386.rpm
 
 Preparing...            ########################################### [100%]
+
 1:pcsc-lite-libs        ########################################### [ 33%] 
 2:pcsc-lite-ccid        ########################################### [ 67%] 
 3:pcsc-lite             ########################################### [100%]
