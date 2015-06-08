@@ -845,8 +845,40 @@ This appendix includes the following sections:
 
 The *eToken Properties* application displays all the available tokens connected to the server as show in the below figure:
 
+.. image:: images/eToken_1.jpg
+         :align: center
 
+In the right pane, the user may select any of the following actions which are enabled:
 
+1.) **Rename eToken** - set a label for the given token;
+
+2.) **Change Password** - changes the eToken user password;
+
+3.) **Unlock eToken** - resets the user password via a challenge response mechanism (pnly enabled when an administrator password has been initialized on the eToken);
+
+4.) **View eToken Info** - provides detailed information about the eToken;
+
+5.) **Disconnect eToken Virtual** - disconnects the eToken Virtual with an option for deleting it.
+
+The toolbar along the top contains these functions:
+
+1.) **Advanced** - switches to the Advanced view;
+
+2.) **Refresh** - refreshes the data for all connected tokens;
+
+3.) **About** - displayes information about the product version;
+
+4.) **Help** - launches the online help.
+
+- Renaming the eToken
+The token name may be personalized. To rename a token:
+
+1.) In the left pane of the *eToken Properties* window, select the token to be renamed.
+
+2.) Click **Rename eToken** in the right pane, and the Rename eToken dialog box is displayed as shown in the below figure:
+
+.. image:: images/eToken_2.jpg
+            :align: center
 
 ============
 Support
