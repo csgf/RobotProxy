@@ -870,7 +870,7 @@ The toolbar along the top contains these functions:
 
 4.) **Help** - launches the online help.
 
-- Renaming the eToken
+- **Renaming the eToken**
 The token name may be personalized. To rename a token:
 
 1.) In the left pane of the *eToken Properties* window, select the token to be renamed.
@@ -879,6 +879,29 @@ The token name may be personalized. To rename a token:
 
 .. image:: images/eToken_2.jpg
             :align: center
+
+3.) **Enter** the new name in the New eToken name field.
+
+4.) Click **OK**. The new token name is displayed in the *eToken Properties* window.
+
+- **Initializing the eToken**
+The eToken initialization option restores an eToken to irs initial state. It removes all objects stored on the eToken since manufacture, frees up memory, and resets the eToken password, allowing administrators to initialize the eToken according to specific organizational requirements or security modes.
+
+The following data is initialized:
+
+* eToken name;
+
+* User password;
+
+* Administrator password;
+
+* Maximum number of login failures (for user and administrator passwords);
+
+* Requirement to change the password on the first login;
+
+* Initialization key.
+
+- **To initialize the eToken**
 
 ============
 Support
