@@ -1116,7 +1116,9 @@ Troubleshooting
         ]# ./bin/catalina.sh stop
         ]# ./bin/catalina.sh start
 
-For further information, please read the document [25_]
+.. _27: https://lists.desy.de/sympa/arc/user-forum/2011-11/msg00052.html
+
+For further information, please read the document [27_]
 
 ============
 Log Files
