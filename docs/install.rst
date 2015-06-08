@@ -692,7 +692,7 @@ ii) Stop the application server as follows:
 .. code:: bash
 
    ]# tar zxf lib.tar.gz
-   ]# cp ./lib/\\*.jar /root/apache-tomcat-7.0.34/lib 
+   ]# cp ./lib/*.jar /root/apache-tomcat-7.0.34/lib 
 
 - Deploy the WAR files
 
@@ -820,9 +820,9 @@ In this chapter is show the administrator (only restricted access) web interface
 
 - Accessing the RESTFul crypto library via WEB
 
-.. _24: https://<etoken_server>:8443/eTokenServer
+.. _26: https://<etoken_server>:8443/eTokenServer
 
-The root resource of the library is deployed at the following URL [24_] as shown in the figure below:
+The root resource of the library is deployed at the following URL [26_] as shown in the figure below:
 
 .. image:: images/accordion_1.jpg
    :align: center
