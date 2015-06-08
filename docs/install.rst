@@ -819,6 +819,7 @@ In this chapter is show the administrator (only restricted access) web interface
 (ii) generating VOMS-proxy for a given X.509 digital certificate.
 
 - Accessing the RESTFul crypto library via WEB
+-------------
 
 .. _26: https://<etoken_server>:8443/eTokenServer
 
