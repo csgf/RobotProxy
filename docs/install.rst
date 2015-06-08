@@ -942,7 +942,9 @@ To initialize the eToken:
 
 4.) Select whether the certificate to import is on your personal computer store on the computer, or on a file. 
 If you select the personal certificate store, a list of available certificates is displayed. Only certificates that can be imported on to the eToken are listed. These are:
+
 - Certificates with a private key already on the eToken;
+
 - Certificates that may be imported from the computer together with its private key.
 
 5.) If you select Import a certificate from a file, the Choose a certificate dialog box opens.
