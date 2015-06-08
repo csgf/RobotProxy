@@ -129,7 +129,7 @@ This chapter provide the list of requirements and the basic information that you
 ===================
 OS and repos
 ===================
-Start with a fresh installation of Scientific Linux 5.x (x86_64).
+Start with a fresh installation of Scientific Linux 5.X (x86_64).
 
 .. code:: bash
 
@@ -242,10 +242,10 @@ Use NTP to synchronize the time of the server
 Host Certificates
 ===================
 
-.. _12: http://www.eugridpma.org/members/worldmap/
-.. _13: https://comodosslstore.com/
+.. _13: http://www.eugridpma.org/members/worldmap/
+.. _14: https://comodosslstore.com/
 
-Navigate the interactive map and search for your closest Certification Authorities [12_] or, alternatively, buy a multi-domain COMODO [13_] SSL certificate.
+Navigate the interactive map and search for your closest Certification Authorities [12_] or, alternatively, buy a multi-domain COMODO [14_] SSL certificate.
 
 Public and Private keys of the host certificate have to be copied in /etc/grid-security/
 
@@ -1088,4 +1088,4 @@ Please feel free to contact us any time if you have any questions or comments.
 
 :Version: v2.0.4, 2015
 
-:Date: June 4th, 2015 17:50
+:Date: June 8th, 2015 17:50
