@@ -931,6 +931,32 @@ To initialize the eToken:
 
 - **To import a certificate**
 
+1.) Click on **Advanced** from the toolbar to switch to thre Advanced view.
+
+2.) **Select** the eToken where you want to upload a new certificate.
+
+3.) Click **Import Certificate** on the toolbar, or right-click the token name in the left pane and select **Import Certificate** from the shortcut menu. The Import Certificate dialog box opens.
+
+.. image:: images/eToken_5.jpg
+           :align: center
+
+4.) Select whether the certificate to import is on your personal computer store on the computer, or on a file. 
+If you select the personal certificate store, a list of available certificates is displayed. Only certificates that can be imported on to the eToken are listed. These are:
+- Certificates with a private key already on the eToken;
+- Certificates that may be imported from the computer together with its private key.
+
+5.) If you select Import a certificate from a file, the Choose a certificate dialog box opens.
+
+6.) Select the certificate to import and click **Open**.
+
+7.) If the certificate requires a password, a Password dialog box opens.
+
+8.) Enter the certificate password. A dialog box opens asking if you want to store the CA certificate on the eToken.
+
+9.) Select **No**. The only certificate is imported and a confirmation message is shown.
+
+
+
 ============
 Support
 ============
