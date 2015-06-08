@@ -14,9 +14,6 @@ About this document
 .. |download| image:: images/download.jpg
 .. |alert| image:: images/alert.jpg
 
-.. contents:: Table of Contents
-.. section-numbering::
-
 This is the official documentation to configure and install the eTokenServer servlet (v2.0.4).
 
 This document provides an in-depth overview of the light-weight crypto library, a standard-based solution developed by INFN Catania for central management of robot credentials and provisioning of digital proxies to get seamless and secure access to computing e-Infrastructures supporting the X.509 standard for Authorisation.
