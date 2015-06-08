@@ -811,15 +811,15 @@ Create the following script:
 ============
 Chapter V - Usage
 ============
+`````````````
+
 In this chapter is show the administrator (only restricted access) web interface to interact with the RESTful "ligth-weight" crypto library which is configured for:
 
 (i) browsing the digital certificates available on the different smart cards;
 
 (ii) generating VOMS-proxy for a given X.509 digital certificate.
 
-
 - Accessing the RESTFul crypto library via WEB
-`````````````
 
 .. _26: https://<etoken_server>:8443/eTokenServer
 
