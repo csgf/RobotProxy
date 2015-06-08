@@ -957,7 +957,72 @@ If you select the personal certificate store, a list of available certificates i
 
 9.) Select **No**. The only certificate is imported and a confirmation message is shown.
 
+============
+Appendix II - Increase "Open Files Limit"
+============
 
+|alert| If you are getting the error *"Too many open files (24)"* then your application is hitting max open file limit allowed by Linux.
+
+Check limits of the running process:
+
+* Find the process-ID (PID):
+
+.. code:: bash
+
+        ]# ps aux | grep -i process-name
+
+* Suppose XXX is the PID, then run the command to check limits:
+
+.. code:: bash
+
+        ]# cat /proc/XXX/limits
+
+To increase the limit you have to:
+
+(i) Append the following settings to set the user-limit
+
+.. code:: bash
+
+        ]# cat /etc/security/limits.conf
+
+        *          hard    nofile  50000
+        *          soft    nofile  50000
+        root       hard    nofile  50000
+        root       soft    nofile  50000
+
+Once you have saved the file, you have to logout and login again.
+
+(ii) Set the higher than user-limit set above. 
+
+.. code:: bash
+
+        ]# cat /etc/sysctl.conf
+
+        fs.file-max = 2097152
+
+Run the command
+
+.. code:: bash
+
+        ]# sysctl -p
+
+(iii) Verify the new limits. Use the following command to see max limit of the file descriptors:
+
+.. code:: bash
+
+        ]# cat /proc/sys/fs/file-max
+
+(iv) Soft Limit:
+
+.. code:: bash
+
+        ]# ulimit -Hn
+
+(v) Hard Limit:
+
+.. code:: bash
+        
+        ]# ulimit -Sn
 
 ============
 Support
