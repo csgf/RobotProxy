@@ -36,9 +36,8 @@ We appreciate attribution. In case you would like to cite the Java light-weight 
 We also would like to be notified about your publications that involve the use of the Java light-weight crypto libraries, as this will help us to document its usefulness. We like to feature links to these articles, with your permission, on our Web site.
 Additional reference to the Java light-weight crypto library and other relevant activities can be fould at [2_].
 
-============
 Licence
-============
+-----------------
 Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.  See the NOTICE file distributed with this work for additional information regarding copyright ownership.
 The ASF licenses this file to You under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -476,7 +475,7 @@ Edit the */usr/local/bin/mkproxy* script and change the PKCS11_MOD variable sett
    ]# ln -s /usr/lib/libpcsclite.so.1.0.0 libpcsclite.so 
    ]# ln -s /usr/lib/libpcsclite.so.1.0.0 libpcsclite.so.
 
-   ]# ll libpcsclite.so"\*"
+   ]# ll libpcsclite.so*
       lrwxrwxrwx 1 root root 29 Feb 17 09:47 libpcsclite.so -> /usr/lib/libpcsclite.so.1.0.0 
       lrwxrwxrwx 1 root root 29 Feb 17 09:52 libpcsclite.so.0 -> /usr/lib/libpcsclite.so.1.0.0 
       lrwxrwxrwx 1 root root 20 Feb 17 09:04 libpcsclite.so.1 -> libpcsclite.so.1.0.0
