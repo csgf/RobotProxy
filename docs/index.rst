@@ -157,7 +157,8 @@ In case of successful compilation of the *eTokenServer* servlet, you should get 
    Created dir: /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/META-INF
    Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/META-INF
    Copying 490 files to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web
-   Copied 54 empty directories to 1 empty directory under /home/larocca/eTokenServerREST-OK/eTokenServer/build/web
+   Copied 54 empty directories to 1 empty directory under 
+        /home/larocca/eTokenServerREST-OK/eTokenServer/build/web
         
    library-inclusion-in-archive:
    Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib

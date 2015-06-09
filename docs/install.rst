@@ -371,10 +371,10 @@ In /var/log/messages you should have the message:
 
 .. code:: bash
 
-   [..]
-   Feb 2 09:02:15 giular pcscd: pcscdaemon.c:532:at_exit() cleaning /var/run
-   Feb 2 09:02:44 giular pcscd: pcscdaemon.c:533:main() pcsc-lite 1.3.3 daemon ready.
-   Feb 2 09:02:44 giular pcscd: hotplug_libusb.c:394:HPEstablishUSBNotifications() Driver ifd-ccid.bundle does not support IFD_GENERATE_HOTPLUG
+ [..]
+ pcscd: pcscdaemon.c:532:at_exit() cleaning /var/run
+ pcscd: pcscdaemon.c:533:main() pcsc-lite 1.3.3 daemon ready.
+ pcscd: hotplug_libusb.c:394:HPEstablishUSBNotifications() Driver ifd-ccid.bundle does not support IFD_GENERATE_HOTPLUG
 
 Install PKI_Client library
 -----------------
@@ -671,7 +671,8 @@ i) Start and check the application server as follows:
    Using CATALINA_HOME: /root/apache-tomcat-7.0.34 
    Using CATALINA_TMPDIR: /root/apache-tomcat-7.0.34/temp 
    Using JRE_HOME: /usr
-   Using CLASSPATH: /root/apache-tomcat-7.0.34/bin/bootstrap.jar:/root/apache-tomcat-7.0.34/bin/tomcat-juli.jar
+   Using CLASSPATH: /root/apache-tomcat-7.0.34/bin/bootstrap.jar:\
+                    /root/apache-tomcat-7.0.34/bin/tomcat-juli.jar
 
 ii) Stop the application server as follows:
 
@@ -682,7 +683,8 @@ ii) Stop the application server as follows:
    Using CATALINA_HOME: /root/apache-tomcat-7.0.34 
    Using CATALINA_TMPDIR: /root/apache-tomcat-7.0.34/temp 
    Using JRE_HOME: /usr
-   Using CLASSPATH: /root/apache-tomcat-7.0.34/bin/bootstrap.jar:/root/apache-tomcat-7.0.34/bin/tomcat-juli.jar 
+   Using CLASSPATH: /root/apache-tomcat-7.0.34/bin/bootstrap.jar:\
+                    /root/apache-tomcat-7.0.34/bin/tomcat-juli.jar 
 
 - Install external libraries
 
@@ -863,56 +865,80 @@ Create RFC 3820 complaint proxy (simple use case):
 
 .. code:: bash
 
-        https://<etoken_server>:8443/eTokenServer/eToken/332576f78a4fe70a52048043e90cd11f?voms=fedcloud.egi.eu:/fedcloud.egi.eu&proxy-renewal=true&disable-voms-proxy=false&rfc-proxy=true&cn-label=Empty
+ https://<etoken_server>:8443/eTokenServer/eToken/332576f78a4fe70a52048043e90cd11f?\
+         voms=fedcloud.egi.eu:/fedcloud.egi.eu&\
+         proxy-renewal=true&\
+         disable-voms-proxy=false&\
+         rfc-proxy=true&cn-label=Empty
 
 Create RFC 3820 complaint proxy (with some additional info to account real users):
 -----------------
 
 .. code:: bash
 
-        https://<etoken_server>:8443/eTokenServer/eToken/332576f78a4fe70a52048043e90cd11f?voms=fedcloud.egi.eu:/fedcloud.egi.eu&proxy-renewal=true&disable-voms-proxy=false&rfc-proxy=true&cn-label=LAROCCA
+ https://<etoken_server>:8443/eTokenServer/eToken/332576f78a4fe70a52048043e90cd11f?\
+         voms=fedcloud.egi.eu:/fedcloud.egi.eu&\
+         proxy-renewal=true&\
+         disable-voms-proxy=false&\
+         rfc-proxy=true&\
+         cn-label=LAROCCA
 
 Create full-legacy Globus proxy (old fashioned proxy):
 -----------------
 
 .. code:: bash
 
-        https://<etoken_server>:8443/eTokenServer/eToken/43ddf806454eb55ea32f729c33cc1f07?voms=eumed:/eumed&proxy-renewal=true&disable-voms-proxy=false&rfc-proxy=false&cn-label=Empty
+ https://<etoken_server>:8443/eTokenServer/eToken/43ddf806454eb55ea32f729c33cc1f07?\
+         voms=eumed:/eumed&\
+         proxy-renewal=true&\
+         disable-voms-proxy=false&\
+         rfc-proxy=false&\
+         cn-label=Empty
 
 Create full-legacy proxy (with more FQANs):
 -----------------
 
 .. code:: bash
 
-        https://<etoken_server>:8443/eTokenServer/eToken/b970fe11cf219e9c6644da0bc4845010?voms=vo.eu-decide.eu:/vo.eu-decide.eu/Role=Neurologist+vo.eu-decide.eu:/vo.eu-decide.eu&proxy-renewal=true&disable-voms-proxy=false&rfc-proxy=false&cn-label=Empty
+ https://<etoken_server>:8443/eTokenServer/eToken/b970fe11cf219e9c6644da0bc4845010?\
+         voms=vo.eu-decide.eu:/vo.eu-decide.eu/Role=Neurologist+vo.eu-decide.eu:/vo.eu-decide.eu&\
+         proxy-renewal=true&\
+         disable-voms-proxy=false&\
+         rfc-proxy=false&\
+         cn-label=Empty
 
 Create plain proxy (without VOMS ACs):
 -----------------
 
 .. code:: bash
 
-        https://<etoken_server>:8443/eTokenServer/eToken/332576f78a4fe70a52048043e90cd11f?voms=gridit:/gridit&proxy-renewal=true&disable-voms-proxy=true&rfc-proxy=false&cn-label=Empty
+ https://<etoken_server>:8443/eTokenServer/eToken/332576f78a4fe70a52048043e90cd11f?\
+         voms=gridit:/gridit&\
+         proxy-renewal=true&\
+         disable-voms-proxy=true&\
+         rfc-proxy=false&\
+         cn-label=Empty
 
 Get the list of avilable robot certificates in the server (in JSON format):
 -----------------
 
 .. code:: bash
 
-        https://<etoken_server>:8443/eTokenServer/eToken?format=json
+ https://<etoken_server>:8443/eTokenServer/eToken?format=json
 
 Get the MyProxy settings used by the eToken server (in JSON format):
 -----------------
 
 .. code:: bash
 
-        https://<etoken_server>:8443/MyProxyServer/proxy?format=json
+ https://<etoken_server>:8443/MyProxyServer/proxy?format=json
 
 Register long-term proxy on the MyProxy server (only for expert user):
 -----------------
 
 .. code:: bash
 
-        https://<etoken_server>:8443/MyProxyServer/proxy/x509up_6380887419908824.long
+ https://<etoken_server>:8443/MyProxyServer/proxy/x509up_6380887419908824.long
 
 ============
 Appendix I - Administration of the eToken smart cards
