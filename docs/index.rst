@@ -112,123 +112,125 @@ In case of successful compilation of the *eTokenServer* servlet, you should get 
 
 .. code:: bash
 
-   init:
-   undeploy-clean:
-   deps-clean:
-   eTokenUtils.init:
+ init:
+ undeploy-clean:
+ deps-clean:
+ eTokenUtils.init:
 
-   eTokenUtils.deps-clean:
-        Updating property file: /home/larocca/eTokenServerREST-OK/eTokenUtils/build/built-clean.properties
-        Deleting directory /home/larocca/eTokenServerREST-OK/eTokenUtils/build
+ eTokenUtils.deps-clean:
+    Updating property file: /home/larocca/eTokenServerREST-OK/eTokenUtils/build/built-clean.properties
+      Deleting directory /home/larocca/eTokenServerREST-OK/eTokenUtils/build
         
-   eTokenUtils.clean:
-   do-clean:
-        Deleting directory /home/larocca/eTokenServerREST-OK/eTokenServer/build
-        Deleting directory /home/larocca/eTokenServerREST-OK/eTokenServer/dist
+ eTokenUtils.clean:
+ do-clean:
+      Deleting directory /home/larocca/eTokenServerREST-OK/eTokenServer/build
+      Deleting directory /home/larocca/eTokenServerREST-OK/eTokenServer/dist
 
-   check-clean:
-   clean:
-   init:
-   deps-module-jar:
-   eTokenUtils.init:
-   eTokenUtils.deps-jar:
-        Created dir: /home/larocca/eTokenServerREST-OK/eTokenUtils/build
-        Updating property file: /home/larocca/eTokenServerREST-OK/eTokenUtils/build/built-jar.properties
-        Created dir: /home/larocca/eTokenServerREST-OK/eTokenUtils/build/classes
-        Created dir: /home/larocca/eTokenServerREST-OK/eTokenUtils/build/empty
-        Created dir: /home/larocca/eTokenServerREST-OK/eTokenUtils/build/generated-sources/ap-source-output
-        Compiling 3 source files to /home/larocca/eTokenServerREST-OK/eTokenUtils/build/classes
-        warning: [options] bootstrap class path not set in conjunction with -source 1.6
-        1 warning
+ check-clean:
+ clean:
+ init:
+ deps-module-jar:
+ eTokenUtils.init:
+ eTokenUtils.deps-jar:
+      Created dir: /home/larocca/eTokenServerREST-OK/eTokenUtils/build
+      Updating property file: /home/larocca/eTokenServerREST-OK/eTokenUtils/build/built-jar.properties
+      Created dir: /home/larocca/eTokenServerREST-OK/eTokenUtils/build/classes
+      Created dir: /home/larocca/eTokenServerREST-OK/eTokenUtils/build/empty
+      Created dir: /home/larocca/eTokenServerREST-OK/eTokenUtils/build/generated-sources/ap-source-output
+      Compiling 3 source files to /home/larocca/eTokenServerREST-OK/eTokenUtils/build/classes
+      warning: [options] bootstrap class path not set in conjunction with -source 1.6
+      1 warning
 
-   eTokenUtils.compile:
-        Created dir: /home/larocca/eTokenServerREST-OK/eTokenUtils/dist
-        Copy libraries to /home/larocca/eTokenServerREST-OK/eTokenUtils/dist/lib.
-        Building jar: /home/larocca/eTokenServerREST-OK/eTokenUtils/dist/eTokenUtils.jar
-        To run this application from the command line without Ant, try:
-        java -jar "/home/larocca/eTokenServerREST-OK/eTokenUtils/dist/eTokenUtils.jar"
+ eTokenUtils.compile:
+      Created dir: /home/larocca/eTokenServerREST-OK/eTokenUtils/dist
+      Copy libraries to /home/larocca/eTokenServerREST-OK/eTokenUtils/dist/lib.
+      Building jar: /home/larocca/eTokenServerREST-OK/eTokenUtils/dist/eTokenUtils.jar
+      To run this application from the command line without Ant, try:
+      java -jar "/home/larocca/eTokenServerREST-OK/eTokenUtils/dist/eTokenUtils.jar"
 
-   eTokenUtils.jar:
-        deps-ear-jar:
-        deps-jar:
-        check-rest-config-props:
-        generate-rest-config:
-        Created dir: /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/classes
-        Created dir: /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/META-INF
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/META-INF
-        Copying 490 files to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web
-        Copied 54 empty directories to 1 empty directory under /home/larocca/eTokenServerREST-OK/eTokenServer/build/web
+ eTokenUtils.jar:
+      deps-ear-jar:
+      deps-jar:
+      check-rest-config-props:
+      generate-rest-config:
+      Created dir: /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/classes
+      Created dir: /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/META-INF
+      Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/META-INF
+      Copying 490 files to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web
+      Copied 54 empty directories to 1 empty directory under /home/larocca/eTokenServerREST-OK/eTokenServer/build/web
         
-        library-inclusion-in-archive:
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        [..]
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
-        
-        library-inclusion-in-manifest:
-        Created dir: /home/larocca/eTokenServerREST-OK/eTokenServer/build/empty
-        Created dir: /home/larocca/eTokenServerREST-OK/eTokenServer/build/generated-sources/ap-source-output
-        Compiling 4 source files to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/classes
-        warning: [options] bootstrap class path not set in conjunction with -source 1.6
-        1 warning
-        Copying 2 files to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/classes
-   
-        compile:
-        compile-jsps:
-        Created dir: /home/larocca/eTokenServerREST-OK/eTokenServer/dist
-        Building jar: /home/larocca/eTokenServerREST-OK/eTokenServer/dist/eTokenServer.war
-        do-dist:
-        dist:
-        BUILD SUCCESSFUL (total time: 7 seconds)
+      library-inclusion-in-archive:
+      Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
+      Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
+      [..]
+      Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
+      Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
+      Copying 1 file to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/lib
+      
+      library-inclusion-in-manifest:
+      Created dir: /home/larocca/eTokenServerREST-OK/eTokenServer/build/empty
+      Created dir: /home/larocca/eTokenServerREST-OK/eTokenServer/build/generated-sources/ap-source-output
+      Compiling 4 source files to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/classes
+      warning: [options] bootstrap class path not set in conjunction with -source 1.6
+      1 warning
+      Copying 2 files to /home/larocca/eTokenServerREST-OK/eTokenServer/build/web/WEB-INF/classes
+ 
+      compile:
+      compile-jsps:
+      Created dir: /home/larocca/eTokenServerREST-OK/eTokenServer/dist
+      Building jar: /home/larocca/eTokenServerREST-OK/eTokenServer/dist/eTokenServer.war
+      do-dist:
+      dist:
+
+      BUILD SUCCESSFUL (total time: 7 seconds)
 
 In case of successful compilation of the *MyProxyServer* servlet, you should get the following output message:
 
 .. code:: bash
 
-   init:
-   undeploy-clean:
-   deps-clean:
-   do-clean:
-        Deleting directory /home/larocca/eTokenServerREST-OK/MyProxyServer/build
-        Deleting directory /home/larocca/eTokenServerREST-OK/MyProxyServer/dist
-   check-clean:
-   clean:
-   init:
-        deps-module-jar:
-        deps-ear-jar:
-        deps-jar:
-   check-rest-config-props:
-   generate-rest-config:
-        Created dir: /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/classes
-        Created dir: /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/META-INF
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/META-INF
-        Copying 478 files to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web
+ init:
+ undeploy-clean:
+ deps-clean:
+ do-clean:
+      Deleting directory /home/larocca/eTokenServerREST-OK/MyProxyServer/build
+      Deleting directory /home/larocca/eTokenServerREST-OK/MyProxyServer/dist
+ check-clean:
+ clean:
+ init:
+      deps-module-jar:
+      deps-ear-jar:
+      deps-jar:
+ check-rest-config-props:
+ generate-rest-config:
+      Created dir: /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/classes
+      Created dir: /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/META-INF
+      Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/META-INF
+      Copying 478 files to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web
  
-        library-inclusion-in-archive:
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
-        [..]
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
-        Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
+      library-inclusion-in-archive:
+      Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
+      Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
+      [..]
+      Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
+      Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
+      Copying 1 file to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/lib
         
-        library-inclusion-in-manifest:
-        Created dir: /home/larocca/eTokenServerREST-OK/MyProxyServer/build/empty
-        Created dir: /home/larocca/eTokenServerREST-OK/MyProxyServer/build/generated-sources/ap-source-output
-        Compiling 6 source files to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/classes
-        warning: [options] bootstrap class path not set in conjunction with -source 1.6
-        1 warning
-        Copying 2 files to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/classes
+      library-inclusion-in-manifest:
+      Created dir: /home/larocca/eTokenServerREST-OK/MyProxyServer/build/empty
+      Created dir: /home/larocca/eTokenServerREST-OK/MyProxyServer/build/generated-sources/ap-source-output
+      Compiling 6 source files to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/classes
+      warning: [options] bootstrap class path not set in conjunction with -source 1.6
+      1 warning
+      Copying 2 files to /home/larocca/eTokenServerREST-OK/MyProxyServer/build/web/WEB-INF/classes
 
-        compile:
-        compile-jsps:
-        Created dir: /home/larocca/eTokenServerREST-OK/MyProxyServer/dist
-        Building jar: /home/larocca/eTokenServerREST-OK/MyProxyServer/dist/MyProxyServer.war
-        do-dist:
-        dist:
-        BUILD SUCCESSFUL (total time: 2 seconds)
+      compile:
+      compile-jsps:
+      Created dir: /home/larocca/eTokenServerREST-OK/MyProxyServer/dist
+      Building jar: /home/larocca/eTokenServerREST-OK/MyProxyServer/dist/MyProxyServer.war
+      do-dist:
+      dist:
+
+      BUILD SUCCESSFUL (total time: 2 seconds)
 
 - Customize the configuration files for the eTokenServer servlet according to your installation: 
 
@@ -258,7 +260,8 @@ In case of successful compilation of the *MyProxyServer* servlet, you should get
    # Administrative Settings
    SMTP_HOST=smtp.gmail.com
    SENDER_EMAIL=<Configure the sender e-mail for notification>
-   # Configure a default e-mail to notify the eToken administrator when a robot certificate is going to expire
+   # Configure a default e-mail to notify the eToken administrator 
+   # when a robot certificate is going to expire
    DEFAULT_EMAIL=<Configure the default e-mail for notification>
    EXPIRATION=5
 
@@ -323,25 +326,30 @@ Here follows a list of RESTFul APIs to interact with the eTokenServer and get va
 
 .. code:: bash
 
-   https://<eTokenServer>:8443/eTokenServer/eToken/bc779e33367eaad7882b9dfaa83a432c?voms=gridit:/gridit&proxy-renewal=true&disable-voms-proxy=false&rfc-proxy=true&cn-label=eToken:LAROCCA
+   https://<eTokenServer>:8443/eTokenServer/eToken/bc779e33367eaad7882b9dfaa83a432c?\
+           voms=gridit:/gridit&proxy-renewal=true&disable-voms-proxy=false&rfc-proxy=true&cn-label=eToken:LAROCCA
 
 - CREATE full-legacy Globus proxies (old fashioned proxy)
 
 .. code:: bash
 
-   https://<eTokenServer>:8443/eTokenServer/eToken/bc779e33367eaad7882b9dfaa83a432c?voms=gridit:/gridit&proxy-renewal=true&disable-voms-proxy=false&rfc-proxy=false&cn-label=eToken:Empty
+   https://<eTokenServer>:8443/eTokenServer/eToken/bc779e33367eaad7882b9dfaa83a432c?\
+           voms=gridit:/gridit&proxy-renewal=true&disable-voms-proxy=false&rfc-proxy=false&cn-label=eToken:Empty
 
 - CREATE full-legacy Globus proxies (with more VOMS ACLs)
 
 .. code:: bash
 
-   https://<eTokenServer>:8443/eTokenServer/eToken/b970fe11cf219e9c6644da0bc4845010?voms=vo.eu-decide.eu:/vo.eu-decide.eu/GridSPM/Role=Scientist+vo.eu-decide.eu:/vo.eu-decide.eu/Role=Neurologist&proxy-renewal=true&disable-voms-proxy=false&rfc-proxy=false&cn-label=eToken:Empty
+   https://<eTokenServer>:8443/eTokenServer/eToken/b970fe11cf219e9c6644da0bc4845010?\
+           voms=vo.eu-decide.eu:/vo.eu-decide.eu/GridSPM/Role=Scientist+vo.eu-decide.eu:/vo.eu-decide.eu/Role=Neurologist&\
+           proxy-renewal=true&disable-voms-proxy=false&rfc-proxy=false&cn-label=eToken:Empty
 
 - CREATE plain proxies (without VOMS ACLs)
 
 .. code:: bash
 
-   https://<eTokenServer>:8443/eTokenServer/eToken/bc779e33367eaad7882b9dfaa83a432c?voms=gridit:/gridit&proxy-renewal=false&disable-voms-proxy=true&rfc-proxy=false&cn-label=eToken:Empty
+   https://<eTokenServer>:8443/eTokenServer/eToken/bc779e33367eaad7882b9dfaa83a432c?\
+           voms=gridit:/gridit&proxy-renewal=false&disable-voms-proxy=true&rfc-proxy=false&cn-label=eToken:Empty
 
 - GET a list of available robot certificates (in JSON format)
 
