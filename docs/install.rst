@@ -391,6 +391,7 @@ Configure additional libraries
 -----------------
 
 |download| Download the appropriate libraries [20_] for your system and save it as *Mkproxy-rhel4.tar.gz*. 
+
 The archive contains all the requires libraries for RHEL4 and RHEL5.
 
 .. code:: bash
