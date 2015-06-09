@@ -367,15 +367,6 @@ Before installing the eToken PKI Client, please check if the PC/SC-Lite pcscd da
 
    ]# /etc/init.d/pcscd start
 
-In /var/log/messages you should have the message:
-
-.. code:: bash
-
- [..]
- pcscd: pcscdaemon.c:532:at_exit() cleaning /var/run
- pcscd: pcscdaemon.c:533:main() pcsc-lite 1.3.3 daemon ready.
- pcscd: hotplug_libusb.c:394:HPEstablishUSBNotifications() Driver ifd-ccid.bundle does not support IFD_GENERATE_HOTPLUG
-
 Install PKI_Client library
 -----------------
 
