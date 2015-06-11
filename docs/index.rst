@@ -20,9 +20,8 @@ The high-level architecture of the eToken servlet is shown in the below figure:
 .. image:: images/architecture.jpg
    :align: center
 
-============
 Installation
-============
+-----------------
 
 - Configure the EGI Trust Anchor repository
 
