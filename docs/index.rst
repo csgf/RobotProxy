@@ -8,7 +8,7 @@ About
 
 .. _1: http://docs.oracle.com/javase/7/docs/technotes/guides/security/p11guide.html
 .. _2: http://wiki.eugridpma.org/Main/CredStoreOperationsGuideline
-.. _3: install.rst
+.. _3: https://github.com/csgf/eToken/blob/master/docs/install.rst
 
 A standard-based solution developed by the INFN Catania for central management of robot credentials and provisioning of digital proxies to get seamless and secure access to computing e-Infrastructures supporting the X.509 standard for Authorisation.
 
