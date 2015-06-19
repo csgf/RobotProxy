@@ -21,8 +21,9 @@ The high-level architecture of the eToken servlet is shown in the below figure:
 .. image:: images/architecture.jpg
    :align: center
 
+============
 Installation
------------------
+============
 
 For more details about how to configure and install the servlet, please refer to this document [3_]
 
