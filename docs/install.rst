@@ -1,5 +1,5 @@
 ****************************************************************************
-How-to install and configure the eToken & the MyProxy servlets Docs
+How-to install and configure the eToken & the MyProxy servlets 
 ****************************************************************************
 
 ===================
@@ -1168,7 +1168,7 @@ Log Files
         ]# <apache-tomcat>/logs/localhost.<date>.log
 
 ============
-Support
+Contact
 ============
 Please feel free to contact us any time if you have any questions or comments.
 
@@ -1182,7 +1182,3 @@ Please feel free to contact us any time if you have any questions or comments.
 
  `Salvatore MONFORTE <mailto:salvatore.monforte@ct.infn.it>`_ - Italian National Institute of Nuclear Physics (INFN_)
 
-
-:Version: v2.0.4, 2015
-
-:Date: June 8th, 2015 17:50

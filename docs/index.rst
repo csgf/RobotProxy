@@ -1,5 +1,5 @@
 *********************
-eToken Docs
+eToken 
 *********************
 
 ============
@@ -34,7 +34,7 @@ Usage
 For more details about how to work with the servlet, please refer to this document [3_]
    
 ============
-Support
+Contact
 ============
 Please feel free to contact us any time if you have any questions or comments.
 
@@ -48,7 +48,3 @@ Please feel free to contact us any time if you have any questions or comments.
  
  `Salvatore MONFORTE <mailto:salvatore.monforte@ct.infn.it>`_ - Italian National Institute of Nuclear Physics (INFN_)
  
- 
-:Version: v2.0.4, 2015
-
-:Date: June 4th, 2015 12:50
