@@ -1,5 +1,5 @@
 ****************************************************************************
-How-to install and configure the eToken & the MyProxy servlets (v2.0.4) Docs
+How-to install and configure the eToken & the MyProxy servlets Docs
 ****************************************************************************
 
 ===================
