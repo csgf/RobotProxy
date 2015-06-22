@@ -1168,7 +1168,7 @@ Log Files
         ]# <apache-tomcat>/logs/localhost.<date>.log
 
 ============
-Contact
+Contributor(s)
 ============
 Please feel free to contact us any time if you have any questions or comments.
 
@@ -1176,9 +1176,9 @@ Please feel free to contact us any time if you have any questions or comments.
 
 :Authors:
 
- `Roberto BARBERA <mailto:roberto.barbera@ct.infn.it>`_ - Italian National Institute of Nuclear Physics (INFN_),
+ Roberto BARBERA - Italian National Institute of Nuclear Physics (INFN_),
 
- `Giuseppe LA ROCCA <mailto:giuseppe.larocca@ct.infn.it>`_ - Italian National Institute of Nuclear Physics (INFN_),
+ Giuseppe LA ROCCA - Italian National Institute of Nuclear Physics (INFN_),
 
- `Salvatore MONFORTE <mailto:salvatore.monforte@ct.infn.it>`_ - Italian National Institute of Nuclear Physics (INFN_)
+ Salvatore MONFORTE - Italian National Institute of Nuclear Physics (INFN_)
 
