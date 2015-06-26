@@ -1,3 +1,7 @@
+[![Travis](http://img.shields.io/travis/csgf/etoken/master.png)](https://travis-ci.org/csgf/etoken)
+[![Documentation Status](https://readthedocs.org/projects/csgf/badge/?version=latest)](http://csgf.readthedocs.org)
+[![License](https://img.shields.io/github/license/csgf/etoken.svg?style?flat)](http://www.apache.org/licenses/LICENSE-2.0.txt)
+
 # eToken Servlet
 
 <h2>Requirements</h2>
