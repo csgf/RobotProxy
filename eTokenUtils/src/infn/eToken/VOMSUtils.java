@@ -48,6 +48,7 @@ import java.util.regex.Pattern;
 
 import javax.xml.rpc.ServiceException;
 
+import org.apache.http.Header;
 import org.apache.log4j.Logger;
 import org.bouncycastle.openssl.PEMWriter;
 
@@ -174,7 +175,7 @@ public class VOMSUtils {
 
             // Getting a stub which implements the service.
             org.glite.security.voms.service.admin.VOMSAdmin _vomsadmin =
-                locator.getVOMSAdmin(_vomsURL);
+                locator.getVOMSAdmin(_vomsURL);            
                             
             String[] groups = _vomsadmin.listGroups(subject, issuer);            
             boolean has_groups = (groups != null && groups.length > 0);
@@ -195,7 +196,7 @@ public class VOMSUtils {
                     }
                 }
                 
-                 items.addAll(Arrays.asList(groups));
+                items.addAll(Arrays.asList(groups));
             }
             
             result = items.toArray(new String[0]);            

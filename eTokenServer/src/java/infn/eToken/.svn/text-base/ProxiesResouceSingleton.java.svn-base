@@ -1,0 +1,140 @@
+/**************************************************************************
+Copyright (c) 2011: 
+Istituto Nazionale di Fisica Nucleare (INFN), Italy
+Consorzio COMETA (COMETA), Italy
+
+See http://www.infn.it and and http://www.consorzio-cometa.it for details 
+on the copyright holders.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+Author(s): Giuseppe La Rocca (INFN), Salvatore Monforte (INFN)
+****************************************************************************/
+package infn.eToken;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Properties;
+import java.util.logging.Level;
+import javax.management.timer.Timer;
+import org.apache.log4j.Logger;
+
+public class ProxiesResouceSingleton {
+
+  private static ProxiesResouceSingleton instance = null;
+  private Properties properties;
+  private HashMap<String, Properties> vomses_map;
+  private HashMap<String, TokenUtils.TokenInfo> tokens_map;
+  private HashMap<String, ProxyCacheEntry> proxy_cache;
+  private static Logger log = Logger.getLogger(ProxiesResouceSingleton.class);
+
+  public class ProxyCacheEntry {
+
+    public ProxyCacheEntry(Date e, String p) {
+      this.expiryTime = e;
+      this.proxyValue = p;
+    }
+
+    public String getProxy() {
+      return this.proxyValue;
+    }
+
+    public boolean expiresWithin(long t) {
+      return new Date().getTime() + t < this.expiryTime.getTime();
+    }
+    private Date expiryTime = null;
+    private String proxyValue = null;
+  }
+
+  private ProxiesResouceSingleton() {
+    try {
+      properties = new Properties();
+      properties.load(
+      this.getClass().getClassLoader().getResourceAsStream("infn/eToken/eToken.properties"));
+
+      // Initialize a Java HashMap to keep in memory cached grid proxies
+      proxy_cache = new HashMap<String, ProxyCacheEntry>();            
+      
+      // Inizialize the vomses_map HashMap with the grid settings for each VOMS server
+      vomses_map = VOMSUtils.readVOMSes(new File(properties.getProperty("VOMSES_PATH")));
+      
+      // Display the HashMap with
+      // VO_NAME (key)
+      // [VOMS_ALIAS, VOMS_SERVER, VOMS_HOSTDN, VOMS_PORT, VOMS_NAME, VOMS_FILE] (Properties)
+      if (!vomses_map.isEmpty()) {
+        log.debug(" ");
+        log.debug("[ VOMSES_MAP successfully created ]");
+        log.debug(vomses_map.toString());
+      } else log.debug("[ Some error(s) during the creation of the VOMSES_MAP ]");
+      
+      // Creating an HashMap with:
+      // SerialNumber (key)
+      // [SERIAL, LABEL, SUBJECT, ISSUER, VALIDFROM, VALIDTO, SIGNATURE, OID, PUBLICCERT] (Properties)
+      tokens_map = TokenUtils.getTokenInfoMap(
+                properties.getProperty("ETOKEN_CONFIG_PATH"),
+                properties.getProperty("PIN"),
+                vomses_map);
+            
+      if (!tokens_map.isEmpty()) {
+            log.debug(" "); 
+            log.debug("[ TOKENS_MAP successfully created ] " );
+            log.debug("The eTokenServer completed the start-up");
+            log.debug("Waiting for new incoming connections...");
+        } else log.debug("[ Some error(s) during the creation of the TOKENS_MAP ]");
+      
+      java.util.logging.Logger.getLogger(ProxiesResouceSingleton.class.getName()).log(Level.INFO, null, tokens_map);
+    } catch (IOException ex) { 
+      java.util.logging.Logger.getLogger(ProxiesResouceSingleton.class.getName()).log(Level.SEVERE, null, ex);
+    }
+  }
+  
+  public static synchronized ProxiesResouceSingleton getInstance() {
+    if (instance == null) {
+      log.debug(" ");
+      log.debug("S T A R T  U P => [GETTING VOMS Grid Settings]");
+      log.debug("______________________________________________");
+      log.debug("");
+      instance = new ProxiesResouceSingleton();
+    }
+    return instance;
+  }
+
+  public Properties getProperties() {
+    return properties;
+  }
+
+  public HashMap<String, Properties> getVOMSesMap() {
+    return vomses_map;
+  }
+
+  public HashMap<String, TokenUtils.TokenInfo> getTokensMap() {
+    return tokens_map;
+  }
+
+  public String getProxyFromCache(String requestID) {
+
+    ProxyCacheEntry entry = proxy_cache.get(requestID);
+    //return entry != null && entry.expiresWithin(3L * Timer.ONE_HOUR) ? entry.getProxy() : null;
+    return entry != null && entry.expiresWithin(20L * Timer.ONE_HOUR) ? entry.getProxy() : null;
+  }
+
+  public void setProxyToCache(String requestID, String proxy) {
+    long expiry = new Date().getTime() + 
+                  Integer.parseInt(properties.getProperty("PROXY_LIFETIME")) * Timer.ONE_HOUR;
+    proxy_cache.put(requestID,
+                    new ProxyCacheEntry(new Date(expiry), 
+                    proxy));
+  }
+}

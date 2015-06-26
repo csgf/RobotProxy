@@ -485,14 +485,14 @@ public class TokenUtils {
     
     if (AxisProperties.getProperty("axis.socketSecureFactory") == null)
         AxisProperties.setProperty("axis.socketSecureFactory",
-        "org.glite.security.trustmanager.axis.AXISSocketFactory");
+        "org.glite.security.trustmanager.axis.AXISSocketFactory");    
                 
     java.util.Properties properties = 
         AXISSocketFactory.getCurrentProperties();
                 
     properties.setProperty("sslCertFile", DEFAULT_SSL_CERT_FILE);
     properties.setProperty("sslKey", DEFAULT_SSL_KEY_FILE);
-    AXISSocketFactory.setCurrentProperties(properties);
+    AXISSocketFactory.setCurrentProperties(properties);    
     
     // Making a new Service
     org.glite.security.voms.service.admin.VOMSAdminServiceLocator locator =
