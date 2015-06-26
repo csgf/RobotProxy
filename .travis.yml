@@ -13,10 +13,14 @@ before_install:
  - wget http://grid.ct.infn.it/statistics/ecj.jar
  - sudo cp ecj.jar /usr/share/ant/lib/
 
-# Building the astra-portlet
+# Building the servlet 
 install:
  - cd eTokenServer
- #- sudo ant all
+ - ant test
+ - cd eTokenUtils
+ - ant test
+ - cd MyProxyServer
+ - ant test
 
 notifications:
   email:
