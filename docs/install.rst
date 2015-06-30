@@ -231,6 +231,15 @@ Use NTP to synchronize the time of the server
    ]# /etc/init.d/ntpd start
    ]# chkconfig --level 2345 ntpd on
 
+fetch-crl
+-----------------
+Install and configure the fetch-crl
+
+.. code:: bash
+   ]# yum install -y fetch-crl
+   ]# /etc/init.d/fetch-crl-cron start
+   ]# chkconfig --level fetch-crl-cron on
+
 Host Certificates
 -----------------
 
