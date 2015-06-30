@@ -236,6 +236,7 @@ fetch-crl
 Install and configure the fetch-crl
 
 .. code:: bash
+
    ]# yum install -y fetch-crl
    ]# /etc/init.d/fetch-crl-cron start
    ]# chkconfig --level fetch-crl-cron on
