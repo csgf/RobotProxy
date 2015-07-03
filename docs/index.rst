@@ -79,9 +79,7 @@ Please feel free to contact us any time if you have any questions or comments.
  
  Salvatore MONFORTE - Italian National Institute of Nuclear Physics (INFN_)
 
-
-.. _envar-docs:
-   .. toctree::
+.. toctree::
    :maxdepth: 2
 
    install
