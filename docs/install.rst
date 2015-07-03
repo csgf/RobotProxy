@@ -56,50 +56,7 @@ The following typographical conventions are used in this document:
 |download| This icon indicates that there are files to be downloaded.
 
 ============
-Chapter I - Overview of the light-weight crypto library
-============
-The "light-weight" crypto library interface has been designed to:
-
-- provide seamless and secure access to computing e-Infrastructure based on middleware supporting X.509 standard for authorization, using robot certificates,
-
-- make user's interaction with security infrastructures easy and transparent.
-
-The high-level architecture of the library interface is shown in the below figure:
-
-.. image:: images/architecture.jpg
-      :align: center
-
-The business logic has been conceived to provide "resources" (e.g. complaint VOMS proxies) in a "web-manner" which can be consumed by authorized users, client applications and by portals and Science Gateways. In the current implementation, robot certificates have been safely installed on board of SafeNet [3_] eToken PRO [1_] 32/64 KBytes USB smart cards directly plugged to a remote server which serve, so far, six different Science Gateways.
-
-.. _4: http://tomcat.apache.org/
-.. _5: https://jax-rs-spec.java.net/
-.. _6: http://www.oracle.com/technetwork/articles/javaee/index-jsp-136246.html
-.. _7: http://docs.oracle.com/javase/7/docs/technotes/guides/security/p11guide.html
-.. _8: https://www.bouncycastle.org/
-.. _9: https://github.com/jglobus/JGlobus
-.. _10: https://github.com/italiangrid/voms-clients
-.. _11: https://github.com/italiangrid/voms-admin-server/tree/master/voms-admin-api
-
-The complete list of software, tools and APIs we have used to implement the new crypto library interface are listed below:
-
-- Apache Application Server [4_],
-
-- JAX-RS, the Java API for RESTful Web Services (JSR 311 standard) [5_], 
-
-- Java Technology Standard Edition (Java SE6) [6_],
-
-- The Cryptographic Token Interface Standard (PKCS#11) libraries [7_],
-
-- The open-source BouncyCastle Java APIs [8_],
-
-- The JGlobus-Core Java APIs [9_],
-
-- The VOMS-clients Java APIs [10_],
-
-- The VOMS-Admin Java APIs [11_].
-
-============
-Chapter II - System and Software Requirements
+Chapter I - System and Software Requirements
 ============
 This chapter provide the list of requirements and the basic information that you need to know to install and configure the servlet.
 
@@ -195,7 +152,7 @@ Start with a fresh installation of Scientific Linux 5.X (x86_64).
 SELinux configuration
 -----------------
 
-.. _12: fedoraproject.org/wiki/SELinux/setenforce
+.. _12: http://fedoraproject.org/wiki/SELinux/setenforce
 
 Be sure that SELinux is disabled (or permissive). Details on how to disable SELinux are here [12_]
 
@@ -325,7 +282,7 @@ System wide VOMSES configuration is maintained in the */etc/vomses* file or dire
 |download| An example of VOMS contact information can be downloaded from [16_]
 
 ===================
-Chapter III - Installation & Configuration
+Chapter II - Installation & Configuration
 ===================
 This chapter introduces the manual installation of the SafeNet eToken PKI client library on a Linux system, the software that enables eToken USB operations and the implementation of eToken PKI-based solutions. 
 
@@ -526,7 +483,7 @@ The current version of PKI_Client supports up to **16** different slots! Each sl
    Your proxy is valid until: Wed Jan 16 01:22:01 CET 2012 
 
 ===================
-Chapter IV - Installing Apache Tomcat
+Chapter III - Installing Apache Tomcat
 ===================
 
 - Install the following packages:
@@ -812,7 +769,7 @@ Create the following script:
    tomcat 0:off 1:off 2:on 3:on 4:on 5:on 6:off
 
 ============
-Chapter V - Usage
+Chapter IV - Usage
 ============
 
 In this chapter is show the administrator (only restricted access) web interface to interact with the RESTful "ligth-weight" crypto library which is configured for:
@@ -823,9 +780,7 @@ In this chapter is show the administrator (only restricted access) web interface
 
 - Accessing the RESTFul crypto library via WEB
 
-.. _26: https://<etoken_server>:8443/eTokenServer
-
-The root resource of the library is deployed at the following URL [26_] as shown in the figure below:
+The root resource of the library is deployed at the URL https://<etoken_server>:8443/eTokenServer as shown in the figure below:
 
 .. image:: images/accordion_1.jpg
    :align: center
@@ -855,7 +810,7 @@ The creation of a request to access the generic USB smat card and generates a pr
       :align: center
 
 ============
-Chapter VI - Some RESTful APIs
+Chapter V - Some RESTful APIs
 ============
 REST is an architectural style which defines a set of constraints that, when applied to the architecture of a distributed system, induces desiderable properties like lookse coupling and horizontal scalability.
 RESTful web services are the result of applying these constraints to services that utilize web standards such as URIs, HTTP, XML, and JSON. Such services become part of the fabric of the web and can take advantage of years of web engineering to satisfy their clients' needs. The Java API for RESTful web services (JAX-RS) is a new API that aims to make development of RESTful web services in Java simple and intuitive.
@@ -1158,9 +1113,9 @@ Troubleshooting
         ]# ./bin/catalina.sh stop
         ]# ./bin/catalina.sh start
 
-.. _27: https://lists.desy.de/sympa/arc/user-forum/2011-11/msg00052.html
+.. _26: https://lists.desy.de/sympa/arc/user-forum/2011-11/msg00052.html
 
-For further information, please read the document [27_]
+For further information, please read the document [26_]
 
 ============
 Log Files
@@ -1192,3 +1147,8 @@ Please feel free to contact us any time if you have any questions or comments.
 
  Salvatore MONFORTE - Italian National Institute of Nuclear Physics (INFN_)
 
+.. _envar-docs:
+.. toctree::
+   :maxdepth: 2
+
+   install
