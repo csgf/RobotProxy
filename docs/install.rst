@@ -196,7 +196,7 @@ Install and configure the fetch-crl
 
    ]# yum install -y fetch-crl
    ]# /etc/init.d/fetch-crl-cron start
-   ]# chkconfig --level fetch-crl-cron on
+   ]# chkconfig --level 2345 fetch-crl-cron on
 
 Host Certificates
 -----------------
@@ -486,12 +486,11 @@ The current version of PKI_Client supports up to **16** different slots! Each sl
 Chapter III - Installing Apache Tomcat
 ===================
 
-- Install the following packages:
+- The instructions below are for installing version Java 7 Update 1 (7u1).
 
 .. code:: bash
 
-   ]# yum install -y jdk.i586
-   ]# yum install -y java-1.6.0-sun-compat.i586
+   ]# rpm -ivh jdk-7u1-linux-i586.rpm
 
 - Download and extract the eTokens-2.0.5 directory with all the needed configuration files in the root's home directory.
 
