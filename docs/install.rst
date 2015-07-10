@@ -491,7 +491,9 @@ Chapter III - Installing Apache Tomcat
 
 .. code:: bash
 
-   ]# rpm -e java-1.4.2-gcj-compat-1.4.2.0-40jpp.115 antlr-2.7.6-4jpp.2.x86_64 gjdoc-0.7.7-12.el5.x86_64
+   ]# rpm -e java-1.4.2-gcj-compat-1.4.2.0-40jpp.115 \
+             antlr-2.7.6-4jpp.2.x86_64 gjdoc-0.7.7-12.el5.x86_64
+
    ]# rpm -ivh jdk-7u1-linux-i586.rpm
 
 - Download and extract the eTokens-2.0.5 directory with all the needed configuration files in the root's home directory.
