@@ -147,7 +147,8 @@ Start with a fresh installation of Scientific Linux 5.X (x86_64).
 
 .. code:: bash
 
-  ]# yum install -y epel-release-5.4.noarch
+  ]# yum clean all
+  ]# yum install -y epel-release --nogpgcheck
 
 SELinux configuration
 -----------------
@@ -429,7 +430,7 @@ Edit the */usr/local/bin/mkproxy* script and change the PKCS11_MOD variable sett
 
    ]# cd /usr/lib/
    ]# ln -s /usr/lib/libpcsclite.so.1.0.0 libpcsclite.so 
-   ]# ln -s /usr/lib/libpcsclite.so.1.0.0 libpcsclite.so.
+   ]# ln -s /usr/lib/libpcsclite.so.1.0.0 libpcsclite.so.0
 
    ]# ll libpcsclite.so*
       lrwxrwxrwx 1 root root 29 Feb 17 09:47 libpcsclite.so -> /usr/lib/libpcsclite.so.1.0.0 
@@ -490,6 +491,7 @@ Chapter III - Installing Apache Tomcat
 
 .. code:: bash
 
+   ]# rpm -e java-1.4.2-gcj-compat-1.4.2.0-40jpp.115 antlr-2.7.6-4jpp.2.x86_64 gjdoc-0.7.7-12.el5.x86_64
    ]# rpm -ivh jdk-7u1-linux-i586.rpm
 
 - Download and extract the eTokens-2.0.5 directory with all the needed configuration files in the root's home directory.
@@ -525,6 +527,8 @@ The **config** directory MUST contain a configuration file for each USB eToken P
 .. code:: bash
 
    description = **Aladdin eToken PRO 32K 4.2B**
+
+|download| Download the latest release of Apache Tomcat. For this wiki we used the following version: *apache-tomcat-7.0.34*
 
 - Creating a Java Keystore from scratch containing a self-signed certificate
 
@@ -619,7 +623,28 @@ Edit the /etc/sysconfig/iptables file in order to accept incoming connections on
 
 - How to start, stop and check the Apache Tomcat server
 
-i) Start and check the application server as follows:
+i) Configure the JAVA_HOME env. variable
+
+.. code:: bash
+
+   ]# cat ~/.bash_profile 
+   # .bash_profile
+
+   # Get the aliases and functions
+   if [ -f ~/.bashrc ]; then
+          . ~/.bashrc
+   fi
+
+   # User specific environment and startup programs
+
+   PATH=$PATH:$HOME/bin
+   JAVA_HOME=/usr/java/latest
+
+   export PATH
+   export JAVA_HOME
+   unset USERNAME
+
+ii) Start and check the application server as follows:
 
 .. code:: bash
 
@@ -632,7 +657,7 @@ i) Start and check the application server as follows:
    Using CLASSPATH: /root/apache-tomcat-7.0.34/bin/bootstrap.jar:\
                     /root/apache-tomcat-7.0.34/bin/tomcat-juli.jar
 
-ii) Stop the application server as follows:
+iii) Stop the application server as follows:
 
 .. code:: bash
 
@@ -700,8 +725,8 @@ ii) Stop the application server as follows:
   # Default temp long-term proxy path
   MYPROXY_PATH=/root/apache-tomcat-7.0.53/temp  # <== Change here
 
-.. _24: others/eTokenServer.war
-.. _25: others/MyProxyServer.war
+.. _24: http://grid.ct.infn.it/csgf/binaries/eTokenServer.war
+.. _25: http://grid.ct.infn.it/csgf/binaries/MyProxyServer.war
 
 |download| Download the servlet for the eTokenServer [24_] and save it as eTokenServer.war
 
@@ -765,7 +790,7 @@ Create the following script:
 
    ]# chkconfig --level 2345 --add tomcat
    ]# chkconfig --list tomcat
-   tomcat 0:off 1:off 2:on 3:on 4:on 5:on 6:off
+      tomcat 0:off 1:off 2:on 3:on 4:on 5:on 6:off
 
 ============
 Chapter IV - Usage
