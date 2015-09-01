@@ -4,14 +4,14 @@
     Istituto Nazionale di Fisica Nucleare (INFN), Italy
     Consorzio COMETA (COMETA), Italy
 
-    See http://www.infn.it and http://www.consorzio-cometa.it for details
+    See https://www.infn.it and https://www.consorzio-cometa.it for details
     on the copyright holders.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+    https://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,11 +27,11 @@
 <%@page trimDirectiveWhitespaces="true"%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-  "http://www.w3.org/TR/html4/loose.dtd">
+  "https://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
   <link rel="shortcut icon" type="image/png"
-        href="http://www.infn.it/favicon.ico"/>
+        href="https://www.infn.it/favicon.ico"/>
   <title>[ eTokenServer ]</title>
     <style type="text/css">
       body, html { font-family: Tahoma,Verdana,sans-serif,Arial; font-size: 14px; }
@@ -74,7 +74,7 @@
         font-size: 15px !important;
       }
 
-      img.architecture { width:370px !important; height: 350px !important; }
+      img.architecture { width:400px !important; height: 350px !important; }
       img.logo { width:125px !important; height: 30px !important; }
       md5sum { backgroud-color: orange; }      
     </style>   
@@ -205,6 +205,7 @@
           var md5sum =  $("select#eToken option:selected").first().attr('value');
 	  $('#details').css("display", "inline");
 	  
+	  if (md5sum!=-1) {
 	  // Removing old info
 	  $('#details').html('');
 	  var to = (associativeArray[md5sum].validto).split(" ");
@@ -214,7 +215,7 @@
 	  var days = 1000*60*60*24;
 	  var diff = Math.ceil((d2.getTime()-d1.getTime())/(days));
 	  
-	  // Showing new details
+	  // Show certificate details
 	  $('#details').append("\nSerial\t\t=\t" + associativeArray[md5sum].serial + "\n");
 	  $('#details').append("Label\t\t=\t" + associativeArray[md5sum].label + "\n");
           $('#details').append("MD5Sum\t\t=\t" + associativeArray[md5sum].md5sum + "\n");
@@ -229,6 +230,10 @@
 	  $('#details').append("Public\t\t=\t" + associativeArray[md5sum].publiccert + "\n");
 	    
           showACAttributes(md5sum);
+          } else {
+                $('#details').html('');
+                $('#details').hide();
+          }
         });
         
         $( "#selected-attributes" ).selectable({stop: function() {
@@ -282,13 +287,13 @@ credentials and provisioning of digital proxies to get seamless and secure acces
 e-Infrastructures supporting the X.509 standard for Authorisation.<br/><br/>
 This is a servlet based on the Java&trade; Cryptographic Token Interface Standard (PKCS#11).<br/>
 For any further information, please visit the official Java&trade; PKCS#11 Reference Guide
-<a href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/p11guide.html">[1]</a>
+<a href="https://docs.oracle.com/javase/7/docs/technotes/guides/security/p11guide.html">[1]</a>
 </p>
 </div>
 </td>
 
 <td>
-<a href="http://www.infn.it/">
+<a href="https://www.infn.it/">
 <span>
 <img width="170" src="images/weblogo1.gif" border="0" 
      title="The Italian National Institute of Nuclear Physics (INFN), division of Catania, Italy">
@@ -306,8 +311,8 @@ For any further information, please visit the official Java&trade; PKCS#11 Refer
 <li>
 <span><img style="width:40px !important;" src="images/springer.png"/>
 Science Gateways for Virtual Research Communities (VRCs)</span>
-<a href="http://link.springer.com/article/10.1007%2Fs10723-012-9242-3">
-The "lightweight" grid-based crypto library interface is currently supported<br/>
+<a href="https://link.springer.com/article/10.1007%2Fs10723-012-9242-3">
+The "light-weight" crypto library interface is currently supported<br/>
 by several thematic and general-purpose Science Gateways to access the<br/>
 distributed computing and storage resources
 </a>
@@ -328,19 +333,12 @@ The mission is to accelerate the implementation of the Open Science Commons<br/>
 within the European Grid Infrastructure (EGI)<br/>
 </li>
 
-<!--li>
-<span>Statistics</span>
-<a href="http://grid.ct.infn.it/statistics/">
-Display the eTokenServer Accounting Usage Statistics!<br/>
-</a>
-</li-->
-
 </ul>
 </div>
 </div>
 </td>
 <td>
-<a href="http://www.garr.it/">
+<a href="https://www.garr.it/">
 <img width="250" src="images/GARR_logo.png" 
      border="0" title="Consortium GARR - The Italian Academic & Research Network"></a>
 </td>
@@ -457,17 +455,17 @@ Add some additional info to account users of robot proxy certificates<br/><br/>
 <table border=0>
 <tr>
 <td width="30%" align="justify" valign="top">
-    The "light-weight" grid-based crypto library interface has been designed to provide
+    The "light-weight" crypto library interface has been designed to provide
    seamless and secure access to computing e-Infrastructures, based on gLite middleware,
    and other middleware supporting X.509 standard for authorization, using robot certificate.<br/><br/>
-   By design, the servlet is compliant with the policies reported in these docs <a href="http://www.eugridpma.org/guidelines/pkp/">[1]</a>
-   <a href="http://wiki.eugridpma.org/Main/CredStoreOperationsGuideline">[2]</a>/<br/>
+   By design, the servlet is compliant with the policies reported in these docs <a href="https://www.eugridpma.org/guidelines/pkp/">[1]</a>
+   <a href="https://wiki.eugridpma.org/Main/CredStoreOperationsGuideline">[2]</a>/<br/>
    The business logic of the library, deployed on top of an Apache Tomcat Application Server,
    combines different programming native interfaces and standards (see figure).
 </td>
-<td width="100%" align="center" valign="top">
+<td width="70%" align="center" valign="top">
    <div align="center">
-   <img class="architecture" width="500px;" src="images/architecture-2.png" border="0">
+   <img class="architecture" src="images/architecture-2.png" border="0">
    </div>
 </td>
 </tr>
@@ -526,7 +524,7 @@ Add some additional info to account users of robot proxy certificates<br/><br/>
 <div>eTokenServer servlet (v2.0.4)</div>
 <div>Copyright &copy; 2010 - 2015. All rights reserved</div>  
 <div>This work has been partially supported by
-<a href="http://www.chain-project.eu/">
+<a href="https://www.chain-project.eu/">
 <img width="60" 
      border="0"
      src="images/chain-logo-220x124.png" 
