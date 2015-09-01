@@ -233,6 +233,7 @@
           } else {
                 $('#details').html('');
                 $('#details').hide();
+                showACAttributes(-1);
           }
         });
         
