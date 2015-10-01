@@ -74,9 +74,11 @@
         font-size: 15px !important;
       }
 
-      img.architecture { width:400px !important; height: 350px !important; }
+      img.architecture { width:420px !important; height: 350px !important; }
       img.logo { width:125px !important; height: 30px !important; }
+      img.locker { width:50px !important; border:0; }
       md5sum { backgroud-color: orange; }      
+
     </style>   
     <link href="ui/css/ticker.css" rel="stylesheet" type="text/css"/>
     <!--link href="ui/css/overcast/jquery-ui-1.8.13.custom.css" rel="stylesheet" type="text/css"/-->
@@ -136,6 +138,56 @@
           }
       }
 
+      function calling_restAPI()
+      {
+        var rest = $('#request').html();
+        var decoded = rest.replace(/&amp;/g, '&');
+        console.log("Calling Rest API = " + decoded);
+
+        $.ajax({
+            url: decoded,
+            type: 'GET',
+
+	    beforeSend: function() {
+                $('#loading')
+                .html("<img src='images/spinner.gif' width='40' /> Please wait! This operation may take time.");
+            },
+
+            complete: function() {
+                var content = "<table border='0'>";
+                content += "<tr><td>";
+                content += "<img src='images/locker.png' class='locker' /> Your proxy has been created";
+                content += "</td><td>&nbsp;</td>";
+                content += "<td><div id='divrequest' style='display:none;'>";
+                content += "<a class='linkrequest' target='_blank' href='#'>";
+                content += "<img src='images/link.png' class='locker'/></a>Get your proxy";
+                content += "</div>";
+                content += "</td></tr>";
+                content += "</table>";
+
+                // Display content
+                $('#loading')
+                .html(content)
+                .show();
+                
+		// Add the new hlink
+                $("a.linkrequest").attr("href", decoded);
+                $("#divrequest").show();
+                
+                // Show the new rest API
+                $('#linkrequest').attr("href",decoded);
+                $('#linkrequest').show();
+            },
+            
+            success: function(html) {
+
+                $('#proxy').html(html);
+                $('#proxy').show();
+                console.log(html);
+            }
+        });
+      }
+
       function update_request()
       {
         // Check if at least one AC have been selected.
@@ -160,6 +212,13 @@
           //request += "&dirac-token=" + $('input[name="dirac-token"]').attr('checked');
           
           $('#request').html(request);
+
+          // Remove old entries
+          $('#loading').html('');
+          $('#divrequest').hide();
+	  $('#proxy').html('');
+          $('#proxy').hide();
+
         }
       }
       
@@ -204,8 +263,8 @@
         $('select#eToken').bind('change', function() {
           var md5sum =  $("select#eToken option:selected").first().attr('value');
 	  $('#details').css("display", "inline");
-	  
-	  if (md5sum!=-1) {
+
+	  if (md5sum!=-1) {	  
 	  // Removing old info
 	  $('#details').html('');
 	  var to = (associativeArray[md5sum].validto).split(" ");
@@ -215,7 +274,7 @@
 	  var days = 1000*60*60*24;
 	  var diff = Math.ceil((d2.getTime()-d1.getTime())/(days));
 	  
-	  // Show certificate details
+	  // Showing new details
 	  $('#details').append("\nSerial\t\t=\t" + associativeArray[md5sum].serial + "\n");
 	  $('#details').append("Label\t\t=\t" + associativeArray[md5sum].label + "\n");
           $('#details').append("MD5Sum\t\t=\t" + associativeArray[md5sum].md5sum + "\n");
@@ -297,7 +356,7 @@ For any further information, please visit the official Java&trade; PKCS#11 Refer
 <a href="https://www.infn.it/">
 <span>
 <img width="170" src="images/weblogo1.gif" border="0" 
-     title="The Italian National Institute of Nuclear Physics (INFN), division of Catania, Italy">
+     title="The Italian National Institute for Nuclear Physics (INFN), division of Catania, Italy">
 </span>
 </a>
 </td>
@@ -313,7 +372,7 @@ For any further information, please visit the official Java&trade; PKCS#11 Refer
 <span><img style="width:40px !important;" src="images/springer.png"/>
 Science Gateways for Virtual Research Communities (VRCs)</span>
 <a href="https://link.springer.com/article/10.1007%2Fs10723-012-9242-3">
-The "light-weight" crypto library interface is currently supported<br/>
+The "lightweight" crypto library interface is currently supported<br/>
 by several thematic and general-purpose Science Gateways to access the<br/>
 distributed computing and storage resources
 </a>
@@ -357,7 +416,7 @@ within the European Grid Infrastructure (EGI)<br/>
 </a>
 </h2>
 <div>
-<select class="ui-widget ui-widget-content" id="eToken" name="eToken"></select>
+<select class="ui-widget ui-widget-content" style="width:100%;" id="eToken" name="eToken"></select>
 <textarea class="ui-widget ui-widget-content" id="details" name="details" 
           style="width: 100%; height: 250px; display:none" disabled="disabled">
 </textarea>
@@ -442,8 +501,24 @@ Add some additional info to account users of robot proxy certificates<br/><br/>
       src="images/png/glass_numbers_5.png"> Get your request</a>
 </h3>
 <div>
+
+<div id="loading"></div>
 <p><img style="width:20px !important;" src="images/help.png"/> Here is your request</p>
-<div id="request" class="ui-widget ui-state-highlight ui-corner-all"></div>
+
+<div id="request" class="ui-widget ui-state-highlight ui-corner-all" style="width: 100%;"></div>
+<br/>
+<textarea class="ui-widget ui-widget-content" id="proxy" name="proxy" 
+          style="width: 100%; height: 250px; display:none; font-family: 'Courier New', Courier, monospace;"  
+          disabled="disabled">
+</textarea>
+
+<p><img style="width:20px !important;" src="images/help.png"/> Click here to get your proxy
+<input type="image" 
+       align="absmiddle"
+       style="width:20px !important; heigth:20px !important"
+       src="images/create.png" 
+       onclick="calling_restAPI();"/>
+</p>
 </div>    
     
 <h3>
@@ -521,8 +596,8 @@ Add some additional info to account users of robot proxy certificates<br/><br/>
 </div>
 
 <div id='footer' style="font-family: Tahoma,Verdana,sans-serif,Arial; font-size: 14px;">
-<div>The Italian National Institute of Nuclear Physics (INFN), division of Catania, Italy</div>
-<div>eTokenServer servlet (v2.0.4)</div>
+<div>The Italian National Institute for Nuclear Physics (INFN), division of Catania, Italy</div>
+<div>eToken servlet (v2.0.5)</div>
 <div>Copyright &copy; 2010 - 2015. All rights reserved</div>  
 <div>This work has been partially supported by
 <a href="https://www.chain-project.eu/">
