@@ -478,13 +478,13 @@ Select some AC Attributes first!
 </h2>
 <div>
 <p><img style="width:20px !important;" src="images/help.png"/>
-Use the options below as you need</p>
-<label for="long-proxy">Enable Proxy Renewal:</label>
+Use the options below as you need:</p>
 <input type="checkbox" name="long-proxy" id="long-proxy" checked="checked"/>
-<label for="disable-voms-proxy">Disable VOMS Proxy:</label>
+<label for="long-proxy"> Enable Proxy Renewal</label><br/>
 <input type="checkbox" name="disable-voms-proxy" id="disable-voms-proxy"/>
-<label for="rfc-proxy">Create RFC Proxy:</label>
-<input type="checkbox" name="rfc-proxy" id="rfc-proxy"/><br/><br/>
+<label for="disable-voms-proxy"> Disable VOMS Proxy</label><br/>
+<input type="checkbox" name="rfc-proxy" id="rfc-proxy"/>
+<label for="rfc-proxy"> Create RFC Proxy</label><br/><br/>
 <!--label for="dirac-token">Create Dirac Token:</label>
 <input type="checkbox" name="dirac-token" id="dirac-token" onchange="enableDirac(this.form);"/><br/><br/-->
 <img style="width:20px !important;" src="images/help.png"/>
@@ -512,7 +512,7 @@ Add some additional info to account users of robot proxy certificates<br/><br/>
           disabled="disabled">
 </textarea>
 
-<p><img style="width:20px !important;" src="images/help.png"/> Click here to get your proxy
+<p><img style="width:20px !important;" src="images/help.png"/> Click here to generate your proxy
 <input type="image" 
        align="absmiddle"
        style="width:20px !important; heigth:20px !important"
