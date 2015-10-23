@@ -75,7 +75,8 @@ public class ProxiesResource {
             {
 
                 result = result.concat("["
-                        + info.getValue().serial
+                        //+ info.getValue().serial
+                        + info.getValue().md5sum
                         + "]\t\t"
                         //+ info.getValue().label
                         + info.getValue().subject +

@@ -80,7 +80,6 @@ public class ProxyResource {
     + requestContext.getRemoteAddr().toString()
     + " ]");
     
-    //log.debug("=> Received a new request ...");
     log.debug("Start processing at " + currentDate);    
     
     result = ProxiesResouceSingleton.getInstance().getProxyFromCache(requestKey);
