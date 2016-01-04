@@ -68,6 +68,8 @@ import com.google.gson.annotations.Expose;
 
 import eu.emi.security.authn.x509.helpers.proxy.ProxyCertInfoExtension;
 import eu.emi.security.authn.x509.proxy.ProxyPolicy;
+import java.nio.charset.Charset;
+import java.security.cert.Certificate;
 
 public class TokenUtils {
 
@@ -171,9 +173,10 @@ public class TokenUtils {
 
         // Getting the X509Certificate
         X509Certificate cert = (X509Certificate) keyStore.getCertificate(alias);
-        //Certificate[] certChain = keyStore.getCertificateChain(alias);
+        Certificate[] certChain = keyStore.getCertificateChain(alias);
         log.debug(" ");
         log.debug("X509 SN ........ " + cert.getSubjectX500Principal().getName());
+        log.debug("certChain ...... " + certChain[0] + " (" + certChain.length + ")");
         log.debug("Issued by ...... " + cert.getIssuerDN());
         log.debug("Valid from ..... " + cert.getNotBefore());
         log.debug("Valid to ....... " + cert.getNotAfter());
@@ -243,6 +246,27 @@ public class TokenUtils {
     return result;
   }
   
+  // Convert String format -> UTF-8
+  private static String convertToUTF8(String CN) 
+  {
+      Charset UTF8 = Charset.forName("UTF-8");
+      Charset ISO_8859_1 = Charset.forName("ISO-8859-1");
+      
+      String _UTF8 = null;
+      byte ptext[] = CN.getBytes(ISO_8859_1);
+      _UTF8 = new String(ptext, UTF8);
+      
+      /*try {          
+        _UTF8 = new String(CN.getBytes("UTF-8"), "ISO-8859-1");                            
+        } catch (UnsupportedEncodingException ex) {
+            java.util.logging.Logger
+                    .getLogger(TokenUtils.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }*/
+      
+      return _UTF8.trim();
+  }
+  
   private static KeyPair_Cert createProxyCertificate(
           int keybit, Boolean rfc, int lifetime, String CN_label,
           X509Certificate tokenCert, java.security.PrivateKey tokenKey) 
@@ -274,12 +298,13 @@ public class TokenUtils {
       //BigInteger serialNum = new BigInteger(20, rand);
       
       // Express the validity in milliseconds
-      long validity = lifetime * 60 * 60 * 1000;      
-            
+      long validity = lifetime * 60 * 60 * 1000;
+                              
       if (rfc) {
         // RFC-3280-compliant OID
         log.debug("[1] Creating RFC-3280-complaint proxy with [ " + keybit + " ] keybit");
-        issuerDN = tokenCert.getSubjectX500Principal().getName();
+        issuerDN = tokenCert.getSubjectX500Principal().getName();        
+        log.debug("issuerDN = " + issuerDN);
         
         // Create the distinguished name (DN) of the proxy certificate.
         // This DN is the issuer's DN with an extra "CN=" part, which
@@ -289,20 +314,21 @@ public class TokenUtils {
         
         if (!CN_label.isEmpty() && (!CN_label.equals("eToken:Empty"))) {
             //RFC 3820 compliant impersonation proxy!            
-            log.debug("Adding additional 'metadata' for APEL probes");            
+            log.debug("Adding additional CN label to generate Per-User Sub-Proxy");            
             proxyDN = "CN=" + CN_label + "," + issuerDN;
             //proxyDN = "CN=" + delegDN + "," + "CN=" + CN_label + "," + issuerDN;            
         } else 
             proxyDN = "CN=" + delegDN + "," + issuerDN;            
         
-        log.debug("Creating a RFC3280-compliant OID self-signed certificate for: ");
+        log.debug("Creating a RFC3280-compliant OID self-signed certificate for: ");        
         log.debug(proxyDN);
       } else {
         // Proxy draft (pre-RFC) compliant impersonation proxy
         // Create the distinguished name (DN) of the proxy certificate.
         // This DN is the issuer's DN with an extra "CN=proxy" part.
         // In the pre-RFC the "C/N=proxy" part comes at the beginning.
-        issuerDN = tokenCert.getSubjectX500Principal().getName();         
+        issuerDN = tokenCert.getSubjectX500Principal().getName();
+        log.debug("issuerDN = " + issuerDN);                
         
         //Proxy draft (pre-RFC) compliant impersonation proxy
         proxyDN = "CN=proxy" + "," + issuerDN;        
@@ -315,15 +341,15 @@ public class TokenUtils {
         //certGen.setSubjectDN(new X500Principal(proxyDN));
         log.debug("SubjectDN = " + new X500Principal(proxyDN).getName());
       }
-      
-      // Generate self-signed certificate
-      X500Principal principal = new X500Principal(issuerDN);     
+                  
+      // Generate self-signed certificate      
+      //X500Principal principal = new X500Principal(issuerDN);      
       
       // Generate self-signed certificate
       X509v3CertificateBuilder certGen = 
               new JcaX509v3CertificateBuilder(
-                      //tokenCert.getSubjectX500Principal(),
-                      principal,
+                      tokenCert.getSubjectX500Principal(),
+                      //principal,
                       tokenCert.getSerialNumber(),
                       new Date(lastDate.getTime()),
                       new Date(lastDate.getTime() + validity),                      
@@ -553,9 +579,6 @@ public class TokenUtils {
                     log.debug("User DN FOUND in the " 
                     + voms.getValue().getProperty("VOMS_NAME") + " VO");
                     
-                    //email_address = new String[1];
-                    //email_address[0] = "giuseppe.larocca@ct.infn.it"; 
-                    
                     log.debug(" ");    
                     log.info("[b.] Fetching e-mail address from the VOMS Web Service");
                     email_address = 
@@ -610,7 +633,7 @@ public class TokenUtils {
             
             if (email_address == null) {
                 email_address = new String[1];
-                email_address[0] = "giuseppe.larocca@ct.infn.it"; 
+                email_address[0] = "no-reply@gmail.com"; 
             }
                   
             attributes.add(info);
@@ -698,8 +721,8 @@ public class TokenUtils {
 
       // Check about the number of item(s) available on board of the eToken.
       if (keyStore.size() > 0)
-      log.debug(keyStore.size() + " KEY(s) detected ");
-      else log.error(" No KEY(s) detected ");
+      log.debug(keyStore.size() + " robot(s) detected ");
+      else log.error(" No robot(s) detected ");
       log.debug("--------------------------------------------------------");
 
       result = new HashMap<String, Properties>();

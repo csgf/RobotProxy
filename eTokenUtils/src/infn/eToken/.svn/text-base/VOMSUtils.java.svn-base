@@ -1,0 +1,524 @@
+/**************************************************************************
+Copyright (c) 2011: 
+Istituto Nazionale di Fisica Nucleare (INFN), Italy
+Consorzio COMETA (COMETA), Italy
+
+See http://www.infn.it and and http://www.consorzio-cometa.it for details 
+on the copyright holders.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+Author(s): Giuseppe La Rocca (INFN), Salvatore Monforte (INFN)
+ ****************************************************************************/
+package infn.eToken;
+
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.rmi.RemoteException;
+import java.security.Provider;
+import java.security.Security;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.xml.rpc.ServiceException;
+import org.apache.log4j.Logger;
+import org.bouncycastle.asn1.ASN1InputStream;
+import org.bouncycastle.asn1.ASN1Sequence;
+import org.bouncycastle.asn1.DERSequence;
+import org.bouncycastle.asn1.x509.AttributeCertificate;
+import org.bouncycastle.asn1.x509.KeyUsage;
+import org.gcube.vomanagement.vomsapi.impl.VOMSAPIConfiguration;
+import org.gcube.vomanagement.vomsapi.impl.VOMSAPIConfigurationException;
+import org.gcube.vomanagement.vomsapi.impl.VOMSAPIConfigurationProperty;
+import org.gcube.vomanagement.vomsapi.impl.VOMSAPIFactory;
+import org.glite.wsdl.services.org_glite_security_voms.VOMSException;
+import org.globus.gsi.GSIConstants;
+import org.globus.gsi.X509ExtensionSet;
+import org.globus.gsi.bc.BouncyCastleCertProcessingFactory;
+import org.globus.gsi.bc.BouncyCastleX509Extension;
+import org.globus.gsi.gssapi.GSSConstants;
+import org.globus.gsi.gssapi.GlobusGSSCredentialImpl;
+import org.globus.gsi.gssapi.GlobusGSSManagerImpl;
+import org.globus.gsi.gssapi.auth.Authorization;
+import org.globus.gsi.gssapi.auth.IdentityAuthorization;
+import org.globus.gsi.gssapi.net.GssSocket;
+import org.globus.gsi.gssapi.net.GssSocketFactory;
+import org.gridforum.jgss.ExtendedGSSContext;
+import org.gridforum.jgss.ExtendedGSSCredential;
+import org.gridforum.jgss.ExtendedGSSManager;
+import org.ietf.jgss.GSSContext;
+import org.ietf.jgss.GSSCredential;
+import org.ietf.jgss.GSSManager;
+
+public class VOMSUtils {
+
+    public static String parseVOMSFQAN(String voms, String separator) {
+
+        ArrayList<String> FQANs = new ArrayList<String>();
+        for (String s : voms.split(separator)) {
+
+            String[] info = s.split(":");
+            String fqan = info[info.length - 1].trim();
+
+            // Prefixing VO name with '/'
+            if (fqan.indexOf("/") == -1) {
+                fqan = "/" + fqan;
+            }
+
+            if (Pattern.matches(
+                    "(?:/VO=(?:[\\w_\\x2d]+[\\x2e]{0,1}[\\w_\\x2d]+)/GROUP=)?"
+                    + "(/{1}[a-zA-Z]{1}(?:[\\w_\\x2d]+[\\x2e]{0,1}|[\\x2f]{0,1}[\\w_\\x2d]+)*)"
+                    + "(?:/Role=([\\w_\\x2d]+))?"
+                    + "(?:/Capability=([\\w_\\x2d]+))?",
+                    fqan)) {
+                FQANs.add(s);
+            }
+
+        }
+        return FQANs.toString();
+    }
+
+    private static Properties getVOMSProperties(File file) 
+            throws FileNotFoundException {
+        Properties result = null;
+
+        DataInputStream fis = new DataInputStream(
+                new FileInputStream(file.toString()));
+
+        BufferedReader br = new BufferedReader(new java.io.InputStreamReader(fis));
+        String line = null;
+        try {
+            line = br.readLine();
+        } catch (IOException ex) {
+           log.error("Unable to read info from file:" + file.getAbsolutePath());
+        }
+
+        if (line != null) {
+            log.debug("Parsing " + line);
+            final String regexp = "^\\\"([^\\\"]+)\\\" \\\"([^\\\"]+)\\\" \\\"([0-9]+)\\\" \\\"([^\\\"]+)\\\" \\\"([^\\\"]+)\\\".*";
+            Matcher m = Pattern.compile(regexp).matcher(line);
+            
+            if (m.find()) {
+                
+                result = new Properties();
+                result.setProperty("VOMS_NAME", m.group(1));
+                result.setProperty("VOMS_SERVER", m.group(2));
+                result.setProperty("VOMS_PORT", m.group(3));
+                result.setProperty("VOMS_HOSTDN", m.group(4));
+                result.setProperty("VOMS_ALIAS", m.group(5));
+                result.setProperty("VOMS_FILE", file.toString());
+                
+                log.debug("\nVOMS parameters:" +  result.toString());
+            }
+            else {
+                log.error("Failure extracting VOMS info '" + 
+                          line + 
+                          "': doest not match regexp '" + 
+                          regexp + 
+                          "'");
+            }
+        }
+        try {
+            fis.close();
+        } catch (IOException ex) {
+        }
+        return result;
+    }
+
+    public static HashMap<String, Properties> readVOMSes(File dir) 
+            throws FileNotFoundException, IOException {
+        HashMap<String, Properties> result = new HashMap<String, Properties>();
+
+        File[] files = dir.listFiles();
+        
+        for (File file : files) {
+            log.debug("Loading VOMS settings from " + file);
+            Properties properties = VOMSUtils.getVOMSProperties(file);
+            
+            if (properties != null) {
+                result.put(properties.getProperty("VOMS_NAME"),properties);                
+            }
+        }
+        log.debug(" ");        
+        return result;
+    }
+
+    public static String[] listGroupsAndRoles(String subject, 
+                                              String issuer, 
+                                              Properties voms) {
+        String[] result = null;
+
+        try {
+            java.util.Properties props = new Properties();
+            props.setProperty(VOMSAPIConfigurationProperty.VOMS_HOST.toString(), voms.getProperty("VOMS_SERVER"));
+            props.setProperty(VOMSAPIConfigurationProperty.VOMS_PORT.toString(), "8443");
+            props.setProperty(VOMSAPIConfigurationProperty.VOMS_PROTOCOL.toString(), "https");
+            props.setProperty(VOMSAPIConfigurationProperty.VO_NAME.toString(), voms.getProperty("VOMS_NAME"));
+            props.setProperty(VOMSAPIConfigurationProperty.CLIENT_CERT.toString(), "/etc/grid-security/hostcert.pem");
+            props.setProperty(VOMSAPIConfigurationProperty.CLIENT_KEY.toString(), "/etc/grid-security/hostkey.pem");
+
+            VOMSAPIFactory factory = new VOMSAPIFactory(new VOMSAPIConfiguration(props));
+
+            String[] roles = factory.getVOMSAdmin().listRoles(subject, issuer);
+            String[] groups = factory.getVOMSAdmin().listGroups(subject, issuer);
+
+            boolean has_roles = (roles != null && roles.length > 0);
+            boolean has_groups = (groups != null && groups.length > 0);
+
+            if (has_roles || has_groups) {
+
+                Collection<String> items = new ArrayList<String>();
+
+                if (has_roles) {
+                    items.addAll(Arrays.asList(roles));
+                }
+                if (has_groups) {
+                    items.addAll(Arrays.asList(groups));
+                }
+
+                result = items.toArray(new String[0]);
+            }
+        } catch (VOMSException ex) {
+            log.error(ex);
+        } catch (ServiceException ex) {
+            log.error(ex);
+        } catch (RemoteException ex) {
+            log.error(ex);
+        } catch (VOMSAPIConfigurationException ex) {
+            log.error(ex);
+        }
+        return result;
+    }
+    // Define the logger for the Java class.
+    private static Logger log = Logger.getLogger(VOMSUtils.class);
+
+    /**
+     * Read in a credential from a file.  If you do not specify a filename
+     * filename (i.e. pass in null), the default Globus filename will be
+     * used (e.g. "/tmp/x509up_u512").
+     * @param filename The name of the file from which to read the proxy credential.  If null, use a default Globus filename.
+     * @return A GSS credential read from file if successfully read in, or
+     * null if not.
+     */
+
+    /*private static GSSCredential getCredentialFromFile () throws IOException, org.ietf.jgss.GSSException
+    {
+    org.ietf.jgss.GSSCredential retcred = null;
+    String filename = CoGProperties.getDefault().getProxyFile();
+    return getCredentialFromFile(filename);
+    }*/
+    private static GSSCredential getCredentialFromFile(String filename) 
+            throws IOException, org.ietf.jgss.GSSException {
+
+        org.ietf.jgss.GSSCredential retcred = null;
+
+        if (filename.length() == 0) {
+            log.error(" No proxy file specified. ");
+        }
+
+        log.debug(" Reading proxy from '" + filename);
+
+        File inFile = new File(filename);
+        byte[] data = new byte[(int) inFile.length()];
+        FileInputStream inStream = new FileInputStream(inFile);
+        inStream.read(data);
+        inStream.close();
+
+        ExtendedGSSManager manager = (ExtendedGSSManager) ExtendedGSSManager.getInstance();
+
+        retcred = manager.createCredential(data, ExtendedGSSCredential.IMPEXP_OPAQUE,
+                GSSCredential.DEFAULT_LIFETIME, null, GSSCredential.INITIATE_AND_ACCEPT);
+
+        // Return the user credentials to the main program.
+        return retcred;
+    }
+
+    /**
+     * @param fqans the list of attributes in FQAN format.
+     * @return the request which will be sent to the VOMS Server.
+     */
+    private static String parseVOMSCommands(Collection<String> fqans) {
+        String result = null;
+
+        Pattern p = Pattern.compile(
+                "(?:/VO=(?:[\\w_\\x2d]+[\\x2e]{0,1}[\\w_\\x2d]+)/GROUP=)?"
+                + "(/{1}[a-zA-Z]{1}(?:[\\w_\\x2d]+[\\x2e]{0,1}|[\\x2f]{0,1}[\\w_\\x2d]+)*)"
+                + "(?:/Role=([\\w_\\x2d]+))?"
+                + "(?:/Capability=([\\w_\\x2d]+))?");
+
+        boolean order_set = false;
+
+        for (String f : fqans) {
+
+            log.debug(" ");
+            log.debug("Parsing " + f + "...");
+
+            Matcher m = p.matcher(f);
+
+            // Matching groups:
+            // 0 -> vo/groups[/subgroups]/Role=role/Capability=capability
+            // 1 -> vo/groups[/subgroups]
+            // 2 -> role
+            // 3 -> capability
+
+            if (m.matches()) {
+
+                boolean has_role = m.group(2) != null;
+                boolean has_only_group = (m.group(1) != null)
+                        && (m.group(1).split("/").length == 1);
+                boolean has_subgroups = (m.group(1) != null)
+                        && (m.group(1).split("/").length > 1);
+
+                StringBuffer cmd = new StringBuffer().append("<command>");
+
+                if ((has_only_group || has_subgroups) && !has_role) {
+                    cmd.append("G").append(m.group(1));
+                } else if (has_only_group  && has_role) {
+                    cmd.append("R").append(m.group(2));
+                } else if (has_role && has_subgroups) {
+                    cmd.append("B").append(m.group(1)).append(":").append(m.group(2));
+                }
+                cmd.append("</command>");
+                if (!order_set) {
+                    order_set = true;
+                    cmd.append("<order>").append(f).append("</order>");
+                    result = new String();
+                }
+                result = result.concat(cmd.toString());
+                log.debug("Command => " + cmd.toString());
+            } else {
+                log.error("AC attribute " + f + " syntax mismatch.");
+            }
+        }
+        return result;
+    }
+
+    /**
+     *    @param params the needed properties for contacting the VOMS Server.
+     *    @param fqans the list of attributes in FQAN format.
+     *	  @param filename the file which will contain a VOMS proxy certificate.
+     *    @param lifetime the lifetime of the proxy espressed in hours.
+     *    @return true if a VOMS proxy certificate is created.
+     */
+    static public Boolean createVOMSProxy(Properties params, 
+                                          Collection<String> fqans, 
+                                          String filename, 
+                                          int lifetime) {
+        boolean result = false;
+        Provider bc = null;
+
+        try {
+
+            bc = new org.bouncycastle.jce.provider.BouncyCastleProvider();
+            Security.insertProviderAt(bc, 1);
+
+            String commands = fqans == null ? "<command>A</command>" : parseVOMSCommands(fqans);
+
+            result = getVOMSAC(
+                    params,
+                    filename,
+                    lifetime * 60 * 60 * 1000,
+                    commands);
+
+            if (result) {
+                log.debug(" Create VOMS proxy ... [ OK ]");
+            } else {
+                log.error(" Create VOMS proxy ... [ Failed ]");
+            }
+
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        } finally {
+            Security.removeProvider(bc.getName());
+        }
+        return result;
+    }
+
+    /**
+     *	@param params the needed properties for contacting the VOMS Server.
+     *	@param filename the file which will contain a VOMS proxy certificate.
+     *	@param lifetime the lifetime of the proxy espressed in hours.
+     *	@return true if the VOMS ACs have been successfully retrieved.
+     */
+    private static Boolean getVOMSAC(Properties params, 
+                                     String filename, 
+                                     int lifetime, 
+                                     String VOMScmds) {
+
+        boolean success = false;
+
+        org.globus.gsi.GlobusCredential vomsProxy = null;
+
+        OutputStream out = null;
+        InputStream in = null;
+        BufferedReader buff = null;
+
+        final String AC_OID = "1.3.6.1.4.1.8005.100.100.5";
+        final String KU_OID = "2.5.29.15";
+
+        // Provides a Java object representation of Globus credential starting from a proxy file.
+        // Initialize the credential class object
+        org.ietf.jgss.GSSCredential ProxyGlobusCredential = null;
+        try {
+            ProxyGlobusCredential = getCredentialFromFile(filename);
+        } catch (java.io.IOException e) {
+            log.error(e);
+        } catch (org.ietf.jgss.GSSException e) {
+            log.error(e);
+        }
+
+        // Retrieve the org.globus.gsi.GlobusCredential object from the GSSCredential instance
+        org.globus.gsi.GlobusCredential globusCred = null;
+
+        if (ProxyGlobusCredential instanceof GlobusGSSCredentialImpl) {
+            globusCred = ((GlobusGSSCredentialImpl) ProxyGlobusCredential).getGlobusCredential();
+        }
+
+        log.debug(" ");
+        log.debug("Contacting the VOMS Server......." + params.getProperty("VOMS_SERVER"));
+        log.debug("Request for the VO..............." + params.getProperty("VOMS_NAME"));
+        log.debug("with the command................." + VOMScmds);
+
+        GSSManager manager = new GlobusGSSManagerImpl();
+
+        Authorization authorization =
+                new IdentityAuthorization(params.getProperty("VOMS_HOSTDN"));
+
+        try {
+            GSSCredential clientCreds = (GSSCredential) new GlobusGSSCredentialImpl(
+                    globusCred, GSSCredential.INITIATE_ONLY);
+            ExtendedGSSContext context = (ExtendedGSSContext) manager.createContext(
+                    null, GSSConstants.MECH_OID, clientCreds, GSSContext.DEFAULT_LIFETIME);
+
+            context.requestMutualAuth(true);
+            context.requestCredDeleg(false);
+            context.requestConf(true);
+            context.requestAnonymity(false);
+
+            context.setOption(GSSConstants.GSS_MODE, GSIConstants.MODE_GSI);
+            context.setOption(GSSConstants.REJECT_LIMITED_PROXY, false);
+
+            try {
+                GssSocket socket = (GssSocket) GssSocketFactory.getDefault().createSocket(
+                        params.getProperty("VOMS_SERVER"),
+                        Integer.parseInt(params.getProperty("VOMS_PORT")),
+                        context);
+
+                socket.setWrapMode(GssSocket.GSI_MODE);
+                socket.setAuthorization(authorization);
+
+                out = ((Socket) socket).getOutputStream();
+                in = ((Socket) socket).getInputStream();
+
+                // Generate the request for the server.
+                String msg = "<?xml version=\"1.0\" encoding=\"US-ASCII\"?><voms>" + VOMScmds
+                        + "<lifetime>" + lifetime + "</lifetime></voms>";
+
+                byte[] outToken = msg.getBytes();
+                // Sending the request...
+                out.write(outToken);
+                out.flush();
+
+                buff = new BufferedReader(new InputStreamReader(in));
+
+                // Retrieving the answer...
+                StringBuilder voms_server_answer = new StringBuilder();
+                char[] buff2 = new char[1024];
+                int numRead = 0;
+                while ((numRead = buff.read(buff2)) != -1) {
+                    String readData = String.valueOf(buff2, 0, numRead);
+                    voms_server_answer.append(readData);
+                    buff2 = new char[1024];
+                }
+
+                // Parsing the result...
+                String answer = voms_server_answer.toString();
+
+                if (answer.indexOf("<error>") > 1) {
+                    String errorMsg = answer.substring(answer.indexOf("<message>") + 9, answer.indexOf("</message>"));
+                    log.warn("VOMS Server returned an error => " + errorMsg);
+                }
+
+                out.close();
+                in.close();
+
+                String encoded = answer.substring(answer.indexOf("<ac>") + 4, answer.indexOf("</ac>"));
+
+                byte[] payload = VincenzoBase64.decode(encoded);
+
+                // Extension 1
+                ByteArrayInputStream is = new ByteArrayInputStream(payload);
+                ASN1InputStream asnInStream = new ASN1InputStream(is);
+                ASN1Sequence acseq = (ASN1Sequence) asnInStream.readObject();
+                AttributeCertificate ac = new AttributeCertificate(acseq);
+                log.debug(" Got AC from VOMS Server ");
+
+                DERSequence seqac = new DERSequence(ac);
+                DERSequence seqacwrap = new DERSequence(seqac);
+                BouncyCastleX509Extension ace = new BouncyCastleX509Extension(AC_OID, seqacwrap);
+
+                // Extension 2
+                KeyUsage keyUsage = new KeyUsage(KeyUsage.digitalSignature | KeyUsage.keyEncipherment | KeyUsage.dataEncipherment);
+                BouncyCastleX509Extension kue = new BouncyCastleX509Extension(KU_OID, keyUsage.getDERObject());
+
+                // Extension set
+                X509ExtensionSet globusExtensionSet = new X509ExtensionSet();
+                globusExtensionSet.add(ace);
+                globusExtensionSet.add(kue);
+
+                BouncyCastleCertProcessingFactory factory = BouncyCastleCertProcessingFactory.getDefault();
+
+                // Generate the VOMS proxy
+                try {
+                    vomsProxy = factory.createCredential(globusCred.getCertificateChain(),
+                            globusCred.getPrivateKey(),
+                            globusCred.getStrength(),
+                            (int) globusCred.getTimeLeft(),
+                            GSIConstants.DELEGATION_FULL,
+                            globusExtensionSet);
+
+                    // Write the certificate.
+                    OutputStream fos2 = null;
+                    fos2 = new FileOutputStream(new File(filename));
+                    vomsProxy.save(fos2);
+                    success = true;
+                } catch (java.io.IOException e) {
+                    log.error(e);
+                }
+            } catch (java.security.GeneralSecurityException e) {
+                log.error(e);
+            } catch (java.io.IOException e) {
+                log.error(e);
+            }
+        } catch (org.ietf.jgss.GSSException e) {
+            log.error(e);
+        }
+
+        return success;
+    }
+}

@@ -24,6 +24,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.*"%>
+<%@page import="org.sqlite.*"%>
+<%@page import="java.io.*"%>
+<%@page import="java.util.*"%>
 <%@page trimDirectiveWhitespaces="true"%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -74,9 +78,11 @@
         font-size: 15px !important;
       }
 
-      img.architecture { width:400px !important; height: 350px !important; }
+      img.architecture { width:420px !important; height: 350px !important; }
       img.logo { width:125px !important; height: 30px !important; }
+      img.locker { width:50px !important; border:0; }
       md5sum { backgroud-color: orange; }      
+
     </style>   
     <link href="ui/css/ticker.css" rel="stylesheet" type="text/css"/>
     <!--link href="ui/css/overcast/jquery-ui-1.8.13.custom.css" rel="stylesheet" type="text/css"/-->
@@ -84,6 +90,26 @@
     <script type="text/javascript" src="ui/js/jquery-1.5.1.min.js"></script>
     <script type="text/javascript" src="ui/js/jquery-ui-1.8.13.custom.min.js"></script>
     <script type="text/javascript" src="ui/js/jQuery.rollChildren.js"></script>
+    <!-- jqplot css -->
+    <link href="common/jqplot/dist/jquery.jqplot.min.css" rel="stylesheet" type="text/css"/>
+    <link href="common/jqplot/dist/examples/syntaxhighlighter/styles/shCoreDefault.css" rel="stylesheet" type="text/css"/>
+    <link href="common/jqplot/dist/examples/syntaxhighlighter/styles/shThemejqPlot.css" rel="stylesheet" type="text/css"/>
+    <!-- jqplot css -->
+    <!-- jqplot js -->
+    <script type="text/javascript" src="common/jqplot/dist/jquery.jqplot.min.js"></script>
+    <script type="text/javascript" src="common/jqplot/dist/plugins/jqplot.dateAxisRenderer.min.js"></script>
+    <script type="text/javascript" src="common/jqplot/dist/plugins/jqplot.canvasTextRenderer.min.js"></script>
+    <script type="text/javascript" src="common/jqplot/dist/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+    <script type="text/javascript" src="common/jqplot/dist/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+    <script type="text/javascript" src="common/jqplot/dist/plugins/jqplot.barRenderer.min.js"></script>
+    <script type="text/javascript" src="common/jqplot/dist/plugins/jqplot.cursor.min.js"></script>
+    <script type="text/javascript" src="common/jqplot/dist/plugins/jqplot.highlighter.min.js"></script>
+    <script type="text/javascript" src="common/jqplot/dist/examples/syntaxhighlighter/scripts/shCore.js"></script>
+    <script type="text/javascript" src="common/jqplot/dist/examples/syntaxhighlighter/scripts/shBrushJScript.js"></script>
+    <script type="text/javascript" src="common/jqplot/dist/examples/syntaxhighlighter/scripts/shBrushXml.js"></script>
+    <script type="text/javascript" src="common/jqplot/dist/plugins/jqplot.pieRenderer.min.js"></script>
+    <script type="text/javascript" src="common/jqplot/dist/plugins/jqplot.donutRenderer.min.js"></script>
+    <!-- jqplot js -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <script  type="text/javascript" >
@@ -91,6 +117,7 @@
       var associativeArray = [];
 
       $(document).ready(function() {  
+
       	$('#footer').rollchildren({  
 		delay_time 	   : 3000,  
 		loop 		   : true,  
@@ -136,6 +163,56 @@
           }
       }
 
+      function calling_restAPI()
+      {
+        var rest = $('#request').html();
+        var decoded = rest.replace(/&amp;/g, '&');
+        console.log("Calling Rest API = " + decoded);
+
+        $.ajax({
+            url: decoded,
+            type: 'GET',
+
+	    beforeSend: function() {
+                $('#loading')
+                .html("<img src='images/spinner.gif' width='40' /> Please wait! This operation may take time.");
+            },
+
+            complete: function() {
+                var content = "<table border='0'>";
+                content += "<tr><td>";
+                content += "<img src='images/locker.png' class='locker' /> Your proxy has been created";
+                content += "</td><td>&nbsp;</td>";
+                content += "<td><div id='divrequest' style='display:none;'>";
+                content += "<a class='linkrequest' target='_blank' href='#'>";
+                content += "<img src='images/link.png' class='locker'/></a>Get your proxy";
+                content += "</div>";
+                content += "</td></tr>";
+                content += "</table>";
+
+                // Display content
+                $('#loading')
+                .html(content)
+                .show();
+                
+		// Add the new hlink
+                $("a.linkrequest").attr("href", decoded);
+                $("#divrequest").show();
+                
+                // Show the new rest API
+                $('#linkrequest').attr("href",decoded);
+                $('#linkrequest').show();
+            },
+            
+            success: function(html) {
+
+                $('#proxy').html(html);
+                $('#proxy').show();
+                console.log(html);
+            }
+        });
+      }
+
       function update_request()
       {
         // Check if at least one AC have been selected.
@@ -160,6 +237,12 @@
           //request += "&dirac-token=" + $('input[name="dirac-token"]').attr('checked');
           
           $('#request').html(request);
+
+          // Remove old entries
+          $('#loading').html('');
+          $('#divrequest').hide();
+	  $('#proxy').html('');
+          $('#proxy').hide();
         }
       }
       
@@ -204,8 +287,8 @@
         $('select#eToken').bind('change', function() {
           var md5sum =  $("select#eToken option:selected").first().attr('value');
 	  $('#details').css("display", "inline");
-	  
-	  if (md5sum!=-1) {
+
+	  if (md5sum!=-1) {	  
 	  // Removing old info
 	  $('#details').html('');
 	  var to = (associativeArray[md5sum].validto).split(" ");
@@ -215,7 +298,7 @@
 	  var days = 1000*60*60*24;
 	  var diff = Math.ceil((d2.getTime()-d1.getTime())/(days));
 	  
-	  // Show certificate details
+	  // Showing new details
 	  $('#details').append("\nSerial\t\t=\t" + associativeArray[md5sum].serial + "\n");
 	  $('#details').append("Label\t\t=\t" + associativeArray[md5sum].label + "\n");
           $('#details').append("MD5Sum\t\t=\t" + associativeArray[md5sum].md5sum + "\n");
@@ -264,6 +347,389 @@
           }
         });
       });
+
+      function ToggleCheckboxes()
+      {
+        if ( ($('#Toggle:checked').val() != undefined ) ) {
+                $("#EnableTotalStatistics").attr('checked','checked');
+                $("#EnableTableTools").attr('checked','checked'); 
+                $("#EnableHits").attr('checked','checked');
+        } else {
+                $("#EnableTotalStatistics").removeAttr('checked');
+                $("#EnableTableTools").removeAttr('checked');
+                $("#EnableHits").removeAttr('checked');
+        }
+      }
+
+
+      // ============================================ //
+      // ==== eTokenAccounting servlet functions ==== //
+      // ============================================ //
+      function plotLinearTotalJobs(data, serial, flag)
+      {
+
+      	<!-- Create the servlet call -->
+        var root = location.protocol + '//'
+                   + location.host + '/'
+                   + "eTokenServer/eToken/?format=json";
+        <!-- Create the servlet call -->
+
+	$.getJSON(root, function(html) {
+                var subject = "";
+                $.each(html, function(i, item) {
+                        console.log("From JSON = " + item.md5sum);
+                        if (item.md5sum == serial) {
+                                tmp = item.subject;
+                                subject = tmp.substring(tmp.indexOf(":")+1, tmp.length)
+                                console.log("subject=" + subject);
+
+                                $title="Accounting Usage for [ " + subject + " ]";
+
+                                var random=Math.floor(Math.random()*1000000000);
+                                $div_id="chartbar_"+random;
+
+                                console.log("\n"+serial+" [ "+random+" ] => " + data);
+
+                                $("<div style='width: 730px;'></div><br/>").attr('id', $div_id).appendTo('#chartbar');
+                                if (flag) $("<div class='page-break'></div>").attr('id', $div_id).appendTo('#chartbar');
+
+                                $.jqplot($div_id, [data], {
+                                        title: $title,
+                                        animate: !$.jqplot.use_excanvas,
+                                        axes: {
+                                                xaxis: { renderer:$.jqplot.DateAxisRenderer,
+                                               tickOptions:{ formatString:'%#d-%b-%y' }
+                                        },
+                                        yaxis: { autoscale: true }
+                                        },
+
+                                        highlighter: { show: true, sizeAdjust: 7.5 },
+                                        cursor: { show: true, zoom: true, showTooltip: true }
+                                });
+                        }
+                });
+        });
+        }
+
+        function plotBarChartsHits(data, flag)
+        {
+                var random=Math.floor(Math.random()*1000000000);
+                $div_id="chartbarHits_"+random;
+
+                console.log("\n [ " + random + " ] => " + data);
+
+                $("<div style='width: 730px; height: 600px;'></div><br/>").attr('id', $div_id).appendTo('#chartbarHits');
+
+                $.jqplot($div_id, [data], {
+			animate: true,
+                        title: "#Request (per robot)",
+                        series:[{renderer:$.jqplot.BarRenderer}],
+                        seriesDefaults:{
+                                renderer:$.jqplot.BarRenderer,
+                                rendererOptions: {
+                                        // Set the varyBarColor option to true to use different colors for each bar.
+                                        // The default series colors are used.	
+                                        varyBarColor: true,
+					// Speed up the animation a little bit.
+					animation: {
+						speed: 2500
+					},
+					barWidth: 50,
+					barPadding: -15,
+					barMargin: 0,
+					highlightMouseOver: true
+                                }
+                        },
+                        axesDefaults: {
+                                tickRenderer: $.jqplot.CanvasAxisTickRenderer ,
+                                tickOptions: {
+                                  angle: -45,
+                                  fontSize: '10pt'
+                                }
+                        },
+                        axes: {
+                              xaxis: {
+                                renderer: $.jqplot.CategoryAxisRenderer
+                              },
+                              yaxis: {
+                                renderer : $.jqplot.LogAxisRenderer,
+                                min: -1000
+                              }
+                        },
+			highlighter: {
+                                show: true,
+                                showLabel: true,
+                                tooltipAxes: 'y',
+                                sizeAdjust: 17.5 ,
+                                tooltipLocation : 'ne'
+                        },
+                        cursor:{
+                                show: true,
+                                zoom: true,
+                                showTooltip: true
+                        }
+                });
+        }
+
+	function doCharts()
+        {
+           console.log("calling doCharts()");
+           $("#error_message img:last-child").remove();
+           $("#error_message").empty();
+           //if( $("#statistics").dataTableSettings[0] != undefined )
+           //      $("#statistics").dataTable().fnDestroy();
+           //$("#statistics").empty();
+           $('#chartbar').empty();
+	   $('#chartbarHits').empty();
+
+           //Firstly check if dateIN > dateOUT
+           if ($("#dateIN").val()=="eToken.out") 
+           var _dateIN = ($("#dateIN").val()).substring(13, ($("#dateIN").val()).lastIndexOf(".log") ); 
+           var _dateOUT = ($("#dateOUT").val()).substring(13, ($("#dateOUT").val()).lastIndexOf(".log") );
+
+	   if ((_dateIN == 0) || (_dateOUT == 0)) {
+                $("#error_message").css({"color":"red","font-size":"14px", "style":"Tahoma,Verdana,sans-serif,Arial"});
+                $('#error_message')
+                .append("<img width='35' src='images/Warning2.png' border='0'> You have NOT specified a valid data range!");
+                return false;
+           }
+
+           if ( _dateIN >= _dateOUT ) { 
+                $("#error_message").css({"color":"red","font-size":"14px", "style":"Tahoma,Verdana,sans-serif,Arial"});
+                $('#error_message')
+                .append("<img width='35' src='images/Warning2.png' border='0'> You have specified an invalid data range!");
+                return false;
+           }
+	   
+           //Secondly check if a valid option(s) has been selected
+           if ( ($('#EnableTotalStatistics:checked').val() == undefined ) &&
+                ($('#EnableTableTools:checked').val() == undefined ) &&
+                ($('#EnableHits:checked').val() == undefined ) &&
+                ($('#Toggle:checked').val() == undefined ) )
+           {
+                $("#error_message")
+                .css({"color":"red","font-size":"14px", "style":"Tahoma,Verdana,sans-serif,Arial"});
+                $('#error_message')
+                .append("<img width='35' src='images/Warning2.png' border='0'> You have specified an invalid options!");
+                return false;
+           }
+
+           //Lastly check if a valid robot has been selected
+           if ($('#SerialNumber').val() == 0 ) {
+                $("#error_message")
+                .css({"color":"red","font-size":"14px", "style":"Tahoma,Verdana,sans-serif,Arial"});
+                $('#error_message')
+                .append("<img width='35' src='images/Warning2.png' border='0'> The selected robot is not valid!");
+                return false;
+           }
+
+	   //Input settings are ok: proceed!
+	   
+	   // ================================ //
+	   // 1.) DISPLAY COMPLETE STATISTICS  //
+	   // ================================ //
+	   if ( $('#EnableTotalStatistics:checked').val() != undefined ) {
+                console.log("#EnabledTotalStatistics");
+
+                dateIN_year = $("#dateIN").val().substring(13,17);
+                dateIN_month = $("#dateIN").val().substring(18,20);
+                dateIN_day = $("#dateIN").val().substring(21,23);
+
+                dateOUT_year = $("#dateOUT").val().substring(13,17);
+                dateOUT_month = $("#dateOUT").val().substring(18,20);
+                dateOUT_day = $("#dateOUT").val().substring(21,23);
+
+                // Display statistics for each certificate
+                if ($("#SerialNumber").val()=="ALL") {
+                        $SerialNumbers_list = $('#SerialNumber');
+                        $options = $('option', $SerialNumbers_list);
+
+                        var i=1;
+
+                        $("#SerialNumber option").each(function() { 
+                                var SerialNumber_value = $(this).val();
+                                console.log( SerialNumber_value );
+
+                                if (SerialNumber_value != 0) {
+
+                                //console.log("dateIN = " +dateIN_day + " " + dateIN_month + " " + dateIN_year);
+                                //console.log("dateOUT = " +dateOUT_day + " " + dateOUT_month + " " + dateOUT_year);
+
+				<!-- Create the servlet call -->
+                                var root = location.protocol + '//' + location.host + '/'
+                                        + "eTokenAccounting/md5sum/"
+                                        + SerialNumber_value
+                                        + '?datein-year=' + dateIN_year
+                                        + '&datein-month=' + dateIN_month
+                                        + '&dateout-year=' + dateOUT_year
+                                        + '&dateout-month=' + dateOUT_month
+                                        + '&type=totalStatistics';
+				<!-- Create the servlet call -->
+
+                                console.log("Calling API = " + root);
+
+                                $.ajax({
+                                    url: root,
+                                    dataType: 'json',
+                                    type: 'GET',
+
+                                    beforeSend: function() {
+                                        $('#loading-accounting')
+                                        .html("<img src='images/spinner.gif' width='40' /> Please wait! This operation may take time.")
+                                        .show();
+                                    },
+
+                                    complete: function() {
+                                        $('#loading-accounting').hide();
+                                        $('#footer_text').empty();
+                                        $('#footer_text').append("<img src='./images/jqplot_logo.gif' width='40'> \
+                                        These Charts and Graphs have been created using the <a href='http://www.jqplot.com'>jqPlot</a>, \
+                                        an open<br/> source project dual licensed under the MIT and GPL version 2 licenses.<br/> \
+                                        jqPlot has been tested on IE 7, IE 8, Firefox, Safari, and Opera<br/><br/>");
+                                    },
+
+                                    success: function(html) {
+                                        console.log("SUCCESS");
+                                        console.log(html);
+                                        if ((html!=null) && (html.length>2)) {
+                                                i++;
+                                                if (i%3==0) { plotLinearTotalJobs(html, SerialNumber_value, true); i=1; }
+                                                else plotLinearTotalJobs(html, SerialNumber_value, false);
+                                        }
+                                    }
+                                });
+                                }
+                                <!-- End of the servlet call -->
+                        });
+                }
+
+		else {
+                        // Display statistics for a given SerialNumber
+                        <!-- Create the servlet call -->
+                        var root = location.protocol + '//' + location.host + '/'
+                                   + "eTokenAccounting/md5sum/"
+                                   + $('#SerialNumber').val()
+                                   + '?datein-year=' + dateIN_year
+                                   + '&datein-month=' + dateIN_month
+                                   + '&dateout-year=' + dateOUT_year
+                                   + '&dateout-month=' + dateOUT_month
+                                   + '&type=totalStatistics';
+                        <!-- Create the servlet call -->
+
+                        console.log("Calling API = " + root);
+
+                        $.ajax({
+                                url: root,
+                                dataType: 'json',
+                                type: 'GET',
+
+                                beforeSend: function() {
+                                        $('#loading-accounting')
+                                        .html("<img src='images/spinner.gif' width='40' /> Please wait! This operation may take time.")
+                                        .show();
+                                },
+
+                                complete: function() {
+                                        $('#loading-accounting').hide();
+                                        $('#footer_text').empty();
+                                        $('#footer_text').append("<img src='./images/jqplot_logo.gif' width='40'> \
+                                        These Charts and Graphs have been created using the <a href='http://www.jqplot.com'>jqPlot</a>, \
+                                        an open<br/> source project dual licensed under the MIT and GPL version 2 licenses.<br/> \
+                                        jqPlot has been tested on IE 7, IE 8, Firefox, Safari, and Opera<br/><br/>");
+                                },
+
+                                success: function(html) {
+                                        console.log("SUCCESS");
+                                        console.log(html);
+                                        if ((html!=null) && (html.length>2)) {
+                                                i++;
+                                                if (i%3==0) { plotLinearTotalJobs(html, $('#SerialNumber').val(), true); i=1; }
+                                                else plotLinearTotalJobs(html, $('#SerialNumber').val(), false);
+                                        }
+                                    }
+                        });
+                        <!-- End of the servlet call -->
+
+		}
+           }
+
+           // ================= //
+           // 2.) DISPLAY #HITS //
+           // ================= //
+	   if ( $('#EnableHits:checked').val() != undefined ) {
+                console.log("#EnabledHits");
+
+		dateIN_year = $("#dateIN").val().substring(13,17);
+                dateIN_month = $("#dateIN").val().substring(18,20);
+                dateIN_day = $("#dateIN").val().substring(21,23);
+
+                dateOUT_year = $("#dateOUT").val().substring(13,17);
+                dateOUT_month = $("#dateOUT").val().substring(18,20);
+                dateOUT_day = $("#dateOUT").val().substring(21,23);
+
+                // Display statistics for each certificate
+                if ($("#SerialNumber").val()=="ALL") {
+                        $SerialNumbers_list = $('#SerialNumber');
+                        $options = $('option', $SerialNumbers_list);
+
+                        var i=1;
+
+                        console.log("dateIN = " +dateIN_day + " " + dateIN_month + " " + dateIN_year);
+                        console.log("dateOUT = " +dateOUT_day + " " + dateOUT_month + " " + dateOUT_year);
+
+                        <!-- Create the servlet call -->
+                        var root = location.protocol + '//' + location.host + '/'
+                                   + "eTokenAccounting/md5sum/ALL"
+                                   + '?datein-year=' + dateIN_year
+                                   + '&datein-month=' + dateIN_month
+                                   + '&dateout-year=' + dateOUT_year
+                                   + '&dateout-month=' + dateOUT_month
+                                   + '&type=totalHits';
+                        <!-- Create the servlet call -->
+
+                        console.log("Calling API = " + root);
+
+			$.ajax({
+                                url: root,
+                                dataType: 'json',
+                                type: 'GET',
+
+                                beforeSend: function() {
+                                        $('#loading-accounting')
+                                        .html("<img src='images/spinner.gif' width='40' /> Please wait! This operation may take time.")
+                                        .show();
+                                },
+
+                                complete: function() {
+                                        $('#loading-accounting').hide();
+                                        $('#footer_text').empty();
+                                        $('#footer_text').append("<img src='./images/jqplot_logo.gif' width='40'> \
+                                        These Charts and Graphs have been created using the <a href='http://www.jqplot.com'>jqPlot</a>, \
+                                        an open<br/> source project dual licensed under the MIT and GPL version 2 licenses.<br/> \
+                                        jqPlot has been tested on IE 7, IE 8, Firefox, Safari, and Opera<br/><br/>");
+                                },
+
+                                success: function(html) {
+                                        console.log("SUCCESS");
+                                        console.log(html);
+                                        if ((html!=null) && (html.length>2)) {
+                                                i++;
+                                                if (i%3==0) { plotBarChartsHits(html, true); i=1; }
+                                                else plotBarChartsHits(html, false);
+                                        }
+                                    }
+                        });
+                } else {
+                        $('#loading-accounting')
+                        .html("<img src='images/Warning2.png' width='40' /> Statistics not available for single robot!")
+                        .show();
+                }
+           } 
+        } // doCharts()
+
+      // ============================================ //
+      // ==== eTokenAccounting servlet functions ==== //
+      // ============================================ //
 </script>
 
 <style>
@@ -297,7 +763,7 @@ For any further information, please visit the official Java&trade; PKCS#11 Refer
 <a href="https://www.infn.it/">
 <span>
 <img width="170" src="images/weblogo1.gif" border="0" 
-     title="The Italian National Institute of Nuclear Physics (INFN), division of Catania, Italy">
+     title="The Italian National Institute for Nuclear Physics (INFN), division of Catania, Italy">
 </span>
 </a>
 </td>
@@ -313,25 +779,32 @@ For any further information, please visit the official Java&trade; PKCS#11 Refer
 <span><img style="width:40px !important;" src="images/springer.png"/>
 Science Gateways for Virtual Research Communities (VRCs)</span>
 <a href="https://link.springer.com/article/10.1007%2Fs10723-012-9242-3">
-The "light-weight" crypto library interface is currently supported<br/>
+The "lightweight" crypto library interface is currently supported<br/>
 by several thematic and general-purpose Science Gateways to access the<br/>
 distributed computing and storage resources
 </a>
 </li>
 
 <li><span><img style="width:40px !important;" src="images/label_blue_new.png"/>
-Accounting of robot certificate</span>
+<a href="https://wiki.egi.eu/wiki/EGI_AAI">Per-User Sub-Proxies</a></span>
 <p align="justify">
-Starting with servlet v2.0.2 it is now possible to account<br/>
-the users of robot certificates<br/> (only with RFC 3820 proxies)
+Starting with servlet v2.0.2 it is now possible to generate proxy to identify individual<br/>
+users that operate using a common robot certificate (only with RFC 3820 proxies)
 </p>
 </li>
 
 <li><span><img style="width:40px !important;" src="images/EGI_Logo_RGB_315x250px.png"/>
-EGI-Engage project</span>
+<a href="https://www.egi.eu/about/egi-engage/">EGI-Engage project</a></span>
 The eToken servlet will be officially used by the EGI-Engage project (EINFRA-1)<br/>
 The mission is to accelerate the implementation of the Open Science Commons<br/>
 within the European Grid Infrastructure (EGI)<br/>
+</li>
+
+<li><span><img style="width:40px !important;" src="images/accounting.png"/>
+Statistics and metrics</span>
+<p align="justify">
+Use the <a href="http://www.jqplot.com">jqPlot</a> jQuery libraries to show statistics about the robot certificates usage
+</p>
 </li>
 
 </ul>
@@ -346,6 +819,7 @@ within the European Grid Infrastructure (EGI)<br/>
 </tr>
 </table>
 
+<!-- Inizio Accordions -->
 <div id="steps" 
      style="width:70%; font-family: Tahoma,Verdana,sans-serif,Arial; font-size: 14px;">
 <h2><a href="#">
@@ -357,7 +831,7 @@ within the European Grid Infrastructure (EGI)<br/>
 </a>
 </h2>
 <div>
-<select class="ui-widget ui-widget-content" id="eToken" name="eToken"></select>
+<select class="ui-widget ui-widget-content" style="width:100%;" id="eToken" name="eToken"></select>
 <textarea class="ui-widget ui-widget-content" id="details" name="details" 
           style="width: 100%; height: 250px; display:none" disabled="disabled">
 </textarea>
@@ -419,13 +893,13 @@ Select some AC Attributes first!
 </h2>
 <div>
 <p><img style="width:20px !important;" src="images/help.png"/>
-Use the options below as you need</p>
-<label for="long-proxy">Enable Proxy Renewal:</label>
+Use the options below as you need:</p>
 <input type="checkbox" name="long-proxy" id="long-proxy" checked="checked"/>
-<label for="disable-voms-proxy">Disable VOMS Proxy:</label>
+<label for="long-proxy"> Enable Proxy Renewal</label><br/>
 <input type="checkbox" name="disable-voms-proxy" id="disable-voms-proxy"/>
-<label for="rfc-proxy">Create RFC Proxy:</label>
-<input type="checkbox" name="rfc-proxy" id="rfc-proxy"/><br/><br/>
+<label for="disable-voms-proxy"> Disable VOMS Proxy</label><br/>
+<input type="checkbox" name="rfc-proxy" id="rfc-proxy"/>
+<label for="rfc-proxy"> Create RFC Proxy</label><br/><br/>
 <!--label for="dirac-token">Create Dirac Token:</label>
 <input type="checkbox" name="dirac-token" id="dirac-token" onchange="enableDirac(this.form);"/><br/><br/-->
 <img style="width:20px !important;" src="images/help.png"/>
@@ -442,15 +916,212 @@ Add some additional info to account users of robot proxy certificates<br/><br/>
       src="images/png/glass_numbers_5.png"> Get your request</a>
 </h3>
 <div>
+
+<div id="loading"></div>
 <p><img style="width:20px !important;" src="images/help.png"/> Here is your request</p>
-<div id="request" class="ui-widget ui-state-highlight ui-corner-all"></div>
-</div>    
+
+<div id="request" class="ui-widget ui-state-highlight ui-corner-all" style="width: 100%;"></div>
+<br/>
+<textarea class="ui-widget ui-widget-content" id="proxy" name="proxy" 
+          style="width: 100%; height: 250px; display:none; font-family: 'Courier New', Courier, monospace;"  
+          disabled="disabled">
+</textarea>
+
+<p><img style="width:20px !important;" src="images/help.png"/> Click here to generate your proxy
+<input type="image" 
+       align="absmiddle"
+       style="width:20px !important; heigth:20px !important"
+       src="images/create.png" 
+       onclick="calling_restAPI();"/>
+</p>
+</div>
+
+<h2>
+<a href="#">
+<img width="32" 
+     align="absmiddle"
+     src="images/png/glass_numbers_6.png"> Robot Accounting</a>
+</h2>
+<div>
+
+<div id="loading-accounting"></div><br/>
+<div align="center">
+<fieldset style="width: 700px; border: 1px solid green;">
+<div style="margin-left:15px" id="error_message" align="left"></div>
+<div style="font-family: Tahoma,Verdana,sans-serif,Arial; font-size: 14px;" align="left">
+<p>&nbsp;&nbsp;Please, specify date range and a valid option to get the report<br/>
+<ul>
+<img src="images/info.png" width="20">&nbsp;Click and drag on the linear plots for zooming. Double click to reset the plots<br/>
+<img src="images/Warning2.png" width="22">&nbsp;Reporting may take few minutes, please wait!<br/>
+This work has been partially supported by
+<a href="http://www.egi.eu/projects/egi-engage/">
+<img width="35" border="0" src="images/EGI_Logo_RGB_315x250px.png" title="EGI - The European Grid Infrastructure" /></a>
+<br/>
+</ul>
+</p>
+
+<table border="0" cellspacing="0" cellpadding="3" style="margin-right:auto;margin-left:auto;">
+<tbody class="modulo">
+<tr>
+<td class="tddata">&nbsp;<b>Date In</b>: </td>
+<!-- Add here --> 
+<%!
+        public List<String> files = new ArrayList<String>();
+        /*  Fills files array with all sub-files.  */
+	public void walk( File root )
+        {
+                File[] list = root.listFiles();
+
+                if (list == null) return;
+
+                for ( File f : list ) {
+                    if (f.isDirectory()) walk(f);
+                    //else files.add(f.getAbsolutePath());
+                    else
+                    	if (f.getName().startsWith("eToken.out"))
+                    		files.add(f.getName());
+                }
+                
+		Collections.sort(files);
+        }
+%>
+<%
+    files.clear();
+    String CATALINA_HOME = System.getProperty("catalina.home");
+    String CATALINA_LOGPATH = System.getProperty("catalina.home") + "/logs/";
+    File dirIN = new File (CATALINA_LOGPATH);
+    walk(dirIN);
+    String prefixPathIN = dirIN.getAbsolutePath() + "/";
+%>
+<!-- Add here -->
+<td>
+<select id="dateIN" name="dateIN" style="width: 270px" 
+        class="textfieldarea ui-widget ui-widget-content" 
+        title="Select a date">
+
+<option value="0">--- Select the date ---</option>
+
+<% for (String file:files) { %>
+<option value=\"<%=file%>\"><%=file%></option>
+<% } %>
+
+</select>
+</td>
+
+<td></td>
+<td><input type="checkbox" 
+           name="EnableTotalStatistics" 
+           id="EnableTotalStatistics" 
+           value="checked"/><b>Accounting Usage</b>
+</td>
+
+<td><input type="checkbox" 
+           name="Toggle" 
+           id="Toggle" 
+           value="checked" onChange="ToggleCheckboxes();"/><b>Toggle Options</b>
+</td>
+
+<tr>
+<td class="tddata">&nbsp;<b>Date Out</b>: </td>
+<!-- Add here -->
+<%
+    files.clear();
+    File dirOUT = new File (CATALINA_LOGPATH);
+    walk(dirOUT);
+    String prefixPathOUT = dirOUT.getAbsolutePath() + "/";
+%>
+<!-- Add here -->
+<td>
+<select id="dateOUT" name="dateOUT" style="width: 270px" 
+        class="textfieldarea ui-widget ui-widget-content"
+        title="Select a date">
+
+<option value="0">--- Select the date ---</option>
+
+<% for (String file:files) { %>
+<option value=\"<%=file%>\"><%=file%></option>
+<% } %>
+</select>
+</td>
+
+<td></td>
+<td><input type="checkbox" 
+           name="EnableHits" 
+           id="EnableHits" 
+           value="checked"/><b>#Total requests</b></td>
+</tr>
+
+<tr>
+<td class="tddata">&nbsp;<b>Robot</b>: </td>
+<td>
+<select id="SerialNumber" name="SerialNumber" style="width: 270px" 
+        class="textfieldarea ui-widget ui-widget-content"
+        title="Select the robot">
+
+<option value="0">--- Select the robot ---</option>
+<option value="ALL">Display the usage statistics for ALL robots</option>
+<!-- Start here JDBC connection -->
+<%
+        Class.forName("org.sqlite.JDBC");
+        String CATALINA_ETOKEN_DB = System.getProperty("catalina.home")+"/eToken_parser/etoken.db";
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:/"+CATALINA_ETOKEN_DB);
+        Statement stat = conn.createStatement();
+
+        ResultSet rs = stat.executeQuery("SELECT DISTINCT(ROBOTID), label FROM etoken_md5sum;");
+        while (rs.next())
+                out.println("<option value=" + rs.getString(1) + ">" + rs.getString(2) + "</option>");
+
+        rs.close();
+        conn.close();
+%>
+<!-- End here JDBC connection -->
+</select>
+</td>
+
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td class="tddata">
+<!--div id="button"></div-->
+
+<p>
+<input type="image" 
+       align="absmiddle"
+       style="width:60px !important;" onclick="doCharts(); return false;"
+       src="images/start-icon.png" >
+</p>
+
+</td>
+
+<!-- Add link for printing pages -->
+<td><div id="tools"></div></td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+</fieldset>
+</div>
+
+<br/>
+
+<!-- Display GRAPHICS (charts) here -->
+<div id="chartbar" align="center"></div>
+<div id="chartbarHits" align="center"></div>
+<br/>
+<div align="center" id="footer_text"></div>
+<!-- Display GRAPHICS (charts) here -->
+</div>
     
 <h3>
 <a href="#">
-<img  width="32"  
-      align="absmiddle"
-      src="images/png/glass_numbers_6.png"> About the servlet</a>
+<img width="32"  
+     align="absmiddle"
+     src="images/png/glass_numbers_7.png"> About this servlet</a>
 </h3>
 
 <table border=0>
@@ -507,6 +1178,15 @@ Add some additional info to account users of robot proxy certificates<br/><br/>
 </ul>
 
 <img style="width:20px !important;" src="images/help.png"/>
+&nbsp; Here follows a list of Advanced RESTFul APIs to generate accounting datasets:<br/>
+<ul type="circle">
+<li style="color:#0E06E1"><u>Get the usage records for a given robot (only for expert user)</u></li>
+<p>https://eTokenServer:8443/eTokenAccounting/<mark>md5sum/62b53afcb320386d6ad938d3d2fdfbfc?datein-year=2014&datein-month=01&dateout-year=2015&dateout-month=06&type=totalStatistics</mark></p>
+
+<p>https://eTokenServer:8443/eTokenAccounting/<mark>md5sum/ALL?datein-year=2014&datein-month=01&dateout-year=2015&dateout-month=06&type=totalHits</mark></p>
+</ul>
+
+<img style="width:20px !important;" src="images/help.png"/>
 &nbsp; Learn how to Install and Configure the INFN eToken servlet
 <a href="https://github.com/csgf/eToken">
 <img width="35" src="images/github-collab-retina-preview.png"/></a>
@@ -519,11 +1199,12 @@ Add some additional info to account users of robot proxy certificates<br/><br/>
 </tr>
 </table>   
 </div>
+<!-- Fine Accordions -->
 
 <div id='footer' style="font-family: Tahoma,Verdana,sans-serif,Arial; font-size: 14px;">
-<div>The Italian National Institute of Nuclear Physics (INFN), division of Catania, Italy</div>
-<div>eTokenServer servlet (v2.0.4)</div>
-<div>Copyright &copy; 2010 - 2015. All rights reserved</div>  
+<div>The Italian National Institute for Nuclear Physics (INFN), division of Catania, Italy</div>
+<div>eToken servlet (v2.0.8)</div>
+<div>Copyright &copy; 2010 - 2016. All rights reserved</div>  
 <div>This work has been partially supported by
 <a href="https://www.chain-project.eu/">
 <img width="60" 
