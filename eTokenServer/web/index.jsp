@@ -431,6 +431,7 @@
                                         // The default series colors are used.	
                                         varyBarColor: true,
 					// Speed up the animation a little bit.
+<<<<<<< HEAD
 					animation: {
 						speed: 2500
 					},
@@ -438,6 +439,15 @@
 					barPadding: -15,
 					barMargin: 0,
 					highlightMouseOver: true
+=======
+                                        animation: {
+                                                speed: 2500
+                                        },
+                                        barWidth: 50,
+                                        barPadding: -15,
+                                        barMargin: 0,
+                                        highlightMouseOver: true
+>>>>>>> 80059ee52abb9397f01657b06a9f1c4ed82b753f
                                 }
                         },
                         axesDefaults: {
@@ -456,7 +466,11 @@
                                 min: -1000
                               }
                         },
+<<<<<<< HEAD
 			highlighter: {
+=======
+			highlighter: { 
+>>>>>>> 80059ee52abb9397f01657b06a9f1c4ed82b753f
                                 show: true,
                                 showLabel: true,
                                 tooltipAxes: 'y',
@@ -1203,8 +1217,13 @@ This work has been partially supported by
 
 <div id='footer' style="font-family: Tahoma,Verdana,sans-serif,Arial; font-size: 14px;">
 <div>The Italian National Institute for Nuclear Physics (INFN), division of Catania, Italy</div>
+<<<<<<< HEAD
 <div>eToken servlet (v2.0.8)</div>
 <div>Copyright &copy; 2010 - 2016. All rights reserved</div>  
+=======
+<div>eToken servlet (v2.0.7)</div>
+<div>Copyright &copy; 2010 - 2015. All rights reserved</div>  
+>>>>>>> 80059ee52abb9397f01657b06a9f1c4ed82b753f
 <div>This work has been partially supported by
 <a href="https://www.chain-project.eu/">
 <img width="60" 
